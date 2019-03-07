@@ -17,46 +17,72 @@ class _GrabSheetPageState extends State<GrabSheetPage> with AutomaticKeepAliveCl
   bool isCheck = false;
   int color = CustomColors.white;
 
-  static const counterPlugin = const EventChannel('com.my.flutter/plugin');
-  StreamSubscription _counterSub;
-  var _count;
+//  static const counterPlugin = const EventChannel('com.my.flutter/plugin');
+//  static const rabbitPlugin = const EventChannel('com.my.flutter/rabbit');
+//  StreamSubscription _counterSub;
+//  StreamSubscription _msgSub;
+//  var _count;
+//  var _msg;
 
   @override
   void initState(){
     super.initState();
-    _startCounterPlugin();
+//    _startCounterPlugin();
+//    _startRabbitPlugin();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _endCounterPlugin();
+//    _endCounterPlugin();
+//    _endRabbitPlugin();
   }
 
-  void _startCounterPlugin(){
-    if(_counterSub == null){
-      _counterSub =  counterPlugin.receiveBroadcastStream().listen(_onCounterEvent,onError: _onCounterError);
-    }
-  }
-
-  void _endCounterPlugin(){
-    if(_counterSub != null){
-      _counterSub.cancel();
-    }
-  }
-
-  void _onCounterEvent(Object event) {
-    setState(() {
-      _count = event;
-    });
-  }
-
-  void _onCounterError(Object error) {
-    setState(() {
-      _count = "计时器异常";
-      print(error);
-    });
-  }
+//  void _startCounterPlugin(){
+//    if(_counterSub == null){
+//      _counterSub =  counterPlugin.receiveBroadcastStream().listen(_onCounterEvent,onError: _onCounterError);
+//    }
+//  }
+//  void _startRabbitPlugin(){
+//    if(_msgSub == null){
+//      _msgSub =  rabbitPlugin.receiveBroadcastStream().listen(_onRabbitEvent,onError: _onRabbitError);
+//    }
+//  }
+//
+//  void _endCounterPlugin(){
+//    if(_counterSub != null){
+//      _counterSub.cancel();
+//    }
+//  }
+//  void _endRabbitPlugin(){
+//    if(_msgSub != null){
+//      _msgSub.cancel();
+//    }
+//  }
+//
+//  void _onCounterEvent(Object event) {
+//    setState(() {
+//      _count = event;
+//    });
+//  }
+//  void _onRabbitEvent(Object event) {
+//    setState(() {
+//      _msg = event;
+//    });
+//  }
+//
+//  void _onCounterError(Object error) {
+//    setState(() {
+//      _count = "计时器异常";
+//      print(error);
+//    });
+//  }
+//  void _onRabbitError(Object error) {
+//    setState(() {
+//      _msg = "数据异常";
+//      print(error);
+//    });
+//  }
 
   @override
   bool get wantKeepAlive => true;
@@ -82,11 +108,11 @@ class _GrabSheetPageState extends State<GrabSheetPage> with AutomaticKeepAliveCl
                   ),
                 ),
             ),
-            new Padding(
-              padding: const EdgeInsets.only(
-                  left: 10.0, top: 10.0, right: 10.0),
-              child: new Text('这是一个从原生发射过来的计时器：$_count'),
-            ),
+//            new Padding(
+//              padding: const EdgeInsets.only(
+//                  left: 10.0, top: 10.0, right: 10.0),
+//              child: new Text('这是一个从原生发射过来的计时器：$_count，数据：$_msg'),
+//            ),
 
 
             new CustomFlexButton(
@@ -95,7 +121,7 @@ class _GrabSheetPageState extends State<GrabSheetPage> with AutomaticKeepAliveCl
               color: Theme.of(context).primaryColor,
               textColor: Color(CustomColors.textWhite),
               onPress: (){
-
+                //调排队接口，返回信息提示
               },
             ),
             new CheckboxListTile(
@@ -114,31 +140,12 @@ class _GrabSheetPageState extends State<GrabSheetPage> with AutomaticKeepAliveCl
 
 
       ),
-//      floatingActionButton: new FloatingActionButton(
-//          child: new Text("接单"),
-//          foregroundColor: new Color(color),
-//          elevation: 7.0,
-//          highlightElevation: 14.0,
-//          mini: false,
-//          tooltip: "按这么长时间干嘛",
-//          onPressed:(){
-//            _buttonDisable();
-//            Scaffold.of(context).showSnackBar(new SnackBar(
-//              content: new Text("按钮被点击！"),
-//            ));
-//
-//          }
-//      ),
-//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
 
 
     );
   }
 
 
-  _buttonDisable(){
-    setState(() {
-      color = CustomColors.subLightTextColor;
-    });
-  }
+
 }

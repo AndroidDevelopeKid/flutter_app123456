@@ -14,7 +14,7 @@ class CustomerDao {
     };
 
     var res;
-    res = await HttpManager.netFetch(Address.getCustomerList(),
+    res = await HttpManager.netFetch(Address.getUserFullName(),
         json.encode(requestParams), null, new Options(method: 'post'));
 
     if (res != null && res.result) {

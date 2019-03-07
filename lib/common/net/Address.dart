@@ -2,19 +2,15 @@
 import 'package:flutter_app123456/common/config/Config.dart';
 
 class Address{
-  //static const String host = "https://api.github.com/";
   static const String host = "http://10.1.9.167/api/";
 
   ///获取授权 post
-//  static getAuthorization(){
-//    return "${host}authorizations";
-//  }
   static getAuthorization(){
     return "${host}TokenAuth/Authenticate";
   }
-  ///获取客户列表
-  static getCustomerList(){
-    return "${host}services/app/customer/GetCustomerListAsync";
+  ///获取用户全名
+  static getUserFullName(){
+    return "${host}services/app/UserCache/GetFullNamesByIds";
   }
 
   ///获取用户组织

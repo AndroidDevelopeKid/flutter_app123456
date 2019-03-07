@@ -42,31 +42,24 @@ class UserDao{
       "password": password
     };
 
-//    ///测试龙飞登录
-//    Map requestParams = {
-//      //"tenancyName": "Default",
-//      "usernameOrEmailAddress": "ddd1",
-//      "password": "6045175"
-//    };
-
     Map<String,String> header = {
       "Abp.TenantId" : "1",
     };
 
     var res = await HttpManager.netFetch(Address.getAuthorization(), json.encode(requestParams), header, new Options(method: 'post'));
     if(Config.DEBUG){
-      print("res and res.result: " + res.toString() + "---" + res.result.toString());
+      print("res and res.result and res.data: " + res.toString() + "---" + res.result.toString() + "---" + res.data["result"]["userId"].toString());
     }
     var resultData;
     if(res != null && res.result){
       await LocalStorage.save(Config.PW_KEY, password);
-//      resultData = await getUserInfo(null);
-//      if(Config.DEBUG){
-//        print("userResult: " + resultData.result.toString());
-//        print("resultDate.data: "+ resultData.data.toString());
-//      }
-      ///redux 管理user状态
-      //store.dispatch(new UpdateUserAction(resultData.data));
+      resultData = await getUserInfo(res.data["result"]["userId"]);
+      if(Config.DEBUG){
+        print("userResult: " + resultData.result.toString());
+        print("resultDate.data: "+ resultData.data.toString());
+      }
+      //redux 管理user状态
+      store.dispatch(new UpdateUserAction(resultData.data));
 
     }
     return new DataResult(resultData, res.result);
@@ -75,18 +68,21 @@ class UserDao{
   static initUserInfo(Store store) async {
 
   }
-  static getUserInfo(userName) async {
+  static getUserInfo(userId) async {
+    Map requestParamsForUserName = {
+      "userIds": userId
+    };
     next() async {
       var res;
-      if(userName == null){
-        res = await HttpManager.netFetch(Address.getCustomerList(), null, null, null);
+      if(userId != null){
+        res = await HttpManager.netFetch(Address.getUserFullName(), json.encode(requestParamsForUserName), null, null);
       }else{
-        res = await HttpManager.netFetch(Address.getCustomerList(), null, null, null);
+        res = new DataResult("用户名", false);
       }
       if(res != null && res.result){
         print("userInfo: " + res.toString());
         User user = User.fromJson(res.data);
-        if(userName == null){
+        if(userId == null){
           LocalStorage.save(Config.USER_INFO, json.encode(user.toJson()));
           print("userinfo.ls" + json.encode(user.toJson()));
         }

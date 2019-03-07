@@ -5,8 +5,10 @@ part 'User.g.dart';
 class User{
   User(
       this.login,
+      this.fullName,
       );
   String login;
+  String fullName;
 
   ///json转换为实体类
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

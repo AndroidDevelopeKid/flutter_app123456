@@ -44,6 +44,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.1.1
   json_serializable:
+  signalr_client:
 
 
 # For information on the generic Dart part of this file, see the
