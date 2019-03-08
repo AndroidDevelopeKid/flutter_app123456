@@ -12,6 +12,10 @@ class Address{
   static getDriverArchives(){
     return "${host}services/app/VehicleDriverArchive/GetVehicleDriverArchivesByMobile";
   }
+  ///获取车辆档案
+  static getVehicleArchives(){
+    return "${host}services/app/VehicleArchives/GetVehicleArchivesByMobile";
+  }
 
   ///获取用户组织
   static getUserOrgs(userName){

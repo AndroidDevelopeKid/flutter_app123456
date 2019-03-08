@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/ResultDao.dart';
+import 'package:flutter_app123456/common/dao/VehicleDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
 import 'package:flutter_app123456/common/model/User.dart';
@@ -19,7 +20,7 @@ class UserDao{
   static login(company, userName, password, store) async{
 
     print("company login:" + company);
-    String tenantId = "1";
+    String tenantId = Config.TENANT;
 //    String type = userName + ":" + password;
 //    var bytes = utf8.encode(type);
 //    var base64Str = base64.encode(bytes);
@@ -53,20 +54,22 @@ class UserDao{
     if(Config.DEBUG){
       print("res and res.result and res.data: " + res.toString() + "---" + res.result.toString() + "---" + res.data["result"]["userId"].toString());
     }
-    var resultData;
+    var resultDataDriver;
+    var resultDataVehicle;
     if(res != null && res.result){
       await LocalStorage.save(Config.PW_KEY, password);
-      resultData = await getUserInfo(tenantId,userName);
+      resultDataDriver = await getUserInfo(tenantId,userName);
 
       if(Config.DEBUG){
-        print("userResult: " + resultData.result.toString());
-        print("resultDate.data: "+ resultData.data.toString());
+        print("userResult: " + resultDataDriver.result.toString());
+        print("resultDateDriver.data: "+ resultDataDriver.data.toString());
+        print("resultDateVehicle.data: "+ resultDataVehicle.data.toString());
       }
       //redux 管理user状态
-      store.dispatch(new UpdateDriverAction(resultData.data));
+      store.dispatch(new UpdateDriverAction(resultDataDriver.data));
 
     }
-    return new DataResult(resultData, res.result);
+    return new DataResult(resultDataDriver, res.result);
   }
   ///初始化用户信息
   static initUserInfo(Store store) async {
@@ -91,6 +94,8 @@ class UserDao{
         LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
         print("driverinfo.ls" + json.encode(driver.toJson()));
 
+        var vehicleResult = VehicleDao.getVehicleInfo(driver.vehicleCode);
+        print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
         return new DataResult(driver, true);
 
       }else{
@@ -99,6 +104,8 @@ class UserDao{
     }
     return await next();
   }
+
+
 
 
 }
