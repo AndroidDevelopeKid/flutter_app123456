@@ -10,7 +10,7 @@ class CustomColors{
   static const int primaryDarkValue = 0xFF121917;
   static const int subLightTextColor = 0xffc4c4c4;
 
-  static const int displayUsernameBackground = 0xFF00BFFF;
+  static const int displayUsernameBackground = 0xFFF44336;
 
   static const String toastBackgroundColor = "#63CA6C";
   static const String toastTextColor = "#ffffff";

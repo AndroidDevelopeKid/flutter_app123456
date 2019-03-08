@@ -93,7 +93,7 @@ class HttpManager{
       if(e.response != null){
         errorResponse = e.response;
       }else{
-        errorResponse = new Response(statusCode: 666);
+        errorResponse = new Response();
       }
       if(e.type == DioErrorType.CONNECT_TIMEOUT){
         errorResponse.statusCode = Code.NETWORK_TIMEOUT;

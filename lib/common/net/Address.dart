@@ -8,9 +8,9 @@ class Address{
   static getAuthorization(){
     return "${host}TokenAuth/Authenticate";
   }
-  ///获取用户全名
-  static getUserFullName(){
-    return "${host}services/app/UserCache/GetFullNamesByIds";
+  ///获取司机档案
+  static getDriverArchives(){
+    return "${host}services/app/VehicleDriverArchive/GetVehicleDriverArchivesByMobile";
   }
 
   ///获取用户组织

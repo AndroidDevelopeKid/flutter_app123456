@@ -4,7 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/CustomerDao.dart';
+import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Customer.dart';
+import 'package:flutter_app123456/common/model/Driver.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
@@ -19,28 +21,35 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
 
 class MyPage extends StatefulWidget {
-
   @override
   _MyPageState createState() => _MyPageState();
 }
 
-class _MyPageState extends State<MyPage>  with AutomaticKeepAliveClientMixin{
-
+class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  var titles = ["人员档案", "车辆档案", "人员及证件状态", "车辆状态"];
 
+  var _userAvatar;
+  var _userFullName;
 
-
-  var titles = ["司机档案", "车辆信息", "车务状态", "调度指派"];
-
-  var userAvatar;
-  var userName;
   ///条目右侧箭头按钮
   var rightArrowIcon = new Image.asset(
     CustomIcons.ARROW_ICON,
     width: Config.ARROW_ICON_WIDTH,
     height: Config.ARROW_ICON_WIDTH,
   );
+
+  Future<String> fetchDriverName() async{
+    return  await LocalStorage.get(Config.DRIVER_NAME);
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _userFullName = fetchDriverName();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +59,7 @@ class _MyPageState extends State<MyPage>  with AutomaticKeepAliveClientMixin{
     );
     return listView;
   }
+
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = new Container(
@@ -59,43 +69,56 @@ class _MyPageState extends State<MyPage>  with AutomaticKeepAliveClientMixin{
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              userAvatar == null
+              _userAvatar == null
                   ? new Image.asset(
-                CustomIcons.DEFAULT_USER_ICON,
-                width: 60.0,
-              )
+                      CustomIcons.DEFAULT_USER_ICON,
+                      width: 60.0,
+                    )
                   : new Container(
-                width: 60.0,
-                height: 60.0,
-                decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                  image: new DecorationImage(
-                      image: new NetworkImage(userAvatar),
-                      fit: BoxFit.cover),
-                  border: new Border.all(
-                    color: Colors.white,
-                    width: 2.0,
-                  ),
-                ),
+                      width: 60.0,
+                      height: 60.0,
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                        image: new DecorationImage(
+                            image: new NetworkImage(_userAvatar),
+                            fit: BoxFit.cover),
+                        border: new Border.all(
+                          color: Colors.white,
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
+              FutureBuilder<String>(
+                future: _userFullName,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      snapshot.data,
+                      style: CustomConstant.normalTextBlack,
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  return CircularProgressIndicator();
+                },
               ),
-              new Text(
-                userName == null ? "无名氏" : userName,
-                style: CustomConstant.normalTextBlack,
-              ),
+//              new Text(
+//                _userFullName == null ? "" : _userFullName,
+//                style: CustomConstant.normalTextBlack,
+//              ),
             ],
           ),
         ),
       );
       return new GestureDetector(
-        onTap: () {
-
-        },
+        onTap: () {},
         child: avatarContainer,
       );
     }
     --i;
-    if (i.isOdd) {//判断是否为奇数
+    if (i.isOdd) {
+      //判断是否为奇数
       return new Divider(
         height: 1.0,
       );
@@ -108,27 +131,26 @@ class _MyPageState extends State<MyPage>  with AutomaticKeepAliveClientMixin{
         children: <Widget>[
           new Expanded(
               child: new Text(
-                title,
-                style: CustomConstant.normalTextBlack,
-              )),
+            title,
+            style: CustomConstant.normalTextBlack,
+          )),
           rightArrowIcon
-
         ],
       ),
     );
     return new InkWell(
       child: listItemContent,
       onTap: () {
-        _handleListItemClick(title,userName);
+        _handleListItemClick(title);
       },
     );
   }
-  _handleListItemClick(String title, String userName){
-    NavigatorUtils.goDisplayUserInfo(context, title, userName);
+
+  _handleListItemClick(String title) {
+    NavigatorUtils.goDisplayUserInfo(context, title);
   }
 
-
-///*********************测试异步获取数据进行页面显示****************************
+  ///*********************测试异步获取数据进行页面显示****************************
 //  Future<Customer> customerList;
 //
 //
@@ -169,5 +191,5 @@ class _MyPageState extends State<MyPage>  with AutomaticKeepAliveClientMixin{
 //    //    },
 //    //  );
 //  }
-///************************************************************
+  ///************************************************************
 }

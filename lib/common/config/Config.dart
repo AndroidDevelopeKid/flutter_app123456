@@ -11,7 +11,8 @@ class Config{
   static const BEARER_KEY = "bearer";
 
   static const USER_NAME_KEY = "user-name";
-  static const USER_INFO = "user-info";
+  static const DRIVER_ARCHIVES = "driver-archives";
+  static const DRIVER_NAME = "driver-name";
   static const PW_KEY = "user-pw";
   static const COMPANY_KEY = "company";
   static const USER_BASIC_CODE = "user-basic-code";

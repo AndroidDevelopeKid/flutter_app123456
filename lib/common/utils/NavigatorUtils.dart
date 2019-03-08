@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app123456/Page/MessageDetailPage.dart';
+import 'package:flutter_app123456/Page/StaffAndCertificatesStatePage.dart';
 import 'package:flutter_app123456/Page/UserInfoPage.dart';
 import 'package:flutter_app123456/Page/HomePage.dart';
 import 'package:flutter_app123456/Page/LoginPage.dart';
+import 'package:flutter_app123456/Page/VehicleArchivesPage.dart';
+import 'package:flutter_app123456/Page/VehicleStatePage.dart';
 
 ///控制页面跳转逻辑
 class NavigatorUtils{
@@ -17,9 +20,22 @@ class NavigatorUtils{
   static goLogin(BuildContext context){
     Navigator.pushReplacementNamed(context, LoginPage.sName);
   }
-  ///显示司机档案，车辆信息，车务状态，调度指派页
-  static goDisplayUserInfo(BuildContext context, String title, String userName){
-    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new UserInfoPage(title, userName)));
+  ///显示人员档案，车辆档案，人员及证件状态，车辆状态页
+  static goDisplayUserInfo(BuildContext context, String title){
+    switch(title){
+      case "人员档案":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new UserInfoPage()));
+        break;
+      case "车辆档案":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new VehicleArchivesPage()));
+        break;
+      case "人员及证件状态":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new StaffAndCertificatesStatePage()));
+        break;
+      case "车辆状态":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new VehicleStatePage()));
+        break;
+    }
   }
   static goDisplayMessageDetail(BuildContext context){
     Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MessageDetailPage()));
