@@ -42,9 +42,14 @@ class CustomIcons{
   static const IconData REFUEL_INQUIRY = const IconData(58694, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData TOLL_INQUIRY = const IconData(58725, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData MAINTENANCE_FEE_INQUIRY = const IconData(59497, fontFamily: CustomIcons.FONT_FAMILY);
-  static const IconData OUTHER_COST_INQUIRY = const IconData(57955, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData OTHER_COST_INQUIRY = const IconData(57955, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData CURRENT_ASSIGN_CUSTOMER = const IconData(59389, fontFamily: CustomIcons.FONT_FAMILY);
-  
+
+  ///接单页面图标
+  static const IconData MANUAL_RECEIPT = const IconData(57672, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData CANCEL_QUEUE = const IconData(58825, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData QUEUE_REFRESH = const IconData(59491, fontFamily: CustomIcons.FONT_FAMILY);
+
   static const IconData HOME_HOME = const IconData(58819, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData HOME_NOTICE = const IconData(0xe0b7, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData HOME_GRAB_SHEET = const IconData(0xe147, fontFamily: CustomIcons.FONT_FAMILY);

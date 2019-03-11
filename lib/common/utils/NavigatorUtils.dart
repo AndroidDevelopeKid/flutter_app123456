@@ -2,8 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app123456/Page/CurrentAssignCustomerPage.dart';
+import 'package:flutter_app123456/Page/FreightInquiryPage.dart';
+import 'package:flutter_app123456/Page/HistoryBillPage.dart';
+import 'package:flutter_app123456/Page/LastBillPage.dart';
+import 'package:flutter_app123456/Page/MaintenanceFeeInquiryPage.dart';
 import 'package:flutter_app123456/Page/MessageDetailPage.dart';
+import 'package:flutter_app123456/Page/OtherCostInquiryPage.dart';
+import 'package:flutter_app123456/Page/QueueInfoPage.dart';
+import 'package:flutter_app123456/Page/RefuelInquiryPage.dart';
 import 'package:flutter_app123456/Page/StaffAndCertificatesStatePage.dart';
+import 'package:flutter_app123456/Page/TollInquiryPage.dart';
 import 'package:flutter_app123456/Page/UserInfoPage.dart';
 import 'package:flutter_app123456/Page/HomePage.dart';
 import 'package:flutter_app123456/Page/LoginPage.dart';
@@ -19,6 +28,34 @@ class NavigatorUtils{
   ///登录页
   static goLogin(BuildContext context){
     Navigator.pushReplacementNamed(context, LoginPage.sName);
+  }
+  ///历史提货单
+  static goHistoryBill(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new HistoryBillPage()));
+  }
+  ///运费查询
+  static goFreightInquiry(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new FreightInquiryPage()));
+  }
+  ///加油查询
+  static goRefuelInquiry(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new RefuelInquiryPage()));
+  }
+  ///过路费查询
+  static goTollInquiry(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new TollInquiryPage()));
+  }
+  ///维修费查询
+  static goMaintenanceFeeInquiry(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MaintenanceFeeInquiryPage()));
+  }
+  ///其他费用查询
+  static goOtherCostInquiry(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new OtherCostInquiryPage()));
+  }
+  ///当前指派客户
+  static goCurrentAssignCustomer(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new CurrentAssignCustomerPage()));
   }
   ///显示人员档案，车辆档案，人员及证件状态，车辆状态页
   static goDisplayUserInfo(BuildContext context, String title){
@@ -37,6 +74,20 @@ class NavigatorUtils{
         break;
     }
   }
+  ///显示排队信息，最新提货单
+  static goDisplayQueueInfo(BuildContext context, String title){
+    switch(title){
+      case "排队信息":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new QueueInfoPage()));
+        break;
+      case "最新提货单":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new LastBillPage()));
+        break;
+
+    }
+  }
+
+
   static goDisplayMessageDetail(BuildContext context){
     Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MessageDetailPage()));
   }
