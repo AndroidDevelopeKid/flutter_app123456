@@ -34,7 +34,18 @@ class CustomIcons{
   static const IconData LOGIN_COMPANY = const IconData(0xe84f, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData LOGIN_PW = const IconData(0xe312, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData LOGIN_USER = const IconData(0xe851, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData LOGIN_FACE = const IconData(59516, fontFamily: CustomIcons.FONT_FAMILY);
+
+  ///首页九宫格图标
+  static const IconData HISTORY_BILL = const IconData(59485, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData FREIGHT_INQUIRY = const IconData(58712, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData REFUEL_INQUIRY = const IconData(58694, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData TOLL_INQUIRY = const IconData(58725, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData MAINTENANCE_FEE_INQUIRY = const IconData(59497, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData OUTHER_COST_INQUIRY = const IconData(57955, fontFamily: CustomIcons.FONT_FAMILY);
+  static const IconData CURRENT_ASSIGN_CUSTOMER = const IconData(59389, fontFamily: CustomIcons.FONT_FAMILY);
   
+  static const IconData HOME_HOME = const IconData(58819, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData HOME_NOTICE = const IconData(0xe0b7, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData HOME_GRAB_SHEET = const IconData(0xe147, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData HOME_FINANCE = const IconData(0xe870, fontFamily: CustomIcons.FONT_FAMILY);

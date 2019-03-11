@@ -20,6 +20,19 @@ class CustomStringEn extends CustomStringBase{
   @override
   String receiptText = "receipt";
 
+
+  ///主页tab
+  @override
+  String homeHome = "Home";
+  @override
+  String homeNotice = "Message";
+  @override
+  String homeGrabSheet = "Grab";
+  @override
+  String homeFinance = "Finance";
+  @override
+  String homeMy = "My";
+
   ///登录时联网出错提醒
   @override
   String networkError = "network error";

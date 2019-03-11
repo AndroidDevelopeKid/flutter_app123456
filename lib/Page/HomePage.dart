@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/Page/FinancePage.dart';
 import 'package:flutter_app123456/Page/GrabSheetPage.dart';
+import 'package:flutter_app123456/Page/HomeHomePage.dart';
 import 'package:flutter_app123456/Page/MyPage.dart';
 import 'package:flutter_app123456/Page/NoticePage.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
@@ -36,8 +37,9 @@ class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     List<Widget> tabs = [
-      _renderTab(CustomIcons.HOME_NOTICE, CommonUtils.getLocale(context).homeNotice),
+      _renderTab(CustomIcons.HOME_HOME, CommonUtils.getLocale(context).homeHome),
       _renderTab(CustomIcons.HOME_GRAB_SHEET, CommonUtils.getLocale(context).homeGrabSheet),
+      _renderTab(CustomIcons.HOME_NOTICE, CommonUtils.getLocale(context).homeNotice),
       //_renderTab(CustomIcons.HOME_FINANCE, CommonUtils.getLocale(context).homeFinance),
       _renderTab(CustomIcons.HOME_MY, CommonUtils.getLocale(context).homeMy)
     ];
@@ -51,8 +53,9 @@ class HomePage extends StatelessWidget{
         type: CustomTabBarWidget.BOTTOM_TAB,
         tabItems: tabs,
         tabViews: [
-          new NoticePage(),
+          new HomeHomePage(),
           new GrabSheetPage(),
+          new NoticePage(),
           //new FinancePage(),
           new MyPage()
         ],

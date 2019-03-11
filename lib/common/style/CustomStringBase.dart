@@ -25,6 +25,8 @@ abstract class CustomStringBase{
   String networkErrorUnknown;
 
   ///主页tab
+  String homeHome;
+
   String homeNotice;
 
   String homeGrabSheet;

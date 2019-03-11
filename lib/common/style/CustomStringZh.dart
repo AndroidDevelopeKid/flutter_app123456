@@ -19,7 +19,7 @@ class CustomStringZh extends CustomStringBase{
   String loadingText = "加载中...";
 
   @override
-  String receiptText = "接单";
+  String receiptText = "手动接单";
 
   ///登录时联网出错提醒
   @override
@@ -36,6 +36,8 @@ class CustomStringZh extends CustomStringBase{
   String networkErrorUnknown = "其他异常";
 
   ///主页tab
+  @override
+  String homeHome = "首页";
   @override
   String homeNotice = "消息";
   @override

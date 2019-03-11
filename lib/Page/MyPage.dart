@@ -41,7 +41,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   );
 
   Future<String> fetchDriverName() async{
-    return  await LocalStorage.get(Config.DRIVER_NAME);
+    return  await LocalStorage.get(Config.USER_NAME_KEY);
   }
   @override
   void initState() {
@@ -70,9 +70,9 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _userAvatar == null
-                  ? new Image.asset(
-                      CustomIcons.DEFAULT_USER_ICON,
-                      width: 60.0,
+                  ? new Icon(
+                      CustomIcons.LOGIN_FACE,
+                      size: 60.0,
                     )
                   : new Container(
                       width: 60.0,

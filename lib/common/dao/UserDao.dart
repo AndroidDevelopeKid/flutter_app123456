@@ -58,12 +58,11 @@ class UserDao{
     var resultDataVehicle;
     if(res != null && res.result){
       await LocalStorage.save(Config.PW_KEY, password);
-      resultDataDriver = await getUserInfo(tenantId,userName);
+      resultDataDriver = await getUserInfo(tenantId,res.data["result"]["userId"]);
 
       if(Config.DEBUG){
         print("userResult: " + resultDataDriver.result.toString());
         print("resultDateDriver.data: "+ resultDataDriver.data.toString());
-        print("resultDateVehicle.data: "+ resultDataVehicle.data.toString());
       }
       //redux 管理user状态
       store.dispatch(new UpdateDriverAction(resultDataDriver.data));
@@ -75,15 +74,11 @@ class UserDao{
   static initUserInfo(Store store) async {
 
   }
-  static getUserInfo(tenantId,userName) async {
-    Map requestParamsForUserName = {
-      "TenantId": tenantId,
-      "UserName": userName
-    };
+  static getUserInfo(tenantId,userId) async {
     next() async {
       var res;
-      if(userName != null && tenantId != null){
-        res = await HttpManager.netFetch(Address.getDriverArchives(), json.encode(requestParamsForUserName), null, null);
+      if(userId != null && tenantId != null){
+        res = await HttpManager.netFetch(Address.getDriverArchives() + "?TenantId=${int.parse(tenantId)}&UserId=${userId}", null, null, null);
       }else{
         res = new DataResult("匿名", false);
       }
@@ -94,8 +89,11 @@ class UserDao{
         LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
         print("driverinfo.ls" + json.encode(driver.toJson()));
 
-        var vehicleResult = VehicleDao.getVehicleInfo(driver.vehicleCode);
-        print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
+        var vehicleResult = await VehicleDao.getVehicleInfo(driver.vehicleCode);
+        if(Config.DEBUG){
+          print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
+        }
+
         return new DataResult(driver, true);
 
       }else{
