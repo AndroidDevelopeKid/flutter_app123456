@@ -23,8 +23,8 @@ class _TollInquiryPage extends State<TollInquiryPage>{
       body:
 
       new Card(
-        color: Color(CustomColors.displayUsernameBackground),
-        margin: const EdgeInsets.only(left: 20.0, top: 60.0, right: 20.0, bottom: 60),
+        color: Color(CustomColors.displayCardBackground),
+        margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
         child: new Center(
           child: new Text(
             "显示对应的信息！",

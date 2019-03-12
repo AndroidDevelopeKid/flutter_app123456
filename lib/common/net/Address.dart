@@ -16,6 +16,14 @@ class Address{
   static getVehicleArchives(){
     return "${host}services/app/VehicleArchives/GetVehicleArchivesByMobile";
   }
+  ///获取人员及证照状态
+  static getStaffAndCertificatesState(){
+    return "${host}services/app/VehicleDriverArchive/GetVehicleDriverArchivesStatusByMobile";
+  }
+  ///获取车辆状态
+  static getVehicleState(){
+    return "${host}services/app/VehicleArchives/GetVehicleArchivesStatusByMoble";
+  }
 
   ///获取用户组织
   static getUserOrgs(userName){

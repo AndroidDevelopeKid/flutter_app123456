@@ -56,9 +56,9 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
       ),
       body:
       new Card(
-        color: Color(CustomColors.displayUsernameBackground),
-        margin: const EdgeInsets.only(left: 20.0, top: 60.0, right: 20.0, bottom: 60),
-        child: new Center(
+        color: Color(CustomColors.displayCardBackground),
+        margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
+        child: new Container(
           child: FutureBuilder<Vehicle>(
             future: vehicleObj,
             builder: (context, snapshot) {
@@ -69,78 +69,84 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
 //                  0: FixedColumnWidth(100.0),
 //                  1: FixedColumnWidth(100.0)
 //                },
-                  border: TableBorder.all(color: Colors.white, width: 1.0, style: BorderStyle.solid),
+                  border: TableBorder.all(color: Colors.white, width: 2.0, style: BorderStyle.solid),
                   children: <TableRow>[
                     TableRow(
                         children: <Widget>[
-                          Text("物流公司："),
-                          Text(snapshot.data.ouDisplayName),
+                          Text("车辆编号：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("所属调运组："),
-                          Text(snapshot.data.detailedOUDisplayName),
+                          Text("车牌号：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车辆编号："),
-                          Text(snapshot.data.vehicleCode),
+                          Text("物流公司：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ouDisplayName, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车牌号："),
-                          Text(snapshot.data.mainVehiclePlate),
+                          Text("车辆类型：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车主姓名："),
-                          Text(snapshot.data.ownerName)
+                          Text("业务类型：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleBusinessTypeText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车主身份证号："),
-                          Text(snapshot.data.ownerIDNumber)
+                          Text("车型：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车主电话："),
-                          Text(snapshot.data.ownerPhone)
+                          Text("车辆状态：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleStateText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车辆业务类型："),
-                          Text(snapshot.data.vehicleBusinessTypeText)
+                          Text("车主姓名：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ownerName, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车辆类型："),
-                          Text(snapshot.data.vehicleTypeText)
+                          Text("车主身份证号：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ownerIDNumber, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车辆状态："),
-                          Text(snapshot.data.vehicleStateText)
+                          Text("车主联系方式：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ownerPhone, style: CustomConstant.normalTextBlack)
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("车组："),
-                          Text(snapshot.data.vehicleGroupText.toString())
+                          Text("车架号：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.trailerFrameNumber, style: CustomConstant.normalTextBlack)
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
-                          Text("备注："),
-                          Text(snapshot.data.description)
+                          Text("发动机编号：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.engineNumber, style: CustomConstant.normalTextBlack)
+                        ]
+                    ),
+                    TableRow(
+                        children: <Widget>[
+                          Text("加盟日期：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.joiningDate == null ? "0000-00-00" : snapshot.data.joiningDate.toString().substring(0,9), style: CustomConstant.normalTextBlack)
                         ]
                     ),
                   ],

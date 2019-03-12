@@ -9,7 +9,7 @@ import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 
 class StaffAndCertificatesStatePage extends StatefulWidget{
-  static final String name = "userInfo";
+  static final String name = "StaffAndCertificatesState";
 
 
 

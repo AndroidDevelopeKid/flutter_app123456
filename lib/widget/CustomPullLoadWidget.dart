@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -122,7 +123,7 @@ class _CustomPullLoadWidgetState extends State<CustomPullLoadWidget>{
         children: <Widget>[
           FlatButton(
             onPressed: () {},
-            child: new Icon(CustomIcons.LOGIN_FACE, size: 100,),
+            child: new Icon(CustomIcons.LOGIN_FACE, size: Config.ICON_SIZE,),
           ),
           Container(
             child: Text(CommonUtils.getLocale(context).appEmpty, style: CustomConstant.normalText),

@@ -84,7 +84,7 @@ class UserDao{
       }
       if(res != null && res.result){
         print("driverInfo: " + res.data.toString());
-        Driver driver = Driver.fromJson(res.data["result"][0]);
+        Driver driver = Driver.fromJson(res.data["result"]);
         LocalStorage.save(Config.DRIVER_NAME, driver.driverName);
         LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
         print("driverinfo.ls" + json.encode(driver.toJson()));

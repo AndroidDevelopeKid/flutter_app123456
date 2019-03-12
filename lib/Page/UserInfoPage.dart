@@ -7,6 +7,7 @@ import 'package:flutter_app123456/common/dao/DriverDao.dart';
 import 'package:flutter_app123456/common/dao/UserDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
+import 'package:flutter_app123456/common/model/Vehicle.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 
@@ -54,9 +55,9 @@ class _UserInfoPageState extends State<UserInfoPage>{
       ),
       body:
       new Card(
-        color: Color(CustomColors.displayUsernameBackground),
-        margin: const EdgeInsets.only(left: 20.0, top: 60.0, right: 20.0, bottom: 60),
-        child: new Center(
+        color: Color(CustomColors.displayCardBackground),
+        margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
+        child: new Container(
           child: FutureBuilder<Driver>(
           future: driverObj,
           builder: (context, snapshot) {
@@ -67,37 +68,85 @@ class _UserInfoPageState extends State<UserInfoPage>{
 //                  0: FixedColumnWidth(100.0),
 //                  1: FixedColumnWidth(100.0)
 //                },
-                border: TableBorder.all(color: Colors.white, width: 1.0, style: BorderStyle.solid),
+                border: TableBorder.all(color: Colors.white, width: 2.0, style: BorderStyle.solid),
                 children: <TableRow>[
                   TableRow(
+                      children: <Widget>[
+                        Text("身份证号：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.driverIDNumber, style: CustomConstant.normalTextBlack),
+                      ]
+                  ),
+                  TableRow(
                     children: <Widget>[
-                      Text("司机姓名："),
-                      Text(snapshot.data.driverName),
+                      Text("姓名：", style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.driverName, style: CustomConstant.normalTextBlack),
+                    ]
+                  ),
+                  TableRow(
+                      children: <Widget>[
+                        Text("电话号码：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.driverPhone, style: CustomConstant.normalTextBlack),
+                      ]
+                  ),
+                  TableRow(
+                      children: <Widget>[
+                        Text("所属物流公司：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.ouDisplayName.toString(), style: CustomConstant.normalTextBlack),
+                      ]
+                  ),
+                  TableRow(
+                      children: <Widget>[
+                        Text("人员类型：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.personTypeText, style: CustomConstant.normalTextBlack),
+                      ]
+                  ),
+                  TableRow(
+                    children: <Widget>[
+                      Text("车辆编号：", style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                     children: <Widget>[
-                      Text("车辆编号："),
-                      Text(snapshot.data.vehicleCode),
+                      Text("身份证到期日期：", style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.certificateEndDate == null ? "0000-00-00" : snapshot.data.certificateEndDate.toString().substring(0,9), style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                     children: <Widget>[
-                      Text("物流公司："),
-                      Text(snapshot.data.ouDisplayName),
+                      Text("人员状态：", style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.personStateText, style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                     children: <Widget>[
-                      Text("电话号码："),
-                      Text(snapshot.data.driverPhone),
+                      Text("备用联系人：", style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.buckupContactPerson, style: CustomConstant.normalTextBlack)
                     ]
                   ),
                   TableRow(
-                    children: <Widget>[
-                      Text("加入日期："),
-                      Text(snapshot.data.joiningDate)
-                    ]
+                      children: <Widget>[
+                        Text("备用联系地址：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.buckupContactPersonAddress, style: CustomConstant.normalTextBlack)
+                      ]
+                  ),
+                  TableRow(
+                      children: <Widget>[
+                        Text("备用联系方式：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.buckupContactPersonPhone, style: CustomConstant.normalTextBlack)
+                      ]
+                  ),
+                  TableRow(
+                      children: <Widget>[
+                        Text("驾驶证号：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.driverLicenseID, style: CustomConstant.normalTextBlack)
+                      ]
+                  ),
+                  TableRow(
+                      children: <Widget>[
+                        Text("驾驶证到期日期：", style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.dlCertificateEndDate == null ? "0000-00-00" : snapshot.data.dlCertificateEndDate.toString().substring(0,9), style: CustomConstant.normalTextBlack)
+                      ]
                   ),
                 ],
               );

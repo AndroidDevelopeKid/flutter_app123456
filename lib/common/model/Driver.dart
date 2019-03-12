@@ -31,6 +31,7 @@ class Driver{
   String residenceTypeText;
   String oprationLicenseID;
   String workLicenseEndDate;
+  String driverLicenseID;
   Driver(
       this.address,
       this.belongVehicleTypeText,
@@ -59,7 +60,8 @@ class Driver{
       this.residenceTypeText,
       this.signingOrganization,
       this.vehicleCode,
-      this.workLicenseEndDate
+      this.workLicenseEndDate,
+      this.driverLicenseID
       );
 
   ///json转换为实体类

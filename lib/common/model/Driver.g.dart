@@ -35,7 +35,8 @@ Driver _$DriverFromJson(Map<String, dynamic> json) {
       json['residenceTypeText'] as String,
       json['signingOrganization'] as String,
       json['vehicleCode'] as String,
-      json['workLicenseEndDate'] as String);
+      json['workLicenseEndDate'] as String,
+      json['driverLicenseID'] as String);
 }
 
 Map<String, dynamic> _$DriverToJson(Driver instance) => <String, dynamic>{
@@ -66,5 +67,6 @@ Map<String, dynamic> _$DriverToJson(Driver instance) => <String, dynamic>{
       'dlCertificateFirstDate': instance.dlCertificateFirstDate,
       'residenceTypeText': instance.residenceTypeText,
       'oprationLicenseID': instance.oprationLicenseID,
-      'workLicenseEndDate': instance.workLicenseEndDate
+      'workLicenseEndDate': instance.workLicenseEndDate,
+      'driverLicenseID': instance.driverLicenseID
     };
