@@ -60,13 +60,16 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           new Expanded(
-            child: new IconButton(
-                icon: new Icon(CustomIcons.HISTORY_BILL, size: Config.ICON_SIZE),
+            child:
+            new IconButton(
+                icon: new Image.asset(CustomIcons.HISTORY_BILL_IMAGE),
+                iconSize: Config.ICON_SIZE,
+                //new Icon(CustomIcons.HISTORY_BILL, size: Config.ICON_SIZE),
                 onPressed: (){
                   NavigatorUtils.goHistoryBill(context);
                 },
                 tooltip: "历史提货单",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("历史提货单"),
@@ -80,12 +83,14 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
           new Expanded(
             child:
             new IconButton(
-              icon: new Icon(CustomIcons.FREIGHT_INQUIRY, size: Config.ICON_SIZE),
+              icon: new Image.asset(CustomIcons.FREIGHT_INQUIRY_IMAGE),
+              iconSize: Config.ICON_SIZE,
+              //new Icon(CustomIcons.FREIGHT_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 NavigatorUtils.goFreightInquiry(context);
               },
               tooltip: "运费查询",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("运费查询"),
@@ -98,12 +103,14 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Icon(CustomIcons.REFUEL_INQUIRY, size: Config.ICON_SIZE),
+              icon: new Image.asset(CustomIcons.REFUEL_INQUIRY_IMAGE),
+              iconSize: Config.ICON_SIZE,
+              //new Icon(CustomIcons.REFUEL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 NavigatorUtils.goRefuelInquiry(context);
               },
               tooltip: "加油查询",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("加油查询"),
@@ -116,12 +123,14 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Icon(CustomIcons.TOLL_INQUIRY, size: Config.ICON_SIZE),
+              icon:new Image.asset(CustomIcons.TOLL_INQUIRY_IMAGE),
+              iconSize: Config.ICON_SIZE,
+              //new Icon(CustomIcons.TOLL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 NavigatorUtils.goTollInquiry(context);
               },
               tooltip: "过路费查询",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("过路费查询"),
@@ -134,12 +143,14 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Icon(CustomIcons.MAINTENANCE_FEE_INQUIRY, size: Config.ICON_SIZE),
+              icon: new Image.asset(CustomIcons.MAINTENANCE_FEE_INQUIRY_IMAGE),
+              iconSize: Config.ICON_SIZE,
+              //new Icon(CustomIcons.MAINTENANCE_FEE_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 NavigatorUtils.goMaintenanceFeeInquiry(context);
               },
               tooltip: "维修费查询",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("维修费查询"),
@@ -152,12 +163,14 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Icon(CustomIcons.OTHER_COST_INQUIRY, size: Config.ICON_SIZE),
+              icon: new Image.asset(CustomIcons.OTHER_COST_INQUIRY_IMAGE),
+              iconSize: Config.ICON_SIZE,
+              //new Icon(CustomIcons.OTHER_COST_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 NavigatorUtils.goOtherCostInquiry(context);
               },
               tooltip: "其他费用查询",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("其他费用查询"),
@@ -170,12 +183,14 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Icon(CustomIcons.CURRENT_ASSIGN_CUSTOMER, size: Config.ICON_SIZE),
+              icon: new Image.asset(CustomIcons.CURRENT_ASSIGN_CUSTOMER_IMAGE),
+              iconSize: Config.ICON_SIZE,
+              //new Icon(CustomIcons.CURRENT_ASSIGN_CUSTOMER, size: Config.ICON_SIZE),
               onPressed: (){
                 NavigatorUtils.goCurrentAssignCustomer(context);
               },
               tooltip: "当前指派客户",
-              padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
+              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
           new Text("当前指派客户"),

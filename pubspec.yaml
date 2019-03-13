@@ -61,6 +61,21 @@ flutter:
   - lib/static/images/logo.jpg
   - lib/static/images/welcome.jpg
   - lib/static/images/ic_arrow_right.png
+  - lib/static/images/transport.png
+  - lib/static/images/historybill.ico
+  - lib/static/images/refuel.ico
+  - lib/static/images/toll.ico
+  - lib/static/images/cancelqueue.ico
+  - lib/static/images/currentassgincustomer.ico
+  - lib/static/images/freight.ico
+  - lib/static/images/manualreceipt.ico
+  - lib/static/images/maintenancefee.ico
+  - lib/static/images/othercost.ico
+  - lib/static/images/queuerefresh.ico
+  - lib/static/images/user.ico
+  - lib/static/images/userformy.ico
+  - lib/static/images/userformy01.ico
+  - lib/static/images/userformy02.ico
 
   # To add assets to your application, add an assets section, like this:
   # assets:

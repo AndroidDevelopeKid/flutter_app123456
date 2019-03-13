@@ -18,9 +18,13 @@ class Config{
   static const PW_KEY = "user-pw";
   static const COMPANY_KEY = "company";
 
+
   static const DRIVER_ARCHIVES = "driver-archives";
   static const DRIVER_NAME = "driver-name";
+  static const USER_ID = "user-id";
   static const VEHICLE_ARCHIVES = "vehicle-archives";
+  static const VEHICLE_STATE = "vehicle-state";
+  static const STAFF_AND_CERTIFICATES_STATE = "staff-and-certificates-state";
 
   static const USER_BASIC_CODE = "user-basic-code";
 

@@ -5,6 +5,7 @@ import 'package:flutter_app123456/common/dao/DriverDao.dart';
 import 'package:flutter_app123456/common/dao/UserDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
+import 'package:flutter_app123456/common/model/StaffAndCertificatesState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 
@@ -25,17 +26,17 @@ class _StaffAndCertificatesStatePageState extends State<StaffAndCertificatesStat
   _StaffAndCertificatesStatePageState();
 
   ///*********************异步获取数据进行页面显示****************************
-  Future<String> str;
+  Future<StaffAndCertificatesState> staffAndCertificatesState;
 
 
-  Future<String> fetchData() async {
-    return await LocalStorage.get(Config.DRIVER_ARCHIVES);
+  Future<StaffAndCertificatesState> fetchData() async {
+    return await LocalStorage.get(Config.STAFF_AND_CERTIFICATES_STATE);
   }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    str = fetchData();
+    staffAndCertificatesState = fetchData();
   }
 
   @override
@@ -45,11 +46,11 @@ class _StaffAndCertificatesStatePageState extends State<StaffAndCertificatesStat
     //  builder: (context, store) {
     return new Scaffold(
       body: new Center(
-        child: FutureBuilder<String>(
-          future: str,
+        child: FutureBuilder<StaffAndCertificatesState>(
+          future: staffAndCertificatesState,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data);
+              return Text(snapshot.data.VehicleStateFlag.toString());
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }

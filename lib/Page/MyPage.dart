@@ -63,17 +63,19 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = new Container(
-        color: Color(CustomColors.displayUsernameBackground),
+        color:Colors.blue,
+        //Color(CustomColors.displayUsernameBackground),
         height: 130.0,
         child: new Center(
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _userAvatar == null
-                  ? new Icon(
-                      CustomIcons.LOGIN_FACE,
-                      size: 40.0,
-                    )
+                  ? new Image.asset(CustomIcons.LOGIN_FACE_IMAGE_MY)
+//                  new Icon(
+//                      CustomIcons.LOGIN_FACE,
+//                      size: 40.0,
+//                    )
                   : new Container(
                       width: 40.0,
                       height: 40.0,

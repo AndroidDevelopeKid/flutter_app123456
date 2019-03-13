@@ -123,7 +123,8 @@ class _CustomPullLoadWidgetState extends State<CustomPullLoadWidget>{
         children: <Widget>[
           FlatButton(
             onPressed: () {},
-            child: new Icon(CustomIcons.LOGIN_FACE, size: Config.ICON_SIZE,),
+            child: new Image.asset(CustomIcons.LOGIN_FACE_IMAGE),
+            //new Icon(CustomIcons.LOGIN_FACE, size: Config.ICON_SIZE,),
           ),
           Container(
             child: Text(CommonUtils.getLocale(context).appEmpty, style: CustomConstant.normalText),

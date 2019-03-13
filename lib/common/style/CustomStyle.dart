@@ -31,11 +31,23 @@ class CustomIcons{
 
   static const String ARROW_ICON = "lib/static/images/ic_arrow_right.png";
 
+  ///首页image 图标
+  static const String HISTORY_BILL_IMAGE = "lib/static/images/historybill.ico";
+  static const String FREIGHT_INQUIRY_IMAGE = "lib/static/images/freight.ico";
+  static const String REFUEL_INQUIRY_IMAGE = "lib/static/images/refuel.ico";
+  static const String TOLL_INQUIRY_IMAGE = "lib/static/images/toll.ico";
+  static const String MAINTENANCE_FEE_INQUIRY_IMAGE = "lib/static/images/maintenancefee.ico";
+  static const String OTHER_COST_INQUIRY_IMAGE = "lib/static/images/othercost.ico";
+  static const String CURRENT_ASSIGN_CUSTOMER_IMAGE = "lib/static/images/currentassgincustomer.ico";
+
+
 
   static const IconData LOGIN_COMPANY = const IconData(0xe84f, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData LOGIN_PW = const IconData(0xe312, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData LOGIN_USER = const IconData(0xe851, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData LOGIN_FACE = const IconData(59516, fontFamily: CustomIcons.FONT_FAMILY);
+  static const String LOGIN_FACE_IMAGE = "lib/static/images/user.ico";
+  static const String LOGIN_FACE_IMAGE_MY = "lib/static/images/userformy02.ico";
 
   ///首页九宫格图标
   static const IconData HISTORY_BILL = const IconData(59485, fontFamily: CustomIcons.FONT_FAMILY);
@@ -50,6 +62,11 @@ class CustomIcons{
   static const IconData MANUAL_RECEIPT = const IconData(57672, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData CANCEL_QUEUE = const IconData(58825, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData QUEUE_REFRESH = const IconData(59491, fontFamily: CustomIcons.FONT_FAMILY);
+
+  static const String MANUAL_RECEIPT_IMAGE = "lib/static/images/manualreceipt.ico";
+  static const String CANCEL_QUEUE_IMAGE = "lib/static/images/cancelqueue.ico";
+  static const String QUEUE_REFRESH_IMAGE = "lib/static/images/queuerefresh.ico";
+
 
   static const IconData HOME_HOME = const IconData(58819, fontFamily: CustomIcons.FONT_FAMILY);
   static const IconData HOME_NOTICE = const IconData(0xe0b7, fontFamily: CustomIcons.FONT_FAMILY);

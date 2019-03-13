@@ -22,7 +22,7 @@ class Address{
   }
   ///获取车辆状态
   static getVehicleState(){
-    return "${host}services/app/VehicleArchives/GetVehicleArchivesStatusByMoble";
+    return "${host}services/app/VehicleArchives/GetVehicleArchivesStatusByMobile";
   }
 
   ///获取用户组织

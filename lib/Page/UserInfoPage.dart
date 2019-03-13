@@ -33,8 +33,15 @@ class _UserInfoPageState extends State<UserInfoPage>{
 
   Future<Driver> fetchData() async {
       var driverArchives = await LocalStorage.get(Config.DRIVER_ARCHIVES);
-      Driver driver = Driver.fromJson(json.decode(driverArchives));
-      return driver;
+      if(driverArchives == null){
+        var userId = await LocalStorage.get(Config.USER_ID);
+        var resultDataDriver = await UserDao.getUserInfo(Config.TENANT, userId);
+        return resultDataDriver.data;
+      }else{
+        Driver driver = Driver.fromJson(json.decode(driverArchives));
+        return driver;
+      }
+
   }
   @override
   void initState() {

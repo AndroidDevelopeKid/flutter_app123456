@@ -5,7 +5,9 @@ import 'dart:convert';
 
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/ResultDao.dart';
+import 'package:flutter_app123456/common/dao/StaffAndCertificatesStateDao.dart';
 import 'package:flutter_app123456/common/dao/VehicleDao.dart';
+import 'package:flutter_app123456/common/dao/VehicleStateDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
 import 'package:flutter_app123456/common/model/User.dart';
@@ -52,20 +54,21 @@ class UserDao{
 
     var res = await HttpManager.netFetch(Address.getAuthorization(), json.encode(requestParams), header, new Options(method: 'post'));
     if(Config.DEBUG){
-      print("res and res.result and res.data: " + res.toString() + "---" + res.result.toString() + "---" + res.data["result"]["userId"].toString());
+      print("res and res.result and res.data: " + res.toString() + "---" + res.result.toString() + "---");
     }
     var resultDataDriver;
     var resultDataVehicle;
     if(res != null && res.result){
       await LocalStorage.save(Config.PW_KEY, password);
-      resultDataDriver = await getUserInfo(tenantId,res.data["result"]["userId"]);
+      await LocalStorage.save(Config.USER_ID, res.data["result"]["userId"].toString());
+      //resultDataDriver = await getUserInfo(tenantId,res.data["result"]["userId"]);
 
       if(Config.DEBUG){
-        print("userResult: " + resultDataDriver.result.toString());
-        print("resultDateDriver.data: "+ resultDataDriver.data.toString());
+        //print("userResult: " + resultDataDriver.result.toString());
+        //print("resultDateDriver.data: "+ resultDataDriver.data.toString());
       }
       //redux 管理user状态
-      store.dispatch(new UpdateDriverAction(resultDataDriver.data));
+      //store.dispatch(new UpdateDriverAction(resultDataDriver.data));
 
     }
     return new DataResult(resultDataDriver, res.result);
@@ -93,6 +96,11 @@ class UserDao{
         if(Config.DEBUG){
           print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
         }
+        var staffAndCertificatesStateResult = await StaffAndCertificatesStateDao.getStaffAndCertificatesStateInfo(driver.driverIDNumber);
+        print("getstaffAndCertificatesStateinfo:" + staffAndCertificatesStateResult.data.toString());
+
+        var vehicleStateResult = await VehicleStateDao.getVehicleStateInfo(driver.vehicleCode);
+        print("getvehicleStateinfo:" + vehicleStateResult.data.toString());
 
         return new DataResult(driver, true);
 

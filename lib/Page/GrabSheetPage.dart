@@ -183,10 +183,12 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                 new Column(
                   children: <Widget>[
                     new IconButton(
-                      icon: new Icon(CustomIcons.MANUAL_RECEIPT, size: Config.ICON_SIZE,),
+                      icon: new Image.asset(CustomIcons.MANUAL_RECEIPT_IMAGE),
+                      iconSize: Config.ICON_SIZE,
+                      //new Icon(CustomIcons.MANUAL_RECEIPT, size: Config.ICON_SIZE,),
                       onPressed: () {},
                       tooltip: "手动接单",
-                      padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                      //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
                     ),
                     new Text("手动接单"),
                   ],
@@ -194,10 +196,12 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                 new Column(
                   children: <Widget>[
                     new IconButton(
-                      icon: new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
+                      icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
+                      iconSize: Config.ICON_SIZE,
+                      //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
                       onPressed: () {},
                       tooltip: "取消排队",
-                      padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                      //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
                     ),
                     new Text("取消排队"),
                   ],
@@ -205,10 +209,12 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                 new Column(
                   children: <Widget>[
                     new IconButton(
-                      icon: new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
+                      icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
+                      iconSize: Config.ICON_SIZE,
+                      //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
                       onPressed: () {},
                       tooltip: "排队刷新",
-                      padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                      //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
                     ),
                     new Text("排队刷新"),
                   ],
