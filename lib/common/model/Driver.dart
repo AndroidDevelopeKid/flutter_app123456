@@ -3,64 +3,64 @@ import 'package:json_annotation/json_annotation.dart';
 part 'Driver.g.dart';
 @JsonSerializable()
 class Driver{
-  bool isAddToUser;
-  int originalOUId;
+  //bool isAddToUser;
+  //int originalOUId;
   String ouDisplayName;
   String vehicleCode;
-  String signingOrganization;
+  //String signingOrganization;
   String buckupContactPerson;
   String buckupContactPersonPhone;
   String buckupContactPersonAddress;
-  String address;
-  String birthDate;
-  String certificateStartDate;
+  //String address;
+  //String birthDate;
+  //String certificateStartDate;
   String certificateEndDate;
-  String nation;
-  String nationText;
+  //String nation;
+  //String nationText;
   String driverIDNumber;
   String driverName;
   String driverPhone;
-  String belongVehicleTypeText;
+  //String belongVehicleTypeText;
   String personTypeText;
   String personStateText;
-  String joiningDate;
-  String expectedWorkDate;
+  //String joiningDate;
+  //String expectedWorkDate;
   String dlCertificateEndDate;
-  String dlCertificateYears;
-  String dlCertificateFirstDate;
-  String residenceTypeText;
-  String oprationLicenseID;
-  String workLicenseEndDate;
+  //String dlCertificateYears;
+  //String dlCertificateFirstDate;
+  //String residenceTypeText;
+  //String oprationLicenseID;
+  //String workLicenseEndDate;
   String driverLicenseID;
   Driver(
-      this.address,
-      this.belongVehicleTypeText,
-      this.birthDate,
+//      this.address,
+//      this.belongVehicleTypeText,
+//      this.birthDate,
       this.buckupContactPerson,
       this.buckupContactPersonAddress,
       this.buckupContactPersonPhone,
       this.certificateEndDate,
-      this.certificateStartDate,
+//      this.certificateStartDate,
       this.dlCertificateEndDate,
-      this.dlCertificateFirstDate,
-      this.dlCertificateYears,
+//      this.dlCertificateFirstDate,
+//      this.dlCertificateYears,
       this.driverIDNumber,
       this.driverName,
       this.driverPhone,
-      this.expectedWorkDate,
-      this.isAddToUser,
-      this.joiningDate,
-      this.nation,
-      this.nationText,
-      this.oprationLicenseID,
-      this.originalOUId,
+//      this.expectedWorkDate,
+//      this.isAddToUser,
+//      this.joiningDate,
+//      this.nation,
+//      this.nationText,
+//      this.oprationLicenseID,
+//      this.originalOUId,
       this.ouDisplayName,
       this.personStateText,
       this.personTypeText,
-      this.residenceTypeText,
-      this.signingOrganization,
+//      this.residenceTypeText,
+//      this.signingOrganization,
       this.vehicleCode,
-      this.workLicenseEndDate,
+//      this.workLicenseEndDate,
       this.driverLicenseID
       );
 

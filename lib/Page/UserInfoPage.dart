@@ -28,28 +28,40 @@ class _UserInfoPageState extends State<UserInfoPage>{
   _UserInfoPageState();
 
   ///*********************异步获取数据进行页面显示****************************
-  Future<Driver> driverObj;
+  Future<Driver> driver;
 
 
   Future<Driver> fetchData() async {
-      var driverArchives = await LocalStorage.get(Config.DRIVER_ARCHIVES);
-      if(driverArchives == null){
+      //var driverArchives = await LocalStorage.get(Config.DRIVER_ARCHIVES);
+      //if(driverArchives == null){
         var userId = await LocalStorage.get(Config.USER_ID);
         var resultDataDriver = await UserDao.getUserInfo(Config.TENANT, userId);
         return resultDataDriver.data;
-      }else{
-        Driver driver = Driver.fromJson(json.decode(driverArchives));
-        return driver;
-      }
+      //}else{
+      //  Driver driverData = Driver.fromJson(json.decode(driverArchives));
+      //  return driverData;
+      //}
 
   }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    driverObj = fetchData();
+    driver = fetchData();
   }
 
+//  List<Widget> buildUI() {
+//    // main UI rendering operation is performed here, be careful
+//    List<Widget> tmpUI = [];
+//    <List<dynamic>>[
+//
+//    ].forEach((List<dynamic> elem) {
+//      elem.forEach((dynamic item) {
+//        tmpUI.add(item.getCard());
+//      });
+//    });
+//    return tmpUI;
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +75,12 @@ class _UserInfoPageState extends State<UserInfoPage>{
       body:
       new Card(
         color: Color(CustomColors.displayCardBackground),
-        margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
+        //margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
+        margin: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 4.0, right: 4.0),
+        elevation: 8.0,
         child: new Container(
           child: FutureBuilder<Driver>(
-          future: driverObj,
+          future: driver,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               //return Text(snapshot.data.vehicleCode);
@@ -163,6 +177,15 @@ class _UserInfoPageState extends State<UserInfoPage>{
             return CircularProgressIndicator();
           },
         ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(
+              color: Colors.white,
+              width: 0.7,
+              style: BorderStyle.solid,
+            ),
+          ),
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0, bottom: 12.0),
         ),
 
       ),

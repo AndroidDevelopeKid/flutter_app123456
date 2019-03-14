@@ -131,6 +131,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
       padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
       child: new Row(
         children: <Widget>[
+          //new Image.asset(CustomIcons.LEFT_DISPLAY_IMAGE),
           new Expanded(
               child: new Text(
             title,

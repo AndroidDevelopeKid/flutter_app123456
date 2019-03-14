@@ -27,7 +27,7 @@ class CustomIcons{
   static const String FONT_FAMILY = 'MaterialIcons';
 
   static const String DEFAULT_USER_ICON = 'lib/static/images/logo.jpg';
-  static const String WELCOME_ICON= "lib/static/images/welcome.jpg";
+  static const String WELCOME_ICON= "lib/static/images/welcome01.jpg";
 
   static const String ARROW_ICON = "lib/static/images/ic_arrow_right.png";
 
@@ -40,6 +40,8 @@ class CustomIcons{
   static const String OTHER_COST_INQUIRY_IMAGE = "lib/static/images/othercost.ico";
   static const String CURRENT_ASSIGN_CUSTOMER_IMAGE = "lib/static/images/currentassgincustomer.ico";
 
+  ///列表左侧小图标
+  static const String LEFT_DISPLAY_IMAGE = "lib/static/images/leftdisplay02.ico";
 
 
   static const IconData LOGIN_COMPANY = const IconData(0xe84f, fontFamily: CustomIcons.FONT_FAMILY);
@@ -48,6 +50,7 @@ class CustomIcons{
   static const IconData LOGIN_FACE = const IconData(59516, fontFamily: CustomIcons.FONT_FAMILY);
   static const String LOGIN_FACE_IMAGE = "lib/static/images/user.ico";
   static const String LOGIN_FACE_IMAGE_MY = "lib/static/images/userformy02.ico";
+
 
   ///首页九宫格图标
   static const IconData HISTORY_BILL = const IconData(59485, fontFamily: CustomIcons.FONT_FAMILY);

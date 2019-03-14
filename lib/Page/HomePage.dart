@@ -4,6 +4,8 @@ import 'package:flutter_app123456/Page/GrabSheetPage.dart';
 import 'package:flutter_app123456/Page/HomeHomePage.dart';
 import 'package:flutter_app123456/Page/MyPage.dart';
 import 'package:flutter_app123456/Page/NoticePage.dart';
+import 'package:flutter_app123456/common/config/Config.dart';
+import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/widget/CustomTabBarWidget.dart';
@@ -19,7 +21,19 @@ class HomePage extends StatelessWidget{
           content: new Text("退出？"),
           actions: <Widget>[
             new FlatButton(onPressed: () => Navigator.of(context).pop(false), child: new Text("取消")),
-            new FlatButton(onPressed: () => Navigator.of(context).pop(true), child: new Text("确认"))
+            new FlatButton(
+                onPressed: () async {
+                  ///清空LocalStorage
+                  await LocalStorage.remove(Config.DRIVER_ARCHIVES);
+                  await LocalStorage.remove(Config.DRIVER_NAME);
+                  await LocalStorage.remove(Config.USER_ID);
+                  await LocalStorage.remove(Config.VEHICLE_ARCHIVES);
+                  await LocalStorage.remove(Config.VEHICLE_STATE);
+                  await LocalStorage.remove(Config.STAFF_AND_CERTIFICATES_STATE);
+                  Navigator.of(context).pop(true);
+                },
+                child: new Text("确认")
+            )
           ],
         )
     );
@@ -62,7 +76,7 @@ class HomePage extends StatelessWidget{
         backgroundColor: Theme.of(context).primaryColor,
         indicatorColor: Color(CustomColors.white),
 
-        title: new Title(color: Color(CustomColors.white), child: new Text("无车承运")),
+        title: new Title(color: Color(CustomColors.white), child: new Text("无车承运(司机版)")),
       ),
     
 

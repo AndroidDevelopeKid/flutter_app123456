@@ -60,8 +60,8 @@ flutter:
   assets:
   - lib/static/images/logo.jpg
   - lib/static/images/welcome.jpg
+  - lib/static/images/welcome01.jpg
   - lib/static/images/ic_arrow_right.png
-  - lib/static/images/transport.png
   - lib/static/images/historybill.ico
   - lib/static/images/refuel.ico
   - lib/static/images/toll.ico
@@ -76,7 +76,9 @@ flutter:
   - lib/static/images/userformy.ico
   - lib/static/images/userformy01.ico
   - lib/static/images/userformy02.ico
-
+  - lib/static/images/leftdisplay.ico
+  - lib/static/images/leftdisplay01.ico
+  - lib/static/images/leftdisplay02.ico
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
