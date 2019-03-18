@@ -18,9 +18,9 @@ class VehicleStateDao{
         res = new DataResult("获取车辆状态失败", false);
       }
       if(res != null && res.result){
-        print("vehicleInfo: " + res.data.toString());
+        print("vehicleStateInfo: " + res.data.toString());
         LocalStorage.save(Config.VEHICLE_STATE, json.encode(res.data["result"]));
-        print("driverinfo.ls" + json.encode(res.data["result"]));
+        print("vehicleStateInfo.ls" + json.encode(res.data["result"]));
 
         return new DataResult("获取车辆状态成功", true);
 

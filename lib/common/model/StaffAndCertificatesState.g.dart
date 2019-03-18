@@ -9,41 +9,41 @@ part of 'StaffAndCertificatesState.dart';
 StaffAndCertificatesState _$StaffAndCertificatesStateFromJson(
     Map<String, dynamic> json) {
   return StaffAndCertificatesState(
-      json['BussinessCreationUserId'] as int,
-      json['BussinessType'] as int,
-      json['CreatorUserName'] as String,
-      json['Description'] as String,
-      json['EndDate'] as String,
-      json['HandleStatus'] as String,
-      json['HandleStatusText'] as String,
-      json['HandleType'] as String,
-      json['HandleTypeText'] as String,
-      json['Id'] as String,
-      json['VehicleAffairsStatus'] as String,
-      json['VehicleAffairsStatusText'] as String,
-      json['VehicleAffairsType'] as String,
-      json['VehicleAffairsTypeText'] as String,
-      json['VehicleCode'] as String,
-      json['VehicleStateFlag'] as int);
+      json['businessCreationUserId'] as int,
+      json['businessType'] as String,
+      json['creatorUserName'] as String,
+      json['description'] as String,
+      json['endDate'] as String,
+      json['handleStatus'] as String,
+      json['handleStatusText'] as String,
+      json['handleType'] as String,
+      json['handleTypeText'] as String,
+      json['id'] as String,
+      json['vehicleAffairsStatus'] as String,
+      json['vehicleAffairsStatusText'] as String,
+      json['vehicleAffairsType'] as String,
+      json['vehicleAffairsTypeText'] as String,
+      json['vehicleCode'] as String,
+      json['vehicleStateFlag'] as int);
 }
 
 Map<String, dynamic> _$StaffAndCertificatesStateToJson(
         StaffAndCertificatesState instance) =>
     <String, dynamic>{
-      'BussinessType': instance.BussinessType,
-      'VehicleCode': instance.VehicleCode,
-      'HandleType': instance.HandleType,
-      'HandleTypeText': instance.HandleTypeText,
-      'HandleStatus': instance.HandleStatus,
-      'HandleStatusText': instance.HandleStatusText,
-      'VehicleAffairsStatus': instance.VehicleAffairsStatus,
-      'VehicleAffairsStatusText': instance.VehicleAffairsStatusText,
-      'VehicleAffairsType': instance.VehicleAffairsType,
-      'VehicleAffairsTypeText': instance.VehicleAffairsTypeText,
-      'VehicleStateFlag': instance.VehicleStateFlag,
-      'EndDate': instance.EndDate,
-      'Description': instance.Description,
-      'BussinessCreationUserId': instance.BussinessCreationUserId,
-      'CreatorUserName': instance.CreatorUserName,
-      'Id': instance.Id
+      'businessType': instance.businessType,
+      'vehicleCode': instance.vehicleCode,
+      'handleType': instance.handleType,
+      'handleTypeText': instance.handleTypeText,
+      'handleStatus': instance.handleStatus,
+      'handleStatusText': instance.handleStatusText,
+      'vehicleAffairsStatus': instance.vehicleAffairsStatus,
+      'vehicleAffairsStatusText': instance.vehicleAffairsStatusText,
+      'vehicleAffairsType': instance.vehicleAffairsType,
+      'vehicleAffairsTypeText': instance.vehicleAffairsTypeText,
+      'vehicleStateFlag': instance.vehicleStateFlag,
+      'endDate': instance.endDate,
+      'description': instance.description,
+      'businessCreationUserId': instance.businessCreationUserId,
+      'creatorUserName': instance.creatorUserName,
+      'id': instance.id
     };

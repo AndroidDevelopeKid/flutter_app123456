@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -35,6 +36,10 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
   void initState() {
     // TODO: implement initState
     super.initState();
+    var timer = new Timer.periodic(const Duration(milliseconds: 5000), (Void){
+      //这里调用消息接口
+      print("timer: " + "sss");
+    });
   }
 
 

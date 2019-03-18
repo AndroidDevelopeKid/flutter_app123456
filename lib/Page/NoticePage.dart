@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/dao/ResultDao.dart';
 import 'package:flutter_app123456/common/model/MessagePush.dart';
@@ -42,10 +44,9 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
   void initState(){
     pullLoadWidgetControl.needHeader = false;
     super.initState();
+    handleRefresh();
+
   }
-  //static final test = [{"id": "1", "isRead": false, "msg": "aaa"}, {"id": "2", "isRead": false, "msg": "bbb"},{"id": "3", "isRead": false, "msg": "ccc"}];
-
-
   ///获取数据
   _getData(){
     final List<MessagePush> messagePushList = new List();

@@ -30,6 +30,26 @@ class Address{
     return "${host}users/$userName/orgs";
   }
 
+  ///司机接单排队--post
+  static driverGrabSheetQueue(){
+    return "${host}services/app/AcceptOrderQueue/CreateAcceptOrderQueueForMobileAsync";
+  }
+
+  ///取消排队--post
+  static cancelQueue(){
+    return "${host}services/app/AcceptOrderQueue/CancelAcceptOrderQueueForMobileAsync";
+  }
+
+  ///获取当前排队信息
+  static getCurrentQueueInfo(){
+    return "${host}services/app/AcceptOrderQueue/GetAcceptOrderQueueByUserForMobileAsync";
+  }
+
+  ///自动接单开启关闭按钮--post
+  static driverAutoGrabSheetSwitch(){
+    return "${host}services/app/AutoAcceptOrderState/CreateOrUpdateAutoAcceptOrderStateAsync";
+  }
+
   ///处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]){
     if(page != null){
@@ -42,20 +62,6 @@ class Address{
       return "";
     }
   }
-  ///测试龙飞登录
-//  static getTestZFAcount(){
-//    return "http://10.1.9.167/api/TokenAuth/Authenticate";
-//  }
-  ///测试龙飞司机档案
-  static getTestZFDriverInfo(){
-    return "http://10.1.9.167/api/services/app/VehicleDriverArchive/GetVehicleDriverArchiveForMobileAsync";
-  }
-//  ///我的用户信息 GET
-//  static getMyUserInfo(){
-//    return "${host}user";
-//  }
-//  ///用户信息 GET
-//  static getUserInfo(userName){
-//    return "${host}users/$userName";
-//  }
+
+
 }

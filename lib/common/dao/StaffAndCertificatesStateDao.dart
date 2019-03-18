@@ -21,7 +21,7 @@ class StaffAndCertificatesStateDao{
         print("staffAndCertificatesStateInfo: " + res.data.toString());
 
         LocalStorage.save(Config.STAFF_AND_CERTIFICATES_STATE, json.encode(res.data["result"]));
-        print("driverinfo.ls" + json.encode(res.data["result"]));
+        print("staffAndCertificatesStateInfo.ls" + json.encode(res.data["result"]));
 
         return new DataResult("获取人员及证照状态成功", true);
 

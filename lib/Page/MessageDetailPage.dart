@@ -23,7 +23,7 @@ class _MessageDetailPage extends State<MessageDetailPage>{
       body:
 
       new Card(
-        color: Color(CustomColors.displayUsernameBackground),
+        color: Color(CustomColors.displayCardBackground),
         margin: const EdgeInsets.only(left: 20.0, top: 60.0, right: 20.0, bottom: 60),
         child: new Center(
           child: new Text(

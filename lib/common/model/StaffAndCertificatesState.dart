@@ -3,41 +3,41 @@ import 'package:json_annotation/json_annotation.dart';
 part 'StaffAndCertificatesState.g.dart';
 @JsonSerializable()
 class StaffAndCertificatesState{
-  int BussinessType;
-  String VehicleCode;
-  String HandleType;
-  String HandleTypeText;
-  String HandleStatus;
-  String HandleStatusText;
-  String VehicleAffairsStatus;
-  String VehicleAffairsStatusText;
-  String VehicleAffairsType;
-  String VehicleAffairsTypeText;
-  int VehicleStateFlag;
-  String EndDate;
-  String Description;
-  int BussinessCreationUserId;
-  String CreatorUserName;
-  String Id;
+  String businessType;
+  String vehicleCode;
+  String handleType;
+  String handleTypeText;
+  String handleStatus;
+  String handleStatusText;
+  String vehicleAffairsStatus;
+  String vehicleAffairsStatusText;
+  String vehicleAffairsType;
+  String vehicleAffairsTypeText;
+  int vehicleStateFlag;
+  String endDate;
+  String description;
+  int businessCreationUserId;
+  String creatorUserName;
+  String id;
 
 
   StaffAndCertificatesState(
-      this.BussinessCreationUserId,
-      this.BussinessType,
-      this.CreatorUserName,
-      this.Description,
-      this.EndDate,
-      this.HandleStatus,
-      this.HandleStatusText,
-      this.HandleType,
-      this.HandleTypeText,
-      this.Id,
-      this.VehicleAffairsStatus,
-      this.VehicleAffairsStatusText,
-      this.VehicleAffairsType,
-      this.VehicleAffairsTypeText,
-      this.VehicleCode,
-      this.VehicleStateFlag
+      this.businessCreationUserId,
+      this.businessType,
+      this.creatorUserName,
+      this.description,
+      this.endDate,
+      this.handleStatus,
+      this.handleStatusText,
+      this.handleType,
+      this.handleTypeText,
+      this.id,
+      this.vehicleAffairsStatus,
+      this.vehicleAffairsStatusText,
+      this.vehicleAffairsType,
+      this.vehicleAffairsTypeText,
+      this.vehicleCode,
+      this.vehicleStateFlag
       );
   ///json转换为实体类
   factory StaffAndCertificatesState.fromJson(Map<String, dynamic> json) => _$StaffAndCertificatesStateFromJson(json);

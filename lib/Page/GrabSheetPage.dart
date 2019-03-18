@@ -10,6 +10,7 @@ import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/BaseMessagePushState.dart';
 import 'package:flutter_app123456/widget/CustomFlexButton.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
 
 class GrabSheetPage extends StatefulWidget {
   _GrabSheetPageState createState() => _GrabSheetPageState();
@@ -174,6 +175,8 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                   setState(() {
                     this.isCheck = !this.isCheck;
                   });
+                  //调取自动接单按钮开闭接口，通知服务端
+                  GrabSheetDao.autoGrabSheetSwitch(this.isCheck).then((res){});
                 },
               ),
             ),
