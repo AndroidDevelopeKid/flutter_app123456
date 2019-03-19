@@ -54,7 +54,9 @@ class HttpManager{
     //没有网络情况
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if(connectivityResult == ConnectivityResult.none){
-      return new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", noTip), false, Code.NETWORK_ERROR);
+      return new ResultData("网络错误", false, Code.NETWORK_ERROR);
+      //return new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", noTip), false, Code.NETWORK_ERROR);
+
     }
 
     Map<String, String> headers = new HashMap();
@@ -104,7 +106,9 @@ class HttpManager{
         print('请求异常url: ' + url);
       }
 
-      return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
+      return new ResultData("请求失败", false, errorResponse.statusCode);
+      //return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
+
     }
     ///网络请求成功后正常返回的数据debug
     if(Config.DEBUG){
@@ -141,7 +145,8 @@ class HttpManager{
       print(e.toString());
       return new ResultData(response.data, false, response.statusCode);
     }
-    return new ResultData(Code.errorHandleFunction(response.statusCode, "", noTip), false, response.statusCode);
+    return new ResultData("登录请求失败", false, response.statusCode);
+    //return new ResultData(Code.errorHandleFunction(response.statusCode, "", noTip), false, response.statusCode);
 
 
 

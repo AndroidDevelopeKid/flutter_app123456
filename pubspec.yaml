@@ -23,29 +23,28 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  shared_preferences: ^0.4.3
+  shared_preferences: ^0.5.1+2
   json_annotation: ^2.0.0
-  flutter_redux: ^0.5.2
-  flutter_spinkit: ^2.0.1
-  connectivity: ^0.3.2
-  dio: ^1.0.13
-  event_bus:  ^1.0.1
+  flutter_redux: ^0.5.3
+  flutter_spinkit: ^3.1.0
+  connectivity: ^0.4.2
+  dio: ^2.1.0
+  event_bus: ^1.0.3
   flutter_localizations:
     sdk: flutter
   flutter_statusbar: ^0.0.1
-  fluttertoast: ^2.2.3
-  flutter_slidable: ^0.4.3
-  english_words: ^3.1.0
+  fluttertoast: ^3.0.3
+  flutter_slidable: ^0.4.9
   web_socket_channel: ^1.0.9
-  flutter_picker: ^1.0.7
+  flutter_picker: ^1.0.9
   flutter_local_notifications: ^0.5.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.1.1
+  build_runner:
   json_serializable:
-  signalr_client:
+  signalr_client: ^0.1.5
 
 
 # For information on the generic Dart part of this file, see the

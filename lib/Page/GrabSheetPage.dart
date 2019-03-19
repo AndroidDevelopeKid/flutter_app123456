@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
+import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
 import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/BaseMessagePushState.dart';
 import 'package:flutter_app123456/widget/CustomFlexButton.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
 
 class GrabSheetPage extends StatefulWidget {
   _GrabSheetPageState createState() => _GrabSheetPageState();
@@ -175,8 +175,6 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                   setState(() {
                     this.isCheck = !this.isCheck;
                   });
-                  //调取自动接单按钮开闭接口，通知服务端
-                  GrabSheetDao.autoGrabSheetSwitch(this.isCheck).then((res){});
                 },
               ),
             ),
@@ -189,7 +187,35 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                       icon: new Image.asset(CustomIcons.MANUAL_RECEIPT_IMAGE),
                       iconSize: Config.ICON_SIZE,
                       //new Icon(CustomIcons.MANUAL_RECEIPT, size: Config.ICON_SIZE,),
-                      onPressed: () {},
+                      onPressed: () {
+                        //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
+                        GrabSheetDao.driverGrabSheetQueue().then((res){
+                          if(res != null && res.result){
+                            new Future.delayed(const Duration(seconds: 1), (){
+                              CommonUtils.showShort("已排队");
+                              //调取自动接单按钮开闭接口，通知服务端
+                              GrabSheetDao.driverAutoGrabSheetSwitch(this.isCheck).then((res){
+                                if(res != null && res.result){
+                                  new Future.delayed(const Duration(seconds: 1), (){
+                                    if(this.isCheck){
+                                      CommonUtils.showShort("您已开启自动接单");
+                                    }else{
+                                      CommonUtils.showShort("您已关闭自动接单");
+                                    }
+                                    return true;
+                                  });
+                                }
+                              });
+                            });
+                          }
+                          if(res != null && !res.result){
+                            new Future.delayed(const Duration(seconds: 1), (){
+                              CommonUtils.showShort("此车辆有未完成的提货单，不允许排队");
+                              return true;
+                            });
+                          }
+                        });
+                      },
                       tooltip: "手动接单",
                       //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
                     ),
@@ -202,7 +228,22 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                       icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
                       iconSize: Config.ICON_SIZE,
                       //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
-                      onPressed: () {},
+                      onPressed: () {
+                        GrabSheetDao.cancelQueue().then((res){
+                          if(res != null && res.result){
+                            new Future.delayed(const Duration(seconds: 1), (){
+                              CommonUtils.showShort("取消排队成功");
+                              return true;
+                            });
+                          }
+                          if(res != null && !res.result){
+                            new Future.delayed(const Duration(seconds: 1), (){
+                              CommonUtils.showShort("取消排队失败");
+                              return true;
+                            });
+                          }
+                        });
+                      },
                       tooltip: "取消排队",
                       //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
                     ),
@@ -215,7 +256,22 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                       icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
                       iconSize: Config.ICON_SIZE,
                       //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
-                      onPressed: () {},
+                      onPressed: () {
+                        GrabSheetDao.getCurrentQueueInfo().then((res){
+                          if(res != null && res.result){
+                            new Future.delayed(const Duration(seconds: 1), (){
+                              CommonUtils.showShort("刷新排队成功");
+                              return true;
+                            });
+                          }
+                          if(res != null && !res.result){
+                            new Future.delayed(const Duration(seconds: 1), (){
+                              CommonUtils.showShort("刷新排队失败");
+                              return true;
+                            });
+                          }
+                        });
+                      },
                       tooltip: "排队刷新",
                       //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
                     ),
