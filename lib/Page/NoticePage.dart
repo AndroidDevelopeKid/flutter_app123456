@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_app123456/common/dao/NoticeDao.dart';
+import 'package:flutter_app123456/common/dao/NoticeDao.dart';
 import 'package:flutter_app123456/common/dao/ResultDao.dart';
 import 'package:flutter_app123456/common/model/MessagePush.dart';
 import 'package:flutter_app123456/common/redux/CustomState.dart';
@@ -50,21 +50,30 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
   }
   ///获取数据
   _getData() async {
-    //var notifications = await NoticeDao.getPagedUserNotifications();
-    //print("notifications in noticePage: " + notifications.toString());
     final List<MessagePush> messagePushList = new List();
-    messagePushList.add(new MessagePush("1", false, "消息1"));
-    messagePushList.add(new MessagePush("2", false, "消息2"));
-    messagePushList.add(new MessagePush("3", false, "消息3"));
-    messagePushList.add(new MessagePush("4", false, "消息4"));
-    messagePushList.add(new MessagePush("5", false, "消息5"));
+    var notifications = await NoticeDao.getPagedUserNotifications();
+    print("notifications in noticePage: " + notifications.data.toString());
+    var itemList = notifications.data["result"]["items"];
+    print("notifications in noticePage itemList: " + itemList.toString() + itemList.length.toString());
+    print("notifications in noticePage itemList length: " + itemList.length.toString());
+    for(int i = 0; i < itemList.length; i++){
+      print("notifications in noticePage item" + i.toString() + ":" + itemList[i]["notification"]["data"]["messageText"].toString());
+      var msg = itemList[i]["notification"]["data"]["messageText"].toString();
+      messagePushList.add(new MessagePush(i.toString(), false, msg));
+    }
 
-    messagePushList.add(new MessagePush("6", false, "消息6"));
+//    messagePushList.add(new MessagePush("1", false, "消息1"));
+//    messagePushList.add(new MessagePush("2", false, "消息2"));
+//    messagePushList.add(new MessagePush("3", false, "消息3"));
+//    messagePushList.add(new MessagePush("4", false, "消息4"));
+//    messagePushList.add(new MessagePush("5", false, "消息5"));
+//
+//    messagePushList.add(new MessagePush("6", false, "消息6"));
 
-    messagePushList.add(new MessagePush("7", false, "消息7"));
-    messagePushList.add(new MessagePush("8", false, "消息8"));
-    messagePushList.add(new MessagePush("9", false, "消息9"));
-    messagePushList.add(new MessagePush("10", false, "消息10"));
+//    messagePushList.add(new MessagePush("7", false, "消息7"));
+//    messagePushList.add(new MessagePush("8", false, "消息8"));
+//    messagePushList.add(new MessagePush("9", false, "消息9"));
+//    messagePushList.add(new MessagePush("10", false, "消息10"));
 
     return new DataResult(messagePushList, true);
   }

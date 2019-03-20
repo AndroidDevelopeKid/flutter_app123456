@@ -175,6 +175,19 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                   setState(() {
                     this.isCheck = !this.isCheck;
                   });
+                  //调取自动接单按钮开闭接口，通知服务端
+                  GrabSheetDao.driverAutoGrabSheetSwitch(this.isCheck).then((res){
+                    if(res != null && res.result){
+                      new Future.delayed(const Duration(milliseconds: 100), (){
+                        if(this.isCheck){
+                          CommonUtils.showShort("您已开启自动接单");
+                        }else{
+                          CommonUtils.showShort("您已关闭自动接单");
+                        }
+                        return true;
+                      });
+                    }
+                  });
                 },
               ),
             ),
@@ -191,25 +204,13 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                         //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
                         GrabSheetDao.driverGrabSheetQueue().then((res){
                           if(res != null && res.result){
-                            new Future.delayed(const Duration(seconds: 1), (){
+                            new Future.delayed(const Duration(milliseconds: 100), (){
                               CommonUtils.showShort("已排队");
-                              //调取自动接单按钮开闭接口，通知服务端
-                              GrabSheetDao.driverAutoGrabSheetSwitch(this.isCheck).then((res){
-                                if(res != null && res.result){
-                                  new Future.delayed(const Duration(seconds: 1), (){
-                                    if(this.isCheck){
-                                      CommonUtils.showShort("您已开启自动接单");
-                                    }else{
-                                      CommonUtils.showShort("您已关闭自动接单");
-                                    }
-                                    return true;
-                                  });
-                                }
-                              });
+
                             });
                           }
                           if(res != null && !res.result){
-                            new Future.delayed(const Duration(seconds: 1), (){
+                            new Future.delayed(const Duration(milliseconds: 100), (){
                               CommonUtils.showShort("此车辆有未完成的提货单，不允许排队");
                               return true;
                             });
@@ -231,13 +232,13 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                       onPressed: () {
                         GrabSheetDao.cancelQueue().then((res){
                           if(res != null && res.result){
-                            new Future.delayed(const Duration(seconds: 1), (){
+                            new Future.delayed(const Duration(milliseconds: 100), (){
                               CommonUtils.showShort("取消排队成功");
                               return true;
                             });
                           }
                           if(res != null && !res.result){
-                            new Future.delayed(const Duration(seconds: 1), (){
+                            new Future.delayed(const Duration(milliseconds: 100), (){
                               CommonUtils.showShort("取消排队失败");
                               return true;
                             });
@@ -259,13 +260,13 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                       onPressed: () {
                         GrabSheetDao.getCurrentQueueInfo().then((res){
                           if(res != null && res.result){
-                            new Future.delayed(const Duration(seconds: 1), (){
+                            new Future.delayed(const Duration(milliseconds: 100), (){
                               CommonUtils.showShort("刷新排队成功");
                               return true;
                             });
                           }
                           if(res != null && !res.result){
-                            new Future.delayed(const Duration(seconds: 1), (){
+                            new Future.delayed(const Duration(milliseconds: 100), (){
                               CommonUtils.showShort("刷新排队失败");
                               return true;
                             });

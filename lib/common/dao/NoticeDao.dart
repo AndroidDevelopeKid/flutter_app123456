@@ -9,14 +9,15 @@ import 'package:flutter_app123456/common/net/HttpApi.dart';
 
 class NoticeDao{
   static getPagedUserNotifications() async {
-    var res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?State=null&MaxResultCount=${Config.PAGE_SIZE}&SkipCount=0", null, null, null);
+    // + "?State=null&MaxResultCount=${Config.PAGE_SIZE}&SkipCount=0"
+    var res = await HttpManager.netFetch(Address.getPagedUserNotifications(), null, null, null);
     if(Config.DEBUG){
       print("getPagedUserNotifications res: " + res.toString() + "---" + res.result.toString() + "---");
     }
     if(res != null && res.result){
       return DataResult(res.data, res.result);
     }else{
-      return DataResult("没有新的通知", false);
+      return DataResult("娌℃湁鏂扮殑閫氱煡", false);
     }
   }
   static makeAllUserNotificationsAsRead() async {

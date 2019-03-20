@@ -82,6 +82,7 @@ flutter:
   - lib/static/images/leftdisplay.ico
   - lib/static/images/leftdisplay01.ico
   - lib/static/images/leftdisplay02.ico
+  - lib/static/images/message.ico
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

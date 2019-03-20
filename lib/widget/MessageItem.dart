@@ -21,6 +21,7 @@ class MessageItem extends StatelessWidget {
             padding: const EdgeInsets.all(32.0),
             child: new Row(
               children: [
+
                 new Expanded(
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +29,7 @@ class MessageItem extends StatelessWidget {
                       new Container(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: new Text(
-                          messageItemViewModel.msg,
+                          messageItemViewModel.isRead == false ? "未读" : "已读",
                           style: new TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -37,17 +38,18 @@ class MessageItem extends StatelessWidget {
                       new Text(
                         messageItemViewModel.msg,
                         style: new TextStyle(
-                          color: Colors.grey[500],
+                          color: Colors.black,
                         ),
                       ),
                     ],
                   ),
                 ),
-                new Icon(
-                  Icons.star,
-                  color: Colors.red[500],
-                ),
-                new Text('41'),
+                new Image.asset(CustomIcons.MESSAGE_IMAGE),
+//                new Icon(
+//                  Icons.star,
+//                  color: Colors.red[500],
+//                ),
+//                new Text('41'),
               ],
             ),
           ),
