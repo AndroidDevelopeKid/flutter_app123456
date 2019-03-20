@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app123456/Page/NoticePage.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/CustomerDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
@@ -16,6 +19,7 @@ import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/BasePersonState.dart';
 import 'package:flutter_app123456/widget/CustomPullLoadWidget.dart';
 import 'package:flutter_app123456/common/net/Address.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -29,17 +33,60 @@ class HomeHomePage extends StatefulWidget {
 class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  
 
-  
+  var flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+  //var platform = MethodChannel('message.io/notice');
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    //初始化本地通知
+    var initializationSettingsAndroid = new AndroidInitializationSettings('icon_msg');
+    //var initializationSettingsIOS = new IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, null);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
     var timer = new Timer.periodic(const Duration(milliseconds: 5000), (Void){
       //这里调用消息接口
+
+      _showNotification();
       print("timer: " + "sss");
     });
+
+  }
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    //payload 可作为通知的一个标记，区分点击的通知。
+    if(payload != null && payload == "complete") {
+      await Navigator.push(
+        context,
+        new MaterialPageRoute(builder: (context) => new NoticePage()),
+      );
+    }
+  }
+  Future _showNotification() async {
+    //安卓的通知配置，必填参数是渠道id, 名称, 和描述, 可选填通知的图标，重要度等等。
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'your channel id', 'your channel name', 'your channel description',
+        importance: Importance.Max, priority: Priority.High);
+    //IOS的通知配置
+//    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, null);
+    //显示通知，其中 0 代表通知的 id，用于区分通知。
+    await flutterLocalNotificationsPlugin.show(
+        0, 'title', 'content', platformChannelSpecifics,
+        payload: 'complete');
+  }
+  //删除单个通知
+  Future _cancelNotification() async {
+    //参数 0 为需要删除的通知的id
+    await flutterLocalNotificationsPlugin.cancel(0);
+  }
+//删除所有通知
+  Future _cancelAllNotifications() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 
 

@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+//import 'package:flutter_app123456/common/dao/NoticeDao.dart';
 import 'package:flutter_app123456/common/dao/ResultDao.dart';
 import 'package:flutter_app123456/common/model/MessagePush.dart';
 import 'package:flutter_app123456/common/redux/CustomState.dart';
@@ -48,7 +49,9 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
 
   }
   ///获取数据
-  _getData(){
+  _getData() async {
+    //var notifications = await NoticeDao.getPagedUserNotifications();
+    //print("notifications in noticePage: " + notifications.toString());
     final List<MessagePush> messagePushList = new List();
     messagePushList.add(new MessagePush("1", false, "消息1"));
     messagePushList.add(new MessagePush("2", false, "消息2"));

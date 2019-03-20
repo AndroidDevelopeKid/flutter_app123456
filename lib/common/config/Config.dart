@@ -26,6 +26,7 @@ class Config{
   static const VEHICLE_STATE = "vehicle-state";
   static const STAFF_AND_CERTIFICATES_STATE = "staff-and-certificates-state";
   static const NOTICE_NEW = "notice-new";
+  static const QUEUE_INFO = "queue-info";
 
   static const USER_BASIC_CODE = "user-basic-code";
 

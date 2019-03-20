@@ -49,6 +49,18 @@ class Address{
   static driverAutoGrabSheetSwitch(){
     return "${host}services/app/AutoAcceptOrderState/CreateOrUpdateAutoAcceptOrderStateAsync";
   }
+  ///获取分页后的通知
+  static getPagedUserNotifications(){
+    return "${host}services/app/Notifications/GetPagedUserNotificationsAsync";
+  }
+  ///设置所有消息为已读--post
+  static makeAllUserNotificationsAsRead(){
+    return "${host}services/app/Notifications/MakeAllUserNotificationsAsRead";
+  }
+  ///设置单条信息为已读--post
+  static makeNotificationAsRead(){
+    return "${host}services/app/Notifications/MakeNotificationAsRead";
+  }
 
   ///处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]){

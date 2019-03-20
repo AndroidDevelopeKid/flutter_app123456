@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget{
                   await LocalStorage.remove(Config.VEHICLE_ARCHIVES);
                   await LocalStorage.remove(Config.VEHICLE_STATE);
                   await LocalStorage.remove(Config.STAFF_AND_CERTIFICATES_STATE);
+                  await LocalStorage.remove(Config.QUEUE_INFO);
                   Navigator.of(context).pop(true);
                 },
                 child: new Text("确认")
