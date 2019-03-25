@@ -71,7 +71,7 @@ class UserDao{
       //store.dispatch(new UpdateDriverAction(resultDataDriver.data));
 
     }
-    return new DataResult(resultDataDriver, res.result);
+    return new DataResult(res.data, res.result);
   }
   ///初始化用户信息
   static initUserInfo(Store store) async {

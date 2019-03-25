@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter_app123456/common/config/CompanyPicker.dart';
+import 'package:flutter_app123456/widget/Background.dart';
 import 'package:flutter_app123456/widget/DropDown.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,12 @@ class _LoginPageState extends State<LoginPage>{
     super.initState();
     initParams();
   }
+  @override
+  void dispose(){
+    userController.dispose();
+    pwController.dispose();
+    super.dispose();
+  }
   initParams() async {
     _userName = await LocalStorage.get(Config.USER_NAME_KEY);
     _password = await LocalStorage.get(Config.PW_KEY);
@@ -55,6 +62,10 @@ class _LoginPageState extends State<LoginPage>{
     setState(() => _company = value);
   }
 
+  DecorationImage loginBackgroundImage = new DecorationImage(
+    image: new ExactAssetImage(CustomIcons.LOGIN_BACKGROUND_IMAGE),
+    fit: BoxFit.cover,
+  );
   @override
   Widget build(BuildContext context) {
     if(_company == null){
@@ -67,19 +78,37 @@ class _LoginPageState extends State<LoginPage>{
         onTap: (){
           FocusScope.of(context).requestFocus(new FocusNode());
         },
-        child: Scaffold(
+        child:
+//        Scaffold(
+//          resizeToAvoidBottomPadding: false,//键盘弹出覆盖，不重新布局
+//          backgroundColor: Colors.white,
+//          body: Stack(
+//            children: <Widget>[
+//              Background(),
+//            ],
+//          ),
+//
+//        ),
+        Scaffold(
+          resizeToAvoidBottomPadding: false,//键盘弹出覆盖，不重新布局
           body: new Container(
-            color: Theme.of(context).primaryColor,
+            decoration: new BoxDecoration(
+              image: loginBackgroundImage,
+
+            ),
+            //color: Theme.of(context).primaryColor,
             child: new Center(
-              child: new Card(
+              child:
+             new Card(
                 ///阴影大小，默认2.0
                 elevation: 5.0,
                 shape: new RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 ///背景色
                 color: Color(CustomColors.cardWhite),
-                margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                child: new Padding(
-                  padding: new EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0, bottom: 0.0),
+                margin: const EdgeInsets.only(left: 50.0, right: 50.0),
+                child:
+                new Padding(
+                  padding: new EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0, bottom: 0.0),
                   child: new Column(
                     ///主轴方向上的对齐方式，默认start，center是将children放置在主轴中心
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -110,13 +139,12 @@ class _LoginPageState extends State<LoginPage>{
                         hintText: '密码',
                         iconData: CustomIcons.LOGIN_PW,
                         obscureText: true,
-
                         onChanged: (String value){
                           _password = value;
                         },
                         controller: pwController,
                       ),
-                      new Padding(padding: new EdgeInsets.all(30.0)),
+                      new Padding(padding: new EdgeInsets.all(25.0)),
                       new CustomFlexButton(
                         text:  CommonUtils.getLocale(context).loginText,
                         color: Theme.of(context).primaryColor,
@@ -140,11 +168,15 @@ class _LoginPageState extends State<LoginPage>{
                                 return true;
                               });
                             }
+                            if(res != null && !res.result){
+                              CommonUtils.showShort(res.data.toString());
+                              return false;
+                            }
                           }
                           );
                         },
                       ),
-                      new Padding(padding: new EdgeInsets.all(30.0)),
+                      new Padding(padding: new EdgeInsets.all(20.0)),
                     ],
                   ),
                 ),

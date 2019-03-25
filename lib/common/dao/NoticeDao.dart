@@ -8,9 +8,13 @@ import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 
 class NoticeDao{
-  static getPagedUserNotifications() async {
-    // + "?State=null&MaxResultCount=${Config.PAGE_SIZE}&SkipCount=0"
-    var res = await HttpManager.netFetch(Address.getPagedUserNotifications(), null, null, null);
+  static getPagedUserNotifications(readState, skipCount) async {
+    var res;
+    if(readState == null){
+      res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?MaxResultCount=${Config.PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
+    }else{
+      res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?State=${readState}&MaxResultCount=${Config.PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
+    }
     if(Config.DEBUG){
       print("getPagedUserNotifications res: " + res.toString() + "---" + res.result.toString() + "---");
     }
@@ -42,7 +46,7 @@ class NoticeDao{
     if(res != null && res.result){
       return DataResult(res.data, res.result);
     }else{
-      return DataResult("", false);
+      return DataResult("调用设置单条消息已读接口失败", false);
     }
   }
 }

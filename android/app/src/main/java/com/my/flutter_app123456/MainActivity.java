@@ -28,7 +28,7 @@ public class MainActivity extends FlutterActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     GeneratedPluginRegistrant.registerWith(this);
-    registerCustomPlugin(this);
+    //registerCustomPlugin(this);
 //    new MethodChannel(getFlutterView(), "message.io/notice").setMethodCallHandler(
 //            new MethodChannel.MethodCallHandler() {
 //              @Override
@@ -42,11 +42,11 @@ public class MainActivity extends FlutterActivity {
 //            });
 
   }
-  private static void registerCustomPlugin(PluginRegistry registry){
-    FlutterPluginReceive.registerWith(registry.registrarFor(FlutterPluginReceive.CHANNEL));
-    FlutterPluginRabbitMQ.registerWith(registry.registrarFor(FlutterPluginRabbitMQ.CHANNEL));
-
-  }
+//  private static void registerCustomPlugin(PluginRegistry registry){
+//    FlutterPluginReceive.registerWith(registry.registrarFor(FlutterPluginReceive.CHANNEL));
+//    FlutterPluginRabbitMQ.registerWith(registry.registrarFor(FlutterPluginRabbitMQ.CHANNEL));
+//
+//  }
 
 
 

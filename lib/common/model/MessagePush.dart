@@ -6,8 +6,8 @@ part 'MessagePush.g.dart';
 class MessagePush{
   ///消息id
   String id;
-  ///s
-  bool isRead;
+  ///消息状态
+  int isRead;
   ///消息
   String msg;
 

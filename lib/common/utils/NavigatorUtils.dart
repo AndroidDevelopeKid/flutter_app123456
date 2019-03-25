@@ -18,6 +18,7 @@ import 'package:flutter_app123456/Page/HomePage.dart';
 import 'package:flutter_app123456/Page/LoginPage.dart';
 import 'package:flutter_app123456/Page/VehicleArchivesPage.dart';
 import 'package:flutter_app123456/Page/VehicleStatePage.dart';
+import 'package:flutter_app123456/widget/MessageItem.dart';
 
 ///控制页面跳转逻辑
 class NavigatorUtils{
@@ -88,8 +89,15 @@ class NavigatorUtils{
   }
 
 
-  static goDisplayMessageDetail(BuildContext context){
-    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MessageDetailPage()));
+  static bool goDisplayMessageDetail(BuildContext context, MessageItemViewModel model){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context){
+      return new MessageDetailPage(model);
+    },
+    ),).then((isRefresh){
+      print("tiaozhuan shua xin: " + isRefresh.toString());
+      return isRefresh;
+    }
+    );
   }
   ///通知页
 //  static Future goNotifyPage(BuildContext context){

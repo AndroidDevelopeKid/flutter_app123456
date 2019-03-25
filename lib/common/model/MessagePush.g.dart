@@ -8,7 +8,7 @@ part of 'MessagePush.dart';
 
 MessagePush _$MessagePushFromJson(Map<String, dynamic> json) {
   return MessagePush(
-      json['id'] as String, json['isRead'] as bool, json['msg'] as String);
+      json['id'] as String, json['isRead'] as int, json['msg'] as String);
 }
 
 Map<String, dynamic> _$MessagePushToJson(MessagePush instance) =>

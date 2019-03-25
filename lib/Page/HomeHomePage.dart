@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app123456/Page/NoticePage.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/CustomerDao.dart';
+import 'package:flutter_app123456/common/dao/NoticeDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Customer.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
@@ -37,46 +38,50 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
   var flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
   //var platform = MethodChannel('message.io/notice');
   @override
-  void initState() {
+  void initState(){
     // TODO: implement initState
     super.initState();
     //初始化本地通知
     var initializationSettingsAndroid = new AndroidInitializationSettings('icon_msg');
     //var initializationSettingsIOS = new IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, null);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
-    var timer = new Timer.periodic(const Duration(milliseconds: 5000), (Void){
+    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: null);//onSelectNotification
+    var timer = new Timer.periodic(const Duration(seconds: 180), (Void) async{
       //这里调用消息接口
+      var notifications = await NoticeDao.getPagedUserNotifications(0,0);
+      if(notifications != null && notifications.result && notifications.data["result"]["unreadCount"] != 0){
+        //有未读消息，提示
+        _showNotification();
+      }
 
-      _showNotification();
-      print("timer: " + "sss");
+      print("timer notifications: " + notifications.data.toString());
     });
 
   }
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    //payload 可作为通知的一个标记，区分点击的通知。
-    if(payload != null && payload == "complete") {
-      await Navigator.push(
-        context,
-        new MaterialPageRoute(builder: (context) => new NoticePage()),
-      );
-    }
-  }
+//  Future onSelectNotification(String payload) async {
+//    if (payload != null) {
+//      debugPrint('notification payload: ' + payload);
+//    }
+//    //payload 可作为通知的一个标记，区分点击的通知。
+//    if(payload != null && payload == "complete") {
+//      await Navigator.push(
+//        context,
+//        new MaterialPageRoute(builder: (context) => new NoticePage()),
+//      );
+//    }
+//  }
   Future _showNotification() async {
     //安卓的通知配置，必填参数是渠道id, 名称, 和描述, 可选填通知的图标，重要度等等。
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description',
         importance: Importance.Max, priority: Priority.High);
     //IOS的通知配置
-//    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
-        androidPlatformChannelSpecifics, null);
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     //显示通知，其中 0 代表通知的 id，用于区分通知。
     await flutterLocalNotificationsPlugin.show(
-        0, 'title', 'content', platformChannelSpecifics,
+        0, '您有新的消息', '', platformChannelSpecifics,
         payload: 'complete');
   }
   //删除单个通知
@@ -139,7 +144,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.FREIGHT_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                NavigatorUtils.goFreightInquiry(context);
+                CommonUtils.showShort("敬请期待...");
+                //NavigatorUtils.goFreightInquiry(context);
               },
               tooltip: "运费查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -159,7 +165,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.REFUEL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                NavigatorUtils.goRefuelInquiry(context);
+                CommonUtils.showShort("敬请期待...");
+                //NavigatorUtils.goRefuelInquiry(context);
               },
               tooltip: "加油查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -179,7 +186,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.TOLL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                NavigatorUtils.goTollInquiry(context);
+                CommonUtils.showShort("敬请期待...");
+                //NavigatorUtils.goTollInquiry(context);
               },
               tooltip: "过路费查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -199,7 +207,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.MAINTENANCE_FEE_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                NavigatorUtils.goMaintenanceFeeInquiry(context);
+                CommonUtils.showShort("敬请期待...");
+                //NavigatorUtils.goMaintenanceFeeInquiry(context);
               },
               tooltip: "维修费查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -219,7 +228,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.OTHER_COST_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                NavigatorUtils.goOtherCostInquiry(context);
+                CommonUtils.showShort("敬请期待...");
+                //NavigatorUtils.goOtherCostInquiry(context);
               },
               tooltip: "其他费用查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -239,7 +249,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.CURRENT_ASSIGN_CUSTOMER, size: Config.ICON_SIZE),
               onPressed: (){
-                NavigatorUtils.goCurrentAssignCustomer(context);
+                CommonUtils.showShort("敬请期待...");
+                //NavigatorUtils.goCurrentAssignCustomer(context);
               },
               tooltip: "当前指派客户",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),

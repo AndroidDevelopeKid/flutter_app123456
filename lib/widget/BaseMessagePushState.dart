@@ -1,5 +1,9 @@
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_app123456/Page/MessageDetailPage.dart';
+import 'package:flutter_app123456/common/dao/NoticeDao.dart';
 import 'package:flutter_app123456/common/model/MessagePush.dart';
+import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/CustomListState.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +16,27 @@ abstract class BaseMessagePushState<T extends StatefulWidget> extends State<T> w
   ///渲染item
   @protected
   renderItem(index, VoidCallback refreshCallBack){
-//    if(index == 0){
-//      return null;
-//    }else{
-      return new MessageItem(MessageItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]), onPressed: (){
-        NavigatorUtils.goDisplayMessageDetail(context);
+      return new MessageItem(MessageItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]), onPressed: () async{
+        //设置此消息为已读
+        var res = await NoticeDao.makeNotificationAsRead(MessageItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]).id);
+        if(res != null && res.result){
+          //跳转详情
+          Navigator.push(context, new CupertinoPageRoute(builder: (context){
+            return new MessageDetailPage(MessageItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]));
+          },
+          ),).then((isRefresh){
+            print("tiaozhuan shua xin: " + isRefresh.toString());
+            if(isRefresh){
+              handleRefresh();
+            }
+          }
+          );
+
+        }
+        if(res != null && !res.result){
+          CommonUtils.showShort("显示信息详情失败");
+        }
+
       },);
 //    }
 

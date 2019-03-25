@@ -18,50 +18,29 @@ class MessageItem extends StatelessWidget {
           onPressed: onPressed,
           child:
           new Container(
-            padding: const EdgeInsets.all(32.0),
-            child: new Row(
+            padding: const EdgeInsets.all(10.0),
+            child: new Column(
               children: [
-
-                new Expanded(
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      new Container(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: new Text(
-                          messageItemViewModel.isRead == false ? "未读" : "已读",
-                          style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Image.asset(CustomIcons.MESSAGE_IMAGE),
+                        new Text(
+                          messageItemViewModel.isRead == 0 ? "未读" : "已读",
                         ),
-                      ),
-                      new Text(
-                        messageItemViewModel.msg,
-                        style: new TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
+                new Padding(padding: EdgeInsets.all(10.0)),
+                new Row(
+                  children: <Widget>[
+                  new Text(
+                    messageItemViewModel.msg,
                   ),
-                ),
-                new Image.asset(CustomIcons.MESSAGE_IMAGE),
-//                new Icon(
-//                  Icons.star,
-//                  color: Colors.red[500],
-//                ),
-//                new Text('41'),
+                ],),
               ],
             ),
           ),
-//          new Padding(
-//            padding: new EdgeInsets.only(
-//                left: 0.0, top: 5.0, right: 0.0, bottom: 10.0),
-//            child: new Row(
-//                children: <Widget>[
-//                  new Expanded(child: new Text(messageItemViewModel.msg, style: CustomConstant.smallTextBold)),
-//            ]),
-//
-//          ),
         ),
       ),
 
@@ -70,12 +49,14 @@ class MessageItem extends StatelessWidget {
 }
 
 class MessageItemViewModel {
-  bool isRead;
+  int isRead;
   String msg;
+  String id;
 
   MessageItemViewModel.fromMap(MessagePush msgPush) {
     isRead = msgPush.isRead;
     msg = msgPush.msg;
+    id = msgPush.id;
   }
 
 

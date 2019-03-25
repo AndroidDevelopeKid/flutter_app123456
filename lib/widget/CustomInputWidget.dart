@@ -26,6 +26,7 @@ class _CustomInputWidgetState extends State<CustomInputWidget>{
   Widget build(BuildContext context){
     return new TextField(
       controller: widget.controller,
+      //style: new TextStyle(color: Colors.white),
       onChanged: widget.onChanged,
       obscureText: widget.obscureText,
       decoration: new InputDecoration(

@@ -39,9 +39,13 @@ class CustomIcons{
   static const String MAINTENANCE_FEE_INQUIRY_IMAGE = "lib/static/images/maintenancefee.ico";
   static const String OTHER_COST_INQUIRY_IMAGE = "lib/static/images/othercost.ico";
   static const String CURRENT_ASSIGN_CUSTOMER_IMAGE = "lib/static/images/currentassgincustomer.ico";
-  static const String MESSAGE_IMAGE = "lib/static/images/message.ico";
+  static const String MESSAGE_IMAGE = "lib/static/images/message32.ico";
+  static const String LOGIN_BACKGROUND_IMAGE = "lib/static/images/welcome04.jpeg";
   ///列表左侧小图标
   static const String LEFT_DISPLAY_IMAGE = "lib/static/images/leftdisplay02.ico";
+
+  ///登录页图标
+  static const String LOGIN_IMAGE = "lib/static/images/login_ic.ico";
 
 
   static const IconData LOGIN_COMPANY = const IconData(0xe84f, fontFamily: CustomIcons.FONT_FAMILY);
@@ -78,6 +82,8 @@ class CustomIcons{
   static const IconData HOME_MY = const IconData(0xe853, fontFamily: CustomIcons.FONT_FAMILY);
   
   static const IconData USER_NOTIFY = const IconData(0xe87f, fontFamily: CustomIcons.FONT_FAMILY);
+
+
 }
 
 class CustomConstant{

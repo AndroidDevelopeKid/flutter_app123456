@@ -54,7 +54,7 @@ class FlutterReduxApp extends StatelessWidget {
             ///本地化委托，用于更改Flutter Widget默认的提示语，按钮text等
             locale:store.state.locale,///区域
             supportedLocales: [store.state.locale],///支持区域，传入支持的语种组数
-
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               // This is the theme of your application.
               //

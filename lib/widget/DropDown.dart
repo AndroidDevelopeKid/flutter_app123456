@@ -30,6 +30,7 @@ class Dropdown extends StatelessWidget {
                 child: Text(
                   value,
                   overflow: TextOverflow.ellipsis,
+                  //style: new TextStyle(color: Colors.white),
                   maxLines: 1,
                 ),
               );
