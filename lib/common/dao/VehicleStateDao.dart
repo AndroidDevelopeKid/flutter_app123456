@@ -9,11 +9,11 @@ import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 
 class VehicleStateDao{
-  static getVehicleStateInfo(vehicleCode) async{
+  static getVehicleStateInfo(tenantId, userId) async{
     next() async {
       var res;
-      if(vehicleCode != null){
-        res = await HttpManager.netFetch(Address.getVehicleState() + "?VehicleCode=${vehicleCode}", null, null, null);
+      if(tenantId != null && userId != null){
+        res = await HttpManager.netFetch(Address.getVehicleState() + "?TenantId=${int.parse(tenantId)}&UserId=${userId}", null, null, null);
       }else{
         res = new DataResult("获取车辆状态失败", false);
       }
@@ -22,7 +22,7 @@ class VehicleStateDao{
         LocalStorage.save(Config.VEHICLE_STATE, json.encode(res.data["result"]));
         print("vehicleStateInfo.ls" + json.encode(res.data["result"]));
 
-        return new DataResult("获取车辆状态成功", true);
+        return new DataResult(json.encode(res.data["result"]), true);
 
       }else{
         return new DataResult(res.data, false);

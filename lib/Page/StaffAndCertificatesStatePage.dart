@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/DriverDao.dart';
+import 'package:flutter_app123456/common/dao/StaffAndCertificatesStateDao.dart';
 import 'package:flutter_app123456/common/dao/UserDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
@@ -29,6 +30,11 @@ class _StaffAndCertificatesStatePageState
 
   Future<List<StaffAndCertificatesState>> fetchData() async {
     var staffList = await LocalStorage.get(Config.STAFF_AND_CERTIFICATES_STATE);
+    if(staffList == null){
+      var userId = await LocalStorage.get(Config.USER_ID);
+      var staffs = await StaffAndCertificatesStateDao.getStaffAndCertificatesStateInfo(Config.TENANT, userId);
+      staffList = staffs.data;
+    }
     if (staffList != null) {
       List<dynamic> list = json.decode(staffList);
       print("list of staffList::" + list.toString());

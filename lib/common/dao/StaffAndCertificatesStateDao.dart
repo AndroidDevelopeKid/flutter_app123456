@@ -9,11 +9,11 @@ import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 
 class StaffAndCertificatesStateDao{
-  static getStaffAndCertificatesStateInfo(driverIdNumber) async{
+  static getStaffAndCertificatesStateInfo(tenantId, userId) async{
     next() async {
       var res;
-      if(driverIdNumber != null){
-        res = await HttpManager.netFetch(Address.getStaffAndCertificatesState() + "?DriverIdNumber=${driverIdNumber}", null, null, null);
+      if(tenantId != null && userId != null){
+        res = await HttpManager.netFetch(Address.getStaffAndCertificatesState() + "?TenantId=${int.parse(tenantId)}&UserId=${userId}", null, null, null);
       }else{
         res = new DataResult("获取人员及证照状态失败", false);
       }
@@ -23,7 +23,7 @@ class StaffAndCertificatesStateDao{
         LocalStorage.save(Config.STAFF_AND_CERTIFICATES_STATE, json.encode(res.data["result"]));
         print("staffAndCertificatesStateInfo.ls" + json.encode(res.data["result"]));
 
-        return new DataResult("获取人员及证照状态成功", true);
+        return new DataResult(json.encode(res.data["result"]), true);
 
       }else{
         return new DataResult(res.data, false);

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/DriverDao.dart';
 import 'package:flutter_app123456/common/dao/UserDao.dart';
+import 'package:flutter_app123456/common/dao/VehicleStateDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
 import 'package:flutter_app123456/common/model/VehicleState.dart';
@@ -33,6 +34,12 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
 
   Future<List<VehicleState>> fetchData() async {
     var vehicleStateList = await LocalStorage.get(Config.VEHICLE_STATE);
+    if(vehicleStateList == null){
+      var userId = await LocalStorage.get(Config.USER_ID);
+      var vehicleStates = await VehicleStateDao.getVehicleStateInfo(Config.TENANT, userId);
+      vehicleStateList = vehicleStates.data;
+      print("first in this: " + vehicleStates.data.toString());
+    }
     if (vehicleStateList != null) {
       List<dynamic> list = json.decode(vehicleStateList);
       print("list of vehicleStateList::" + list.toString());

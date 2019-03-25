@@ -92,15 +92,15 @@ class UserDao{
         LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
         print("driverinfo.ls" + json.encode(driver.toJson()));
 
-        var vehicleResult = await VehicleDao.getVehicleInfo(driver.vehicleCode);
-        if(Config.DEBUG){
-          print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
-        }
-        var staffAndCertificatesStateResult = await StaffAndCertificatesStateDao.getStaffAndCertificatesStateInfo(driver.driverIDNumber);
-        print("getstaffAndCertificatesStateinfo:" + staffAndCertificatesStateResult.data.toString());
-
-        var vehicleStateResult = await VehicleStateDao.getVehicleStateInfo(driver.vehicleCode);
-        print("getvehicleStateinfo:" + vehicleStateResult.data.toString());
+//        var vehicleResult = await VehicleDao.getVehicleInfo(driver.vehicleCode);
+//        if(Config.DEBUG){
+//          print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
+//        }
+//        var staffAndCertificatesStateResult = await StaffAndCertificatesStateDao.getStaffAndCertificatesStateInfo(driver.driverIDNumber);
+//        print("getstaffAndCertificatesStateinfo:" + staffAndCertificatesStateResult.data.toString());
+//
+//        var vehicleStateResult = await VehicleStateDao.getVehicleStateInfo(driver.vehicleCode);
+//        print("getvehicleStateinfo:" + vehicleStateResult.data.toString());
 
         return new DataResult(driver, true);
 
