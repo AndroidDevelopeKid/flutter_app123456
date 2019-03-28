@@ -13,7 +13,8 @@ class Queue{
       this.queueChangeDateTime,
       this.queueDateTime,
       this.queueSource,
-      this.queueState
+      this.queueState,
+      this.message
       );
   String vehicleCode;
   String mainVehiclePlate;
@@ -25,6 +26,7 @@ class Queue{
   String queueSource;
   String queueChangeDateTime;
   String id;
+  String message;
 
   factory Queue.fromJson(Map<String, dynamic> json) => _$QueueFromJson(json);
 

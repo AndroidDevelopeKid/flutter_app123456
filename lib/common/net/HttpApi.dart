@@ -102,11 +102,11 @@ class HttpManager{
       }
 
       if(Config.DEBUG){
-        print('请求异常: ' + e.toString());
+        print('请求异常: ' + e.response.data.toString() + "---" + e.response.statusCode.toString());
         print('请求异常url: ' + url);
       }
 
-      return new ResultData("请求失败", false, errorResponse.statusCode);
+      return new ResultData(errorResponse.data, false, errorResponse.statusCode);
       //return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
 
     }

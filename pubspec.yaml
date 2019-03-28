@@ -40,6 +40,7 @@ dependencies:
   flutter_local_notifications: ^0.5.2
   animated_floatactionbuttons: ^0.1.0
   qr_flutter: ^2.0.0
+  common_utils: ^1.1.1
 
 dev_dependencies:
   flutter_test:

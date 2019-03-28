@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/DriverDao.dart';
@@ -82,79 +83,79 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
                     TableRow(
                         children: <Widget>[
                           Text("车辆编号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleCode == null ? "无": snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车牌号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.mainVehiclePlate == null ? "无" : snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("物流公司：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.ouDisplayName, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ouDisplayName == null ? "无" : snapshot.data.ouDisplayName, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车辆类型：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleTypeText == null ? "无" : snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("业务类型：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.vehicleBusinessTypeText, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleBusinessTypeText == null ? "无" : snapshot.data.vehicleBusinessTypeText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车型：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleTypeText == null ? "无" : snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车辆状态：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.vehicleStateText, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleStateText == null ? "无": snapshot.data.vehicleStateText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车主姓名：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.ownerName, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ownerName == null ? "无" : snapshot.data.ownerName, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车主身份证号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.ownerIDNumber, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.ownerIDNumber == null ? "无" : snapshot.data.ownerIDNumber, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车主联系方式：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.ownerPhone, style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.ownerPhone == null ? "无" : snapshot.data.ownerPhone, style: CustomConstant.normalTextBlack)
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车架号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.trailerFrameNumber, style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.trailerFrameNumber == null ? "无" : snapshot.data.trailerFrameNumber, style: CustomConstant.normalTextBlack)
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("发动机编号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.engineNumber, style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.engineNumber == null ? "无" : snapshot.data.engineNumber, style: CustomConstant.normalTextBlack)
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("加盟日期：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.joiningDate == null ? "0000-00-00" : snapshot.data.joiningDate.toString().substring(0,9), style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.joiningDate == null ? "0000-00-00" : snapshot.data.joiningDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
                         ]
                     ),
                   ],

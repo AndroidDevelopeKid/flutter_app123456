@@ -27,6 +27,8 @@ class Config{
   static const STAFF_AND_CERTIFICATES_STATE = "staff-and-certificates-state";
   static const NOTICE_NEW = "notice-new";
   static const QUEUE_INFO = "queue-info";
+  static const LASTED_DELIVERY_ORDER = "lasted-delivery-order";
+  static const HISTORY_DELIVERY_ORDER = "history-delivery-order";
 
   static const USER_BASIC_CODE = "user-basic-code";
 

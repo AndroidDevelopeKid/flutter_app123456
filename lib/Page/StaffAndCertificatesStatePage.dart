@@ -98,35 +98,35 @@ class _StaffAndCertificatesStatePageState
           children: <TableRow>[
             TableRow(children: <Widget>[
               Text("业务类型：", style: CustomConstant.normalTextBlack),
-              Text(subject.businessType == null ? "空" : subject.businessType.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.businessType == null ? "无" : subject.businessType.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("车辆编号：", style: CustomConstant.normalTextBlack),
-              Text(subject.vehicleCode == null ? "空" : subject.vehicleCode.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.vehicleCode == null ? "无" : subject.vehicleCode.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("车务状态：", style: CustomConstant.normalTextBlack),
-              Text(subject.vehicleAffairsStatusText == null ? "空" : subject.vehicleAffairsStatusText.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.vehicleAffairsStatusText == null ? "无" : subject.vehicleAffairsStatusText.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("车务类型：", style: CustomConstant.normalTextBlack),
-              Text(subject.vehicleAffairsTypeText == null ? "空" : subject.vehicleAffairsTypeText.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.vehicleAffairsTypeText == null ? "无" : subject.vehicleAffairsTypeText.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("办理类型：", style: CustomConstant.normalTextBlack),
-              Text(subject.handleType == null ? "空" : subject.handleType.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.handleType == null ? "无" : subject.handleType.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("办理状态：", style: CustomConstant.normalTextBlack),
-              Text(subject.handleStatusText == null ? "空" : subject.handleStatusText.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.handleStatusText == null ? "无" : subject.handleStatusText.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("状态标识：", style: CustomConstant.normalTextBlack),
-              Text(subject.vehicleStateFlag == null ? "空" : subject.vehicleStateFlag.toString(), style: CustomConstant.normalTextBlack),
+              Text(subject.vehicleStateFlag == null ? "无" : subject.vehicleStateFlag.toString(), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("备注：", style: CustomConstant.normalTextBlack),
-              Text(subject.description == null ? "空" : subject.description.toString(), style: CustomConstant.normalTextBlack, maxLines: 3,),
+              Text(subject.description == null ? "无" : subject.description.toString(), style: CustomConstant.normalTextBlack, maxLines: 3,),
             ]),
           ],
         ),

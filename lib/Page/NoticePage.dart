@@ -74,12 +74,16 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
       for(int i = 0; i < itemList.length; i++){
         print("notifications in noticePage item" + i.toString() + ":" + itemList[i]["notification"]["data"]["messageText"].toString());
         var msg = itemList[i]["notification"]["data"]["messageText"].toString();
-        print("NoticePage msg: " + msg);
+        var messageSource = itemList[i]["notification"]["data"]["messageSource"].toString();
+        var messageFlag = itemList[i]["notification"]["data"]["messageFlag"].toString();
+        var senderUserName = itemList[i]["notification"]["data"]["senderUserName"].toString();
+        var creationTime = itemList[i]["notification"]["creationTime"].toString();
+        print("NoticePage msg: " + msg + messageSource + messageFlag + senderUserName + creationTime);
         var isRead = itemList[i]["state"];
         print("NoticePage isRead: " + isRead.toString());
         var id = itemList[i]["id"];
         print("NoticePage id: " + id.toString());
-        messagePushList.add(new MessagePush(id.toString(), isRead, msg));
+        messagePushList.add(new MessagePush(id.toString(), isRead, msg, senderUserName, messageSource, messageFlag, creationTime));
       }
       return new DataResult(messagePushList, true);
     }

@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/DriverDao.dart';
@@ -94,79 +95,79 @@ class _UserInfoPageState extends State<UserInfoPage>{
                   TableRow(
                       children: <Widget>[
                         Text("身份证号：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.driverIDNumber, style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.driverIDNumber == null ? "无" : snapshot.data.driverIDNumber.toString(), style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                     children: <Widget>[
                       Text("姓名：", style: CustomConstant.normalTextBlack),
-                      Text(snapshot.data.driverName, style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.driverName == null ? "无" : snapshot.data.driverName.toString(), style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("电话号码：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.driverPhone, style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.driverPhone == null ? "无" : snapshot.data.driverPhone.toString(), style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("所属物流公司：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.ouDisplayName.toString(), style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.ouDisplayName == null ? "无" : snapshot.data.ouDisplayName.toString(), style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("人员类型：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.personTypeText, style: CustomConstant.normalTextBlack),
+                        Text(snapshot.data.personTypeText == null ? "无" : snapshot.data.personTypeText.toString(), style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                     children: <Widget>[
                       Text("车辆编号：", style: CustomConstant.normalTextBlack),
-                      Text(snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.vehicleCode == null ? "无" : snapshot.data.vehicleCode.toString(), style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                     children: <Widget>[
                       Text("身份证到期日期：", style: CustomConstant.normalTextBlack),
-                      Text(snapshot.data.certificateEndDate == null ? "0000-00-00" : snapshot.data.certificateEndDate.toString().substring(0,9), style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.certificateEndDate == null ? "0000-00-00" : snapshot.data.certificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                     children: <Widget>[
                       Text("人员状态：", style: CustomConstant.normalTextBlack),
-                      Text(snapshot.data.personStateText, style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.personStateText == null ? "无" : snapshot.data.personStateText.toString(), style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
                     children: <Widget>[
                       Text("备用联系人：", style: CustomConstant.normalTextBlack),
-                      Text(snapshot.data.buckupContactPerson, style: CustomConstant.normalTextBlack)
+                      Text(snapshot.data.buckupContactPerson == null ? "无" : snapshot.data.buckupContactPerson.toString(), style: CustomConstant.normalTextBlack)
                     ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("备用联系地址：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.buckupContactPersonAddress, style: CustomConstant.normalTextBlack)
+                        Text(snapshot.data.buckupContactPersonAddress == null ? "无" : snapshot.data.buckupContactPersonAddress.toString(), style: CustomConstant.normalTextBlack)
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("备用联系方式：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.buckupContactPersonPhone, style: CustomConstant.normalTextBlack)
+                        Text(snapshot.data.buckupContactPersonPhone == null ? "无" : snapshot.data.buckupContactPersonPhone.toString(), style: CustomConstant.normalTextBlack)
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("驾驶证号：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.driverLicenseID, style: CustomConstant.normalTextBlack)
+                        Text(snapshot.data.driverLicenseID == null ? "无" : snapshot.data.driverLicenseID.toString(), style: CustomConstant.normalTextBlack)
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
                         Text("驾驶证到期日期：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.dlCertificateEndDate == null ? "0000-00-00" : snapshot.data.dlCertificateEndDate.toString().substring(0,9), style: CustomConstant.normalTextBlack)
+                        Text(snapshot.data.dlCertificateEndDate == null ? "0000-00-00" : snapshot.data.dlCertificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
                       ]
                   ),
                 ],
@@ -193,33 +194,4 @@ class _UserInfoPageState extends State<UserInfoPage>{
 
   }
   ///************************************************************
-
-
-
-
-
-//
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return new Scaffold(
-//        appBar: new AppBar(
-//            title: new Text("数据显示"),
-//            ),
-//
-//        body:
-//
-//        new Card(
-//          color: Color(CustomColors.displayUsernameBackground),
-//          margin: const EdgeInsets.only(left: 20.0, top: 60.0, right: 20.0, bottom: 60),
-//          child: new Center(
-//            child: new Text(
-//              "显示对应的信息！",
-//              style: CustomConstant.normalTextBlack,
-//            ),
-//          ),
-//
-//        ),
-//    );
-//  }
 }

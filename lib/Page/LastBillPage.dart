@@ -1,40 +1,196 @@
-
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_app123456/common/dao/DeliveryOrderDao.dart';
+import 'package:flutter_app123456/common/model/DeliveryOrder.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
+import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
+import 'package:qr/qr.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:common_utils/common_utils.dart';
 
-class LastBillPage extends StatefulWidget{
+class LastBillPage extends StatefulWidget {
   static final String name = "LastBill";
 
-  LastBillPage({Key key}) : super(key:key);
+  LastBillPage({Key key}) : super(key: key);
 
   _LastBillPage createState() => _LastBillPage();
 }
 
-class _LastBillPage extends State<LastBillPage>{
+class _LastBillPage extends State<LastBillPage> {
+
+
+  Future<DeliveryOrder> deliveryOrder;
+
+  Future<DeliveryOrder> fetchData() async {
+    var lastedDeliveryOrder =
+        await DeliveryOrderDao.getLastedDeliveryOrderRecords();
+    if (lastedDeliveryOrder != null && lastedDeliveryOrder.result) {
+      return DeliveryOrder.fromJson(lastedDeliveryOrder.data["result"]);
+    }
+    if (lastedDeliveryOrder != null && !lastedDeliveryOrder.result) {
+      return DeliveryOrder.fromJson(lastedDeliveryOrder.data["error"]);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    deliveryOrder = fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("最新提货单"),
       ),
-
-      body:
-
-      new Card(
+      body: new Card(
         color: Color(CustomColors.displayCardBackground),
-        margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
-        child: new Center(
-          child: new Text(
-            "显示对应的信息！",
-            style: CustomConstant.normalTextBlack,
-          ),
-        ),
+        //margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
+        margin: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 4.0, right: 4.0),
+        elevation: 8.0,
+        child: new Container(
+          child: FutureBuilder<DeliveryOrder>(
+            future: deliveryOrder,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                //return Text(snapshot.data.vehicleCode);
+                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 500.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,);
+                return new Table(
+                  border: TableBorder.all(
+                      color: Colors.white,
+                      width: 2.0,
+                      style: BorderStyle.solid),
+                  children: <TableRow>[
+                    TableRow(children: <Widget>[
+                      Text("车辆编号：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.vehicleCode == null
+                              ? "无"
+                              : snapshot.data.vehicleCode,
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("车牌号：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.mainVehiclePlate == null
+                              ? "无"
+                              : snapshot.data.mainVehiclePlate,
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("组织名称：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.organizationUnitName == null
+                              ? "无"
+                              : snapshot.data.organizationUnitName,
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("生成时间：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.generateDate == null
+                              ? "00-00 00:00"
+                              : TimelineUtil.formatByDateTime(
+                                  DateTime.parse(snapshot.data.generateDate)),
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("来源：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.sourceText == null
+                              ? "无"
+                              : snapshot.data.sourceText,
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("提货单状态：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.deliveryOrderState == null
+                              ? "无"
+                              : snapshot.data.deliveryOrderState.toString(),
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("提货单编号：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.deliveryOrderCode == null
+                              ? "无"
+                              : snapshot.data.deliveryOrderCode.toString(),
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("随机编号：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.randomNumber == null
+                              ? "无"
+                              : snapshot.data.randomNumber,
+                          style: CustomConstant.normalTextBlack),
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("运输供应商编号：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.transSupplierNumber == null
+                              ? "无"
+                              : snapshot.data.transSupplierNumber,
+                          style: CustomConstant.normalTextBlack)
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("煤种：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.coalText == null
+                              ? "无"
+                              : snapshot.data.coalText,
+                          style: CustomConstant.normalTextBlack)
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("备注：", style: CustomConstant.normalTextBlack),
+                      Text(
+                          snapshot.data.message == null
+                              ? "无"
+                              : snapshot.data.message,
+                          style: CustomConstant.normalTextBlack)
+                    ]),
+                    TableRow(children: <Widget>[
+                      Text("二维码：", style: CustomConstant.normalTextBlack),
+                      new Container(
+                        child: GestureDetector(
+                            onTap: (){
+                              NavigatorUtils.goBarCodeEnlarge(context, image);
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4.0),
+                              child: Hero(
+                                tag: 'image',
+                                child: new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 200.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,),
+                              ),
+                            )
+                        ),
+                      ),
+                    ]
+                    ),
 
+
+                  ],
+                );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            },
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(
+              color: Colors.white,
+              width: 0.7,
+              style: BorderStyle.solid,
+            ),
+          ),
+          padding:
+              EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0, bottom: 12.0),
+        ),
       ),
     );
   }
-
-
 }

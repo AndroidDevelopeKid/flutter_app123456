@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app123456/Page/BarCodeEnlargePage.dart';
 import 'package:flutter_app123456/Page/CurrentAssignCustomerPage.dart';
 import 'package:flutter_app123456/Page/FreightInquiryPage.dart';
 import 'package:flutter_app123456/Page/HistoryBillPage.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_app123456/Page/LoginPage.dart';
 import 'package:flutter_app123456/Page/VehicleArchivesPage.dart';
 import 'package:flutter_app123456/Page/VehicleStatePage.dart';
 import 'package:flutter_app123456/widget/MessageItem.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 ///控制页面跳转逻辑
 class NavigatorUtils{
@@ -57,6 +59,10 @@ class NavigatorUtils{
   ///当前指派客户
   static goCurrentAssignCustomer(BuildContext context){
     Navigator.push(context, new CupertinoPageRoute(builder: (context) => new CurrentAssignCustomerPage()));
+  }
+  ///当前指派客户
+  static goBarCodeEnlarge(BuildContext context, QrImage image){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new BarCodeEnlargePage(image)));
   }
   ///显示人员档案，车辆档案，人员及证件状态，车辆状态页
   static goDisplayUserInfo(BuildContext context, String title){

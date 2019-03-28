@@ -17,7 +17,8 @@ Queue _$QueueFromJson(Map<String, dynamic> json) {
       json['queueChangeDateTime'] as String,
       json['queueDateTime'] as String,
       json['queueSource'] as String,
-      json['queueState'] as String);
+      json['queueState'] as String,
+      json['message'] as String);
 }
 
 Map<String, dynamic> _$QueueToJson(Queue instance) => <String, dynamic>{
@@ -30,5 +31,6 @@ Map<String, dynamic> _$QueueToJson(Queue instance) => <String, dynamic>{
       'frontTotalQueueVehicleAmount': instance.frontTotalQueueVehicleAmount,
       'queueSource': instance.queueSource,
       'queueChangeDateTime': instance.queueChangeDateTime,
-      'id': instance.id
+      'id': instance.id,
+      'message': instance.message
     };

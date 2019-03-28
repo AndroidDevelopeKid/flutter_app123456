@@ -210,8 +210,9 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                             });
                           }
                           if(res != null && !res.result){
+                            print("手动接单 错误提示： " + res.data.toString());
                             new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("此车辆有未完成的提货单，不允许排队");
+                              CommonUtils.showShort("" + res.data["error"]["message"].toString());
                               return true;
                             });
                           }
@@ -239,7 +240,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                           }
                           if(res != null && !res.result){
                             new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("取消排队失败");
+                              CommonUtils.showShort("" + res.data["error"]["message"].toString());
                               return true;
                             });
                           }
@@ -267,7 +268,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                           }
                           if(res != null && !res.result){
                             new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("刷新排队失败");
+                              CommonUtils.showShort("" + res.data["error"]["message"].toString());
                               return true;
                             });
                           }

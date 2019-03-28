@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
@@ -28,6 +29,9 @@ class _QueueInfoPage extends State<QueueInfoPage>{
       var queueInfoCallInterface = await GrabSheetDao.getCurrentQueueInfo();
       if(queueInfoCallInterface != null && queueInfoCallInterface.result){
         return Queue.fromJson(queueInfoCallInterface.data["result"]);
+      }
+      if(queueInfoCallInterface != null && !queueInfoCallInterface.result){
+        return Queue.fromJson(queueInfoCallInterface.data["error"]);
       }
     }else{
       Queue queueData = Queue.fromJson(json.decode(queueInfo));
@@ -70,55 +74,61 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                     TableRow(
                         children: <Widget>[
                           Text("车辆编号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.vehicleCode == null ? "空" : snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.vehicleCode == null ? "无" : snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("车牌号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.mainVehiclePlate == null ? "空" : snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.mainVehiclePlate == null ? "无" : snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("司机身份证号：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.driverIDCardNumber == null ? "空" : snapshot.data.driverIDCardNumber, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.driverIDCardNumber == null ? "无" : snapshot.data.driverIDCardNumber, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("排队时间：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.queueDateTime == null ? "0000-00-00" : snapshot.data.queueDateTime.toString(), style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.queueDateTime == null ? "00-00 00:00" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("排队状态：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.queueState == null ? "空" : snapshot.data.queueState, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.queueState == null ? "无" : snapshot.data.queueState, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("还需等待内部车辆排队数量：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.frontInnerQueueVehicleAmount == null ? "空" : snapshot.data.frontInnerQueueVehicleAmount.toString(), style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.frontInnerQueueVehicleAmount == null ? "无" : snapshot.data.frontInnerQueueVehicleAmount.toString(), style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("还需等待全部车辆排队数量：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.frontTotalQueueVehicleAmount == null ? "空" : snapshot.data.frontTotalQueueVehicleAmount.toString(), style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.frontTotalQueueVehicleAmount == null ? "无" : snapshot.data.frontTotalQueueVehicleAmount.toString(), style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("排队来源：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.queueSource == null ? "空" : snapshot.data.queueSource, style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.queueSource == null ? "无" : snapshot.data.queueSource, style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
                         children: <Widget>[
                           Text("排队变化时间：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.queueChangeDateTime == null ? "0000-00-00" : snapshot.data.queueChangeDateTime.toString().substring(0,9), style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.queueChangeDateTime == null ? "00-00 00:00" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueChangeDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack)
+                        ]
+                    ),
+                    TableRow(
+                        children: <Widget>[
+                          Text("备注：", style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.message == null ? "无" : snapshot.data.message, style: CustomConstant.normalTextBlack)
                         ]
                     ),
                   ],

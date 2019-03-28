@@ -61,6 +61,10 @@ class Address{
   static makeNotificationAsRead(){
     return "${host}services/app/Notifications/MakeNotificationAsRead";
   }
+  ///获取最新提货单
+  static getLastedDeliveryOrderRecords(){
+    return "${host}services/app/DeliveryOrderRecord/GetNowDeliveryOrderRecordsAsync";
+  }
 
   ///处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]){

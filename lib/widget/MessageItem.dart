@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/model/MessagePush.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
@@ -33,9 +34,14 @@ class MessageItem extends StatelessWidget {
                     ),
                 new Padding(padding: EdgeInsets.all(10.0)),
                 new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                   new Text(
-                    messageItemViewModel.msg,
+                    messageItemViewModel.msg == "null" ? "无内容" : messageItemViewModel.msg,
+                  ),
+                  new Text(
+                    messageItemViewModel.creationTime == "null" ? "几天前" : TimelineUtil.formatByDateTime(DateTime.parse(messageItemViewModel.creationTime), dayFormat: DayFormat.Simple),
                   ),
                 ],),
               ],
@@ -52,11 +58,19 @@ class MessageItemViewModel {
   int isRead;
   String msg;
   String id;
+  String messageSource;
+  String messageFlag;
+  String senderUserName;
+  String creationTime;
 
   MessageItemViewModel.fromMap(MessagePush msgPush) {
     isRead = msgPush.isRead;
     msg = msgPush.msg;
     id = msgPush.id;
+    messageFlag = msgPush.messageFlag;
+    messageSource = msgPush.messageSource;
+    senderUserName = msgPush.senderUserName;
+    creationTime = msgPush.creationTime;
   }
 
 

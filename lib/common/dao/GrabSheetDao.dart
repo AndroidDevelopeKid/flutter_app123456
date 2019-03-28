@@ -21,7 +21,7 @@ class GrabSheetDao{
       if(res != null && res.result){
         return DataResult(res.data, res.result);
       }else{
-        return DataResult("", false);
+        return DataResult(res.data, false);
       }
   }
   static driverGrabSheetQueue() async {
@@ -33,7 +33,7 @@ class GrabSheetDao{
         return DataResult(res.data, res.result);
 
       }else{
-        return DataResult("", false);
+        return DataResult(res.data, false);
       }
 
   }
@@ -45,7 +45,7 @@ class GrabSheetDao{
       if(res != null && res.result){
         return DataResult(res.data, res.result);
       }else{
-        return DataResult("", false);
+        return DataResult(res.data, false);
       }
   }
   static getCurrentQueueInfo() async{
@@ -58,7 +58,7 @@ class GrabSheetDao{
         LocalStorage.save(Config.QUEUE_INFO, json.encode(queue.toJson()));
         return DataResult(res.data, res.result);
       }else{
-        return DataResult("", false);
+        return DataResult(res.data, false);
       }
   }
 }
