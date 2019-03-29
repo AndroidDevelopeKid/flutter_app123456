@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/localization/DefaultLocalizations.dart';
+import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/style/CustomStringBase.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_statusbar/flutter_statusbar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 ///通用工具
 class CommonUtils{
 
@@ -66,5 +68,30 @@ class CommonUtils{
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1,
     );
+  }
+
+  ///版本更新
+  static Future<Null> showUpdateDialog(BuildContext context, String contentMsg) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("版本更新"),
+            content: new Text(contentMsg),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: new Text("取消")),
+              new FlatButton(
+                  onPressed: () {
+                    launch(Address.updateUrl);
+                    Navigator.pop(context);
+                  },
+                  child: new Text("确定")),
+            ],
+          );
+        });
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter_app123456/common/config/Config.dart';
 
 class Address{
   static const String host = "http://10.1.9.167/api/";
+  static const String hostGit = "https://api.github.com/";
+  static const String updateUrl = "";
 
   ///获取授权 post
   static getAuthorization(){
@@ -66,6 +68,15 @@ class Address{
     return "${host}services/app/DeliveryOrderRecord/GetNowDeliveryOrderRecordsAsync";
   }
 
+  ///仓release get
+  static getReposRelease(reposOwner, reposName) {
+    return "${hostGit}repos/$reposOwner/$reposName/releases";
+  }
+
+  ///仓Tag get
+  static getReposTag(reposOwner, reposName) {
+    return "${hostGit}repos/$reposOwner/$reposName/tags";
+  }
   ///处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]){
     if(page != null){
