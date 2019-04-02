@@ -1,11 +1,14 @@
 
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/ResultDao.dart';
 import 'package:flutter_app123456/common/model/Release.dart';
 import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
+import 'package:flutter_app123456/common/net/HttpApiForGit.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info/package_info.dart';
@@ -20,10 +23,10 @@ class ReposDao{
         ? Address.getReposRelease(userName, reposName) + Address.getPageParams("?", page)
         : Address.getReposTag(userName, reposName) + Address.getPageParams("?", page);
 
-    var res = await HttpManager.netFetch(
+    var res = await HttpManagerForGit.netFetchForGit(
         url,
         null,
-        {"Accept": (needHtml ? 'application/vnd.github.html,application/vnd.github.VERSION.raw' : "")},
+        {"Accept": (needHtml ? 'application/vnd.github.html,application/vnd.github.VERSION.raw' : ""),},
         null
     );
     if (res != null && res.result && res.data.length > 0) {

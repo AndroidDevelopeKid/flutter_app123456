@@ -30,10 +30,12 @@ class Config{
   static const LASTED_DELIVERY_ORDER = "lasted-delivery-order";
   static const HISTORY_DELIVERY_ORDER = "history-delivery-order";
 
-  static const USER_BASIC_CODE = "user-basic-code";
+
 
 
   ///github outh apps
   static const CLIENT_ID = "95b42efb94167eac0678";
   static const CLIENT_SECRET = "cc87c33f85e77a48fd2a3e2a866b4e13133e442f";
+  static const USER_BASIC_CODE_GIT = "user-basic-code-git";
+  static const TOKEN_KEY_GIT = "token-key-git";
 }

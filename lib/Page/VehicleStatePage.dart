@@ -66,6 +66,7 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
     //return new StoreBuilder<CustomState>(
     //  builder: (context, store) {
     return new Scaffold(
+      backgroundColor: CustomColors.listBackground,
         appBar: new AppBar(
           title: new Text("车辆状态"),
         ),
@@ -99,7 +100,7 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
       child: new Container(
         child: new Table(
           border: TableBorder.all(
-              color: Colors.white, width: 2.0, style: BorderStyle.solid),
+              color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
           children: <TableRow>[
             TableRow(children: <Widget>[
               Text("业务类型：", style: CustomConstant.normalTextBlack),
@@ -138,7 +139,7 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-            color: Colors.white,
+            color: CustomColors.listBackground,
             width: 0.7,
             style: BorderStyle.solid,
           ),

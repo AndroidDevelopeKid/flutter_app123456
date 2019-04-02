@@ -11,7 +11,9 @@ class CustomColors{
   static const int subLightTextColor = 0xffc4c4c4;
 
   static const int displayUsernameBackground = 0xFFF44336;
-  static const int displayCardBackground = 0xFFF5F5DC;
+  static const int displayCardBackground = 0xFFFFFFFF;//0xFFF5F5DC;
+  static const int tableBorderColor = 0XFF7F7F7F;
+  static const Color listBackground = Colors.blue;
 
   static const String toastBackgroundColor = "#63CA6C";
   static const String toastTextColor = "#ffffff";

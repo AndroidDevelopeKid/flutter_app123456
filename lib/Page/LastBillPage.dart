@@ -41,6 +41,7 @@ class _LastBillPage extends State<LastBillPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: CustomColors.listBackground,
       appBar: new AppBar(
         title: new Text("最新提货单"),
       ),
@@ -55,10 +56,10 @@ class _LastBillPage extends State<LastBillPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 //return Text(snapshot.data.vehicleCode);
-                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 500.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,);
+                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 400.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,);
                 return new Table(
                   border: TableBorder.all(
-                      color: Colors.white,
+                      color: Color(CustomColors.tableBorderColor),
                       width: 2.0,
                       style: BorderStyle.solid),
                   children: <TableRow>[
@@ -182,7 +183,7 @@ class _LastBillPage extends State<LastBillPage> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
-              color: Colors.white,
+              color: CustomColors.listBackground,
               width: 0.7,
               style: BorderStyle.solid,
             ),

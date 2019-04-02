@@ -16,6 +16,7 @@ class _HistoryBillPage extends State<HistoryBillPage>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: CustomColors.listBackground,
       appBar: new AppBar(
         title: new Text("历史提货单"),
       ),

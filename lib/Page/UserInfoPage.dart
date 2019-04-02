@@ -70,6 +70,7 @@ class _UserInfoPageState extends State<UserInfoPage>{
     //return new StoreBuilder<CustomState>(
     //  builder: (context, store) {
     return new Scaffold(
+      backgroundColor: CustomColors.listBackground,
       appBar: new AppBar(
         title: new Text("人员档案"),
       ),
@@ -90,7 +91,7 @@ class _UserInfoPageState extends State<UserInfoPage>{
 //                  0: FixedColumnWidth(100.0),
 //                  1: FixedColumnWidth(100.0)
 //                },
-                border: TableBorder.all(color: Colors.white, width: 2.0, style: BorderStyle.solid),
+                border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
                 children: <TableRow>[
                   TableRow(
                       children: <Widget>[
@@ -181,7 +182,7 @@ class _UserInfoPageState extends State<UserInfoPage>{
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
-              color: Colors.white,
+              color: CustomColors.listBackground,
               width: 0.7,
               style: BorderStyle.solid,
             ),

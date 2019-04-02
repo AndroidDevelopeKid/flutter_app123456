@@ -62,6 +62,7 @@ class _StaffAndCertificatesStatePageState
     //return new StoreBuilder<CustomState>(
     //  builder: (context, store) {
     return new Scaffold(
+      backgroundColor: CustomColors.listBackground,
       appBar: new AppBar(
         title: new Text("人员及证件状态"),
       ),
@@ -94,7 +95,7 @@ class _StaffAndCertificatesStatePageState
       child: new Container(
         child: new Table(
           border: TableBorder.all(
-              color: Colors.white, width: 2.0, style: BorderStyle.solid),
+              color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
           children: <TableRow>[
             TableRow(children: <Widget>[
               Text("业务类型：", style: CustomConstant.normalTextBlack),
@@ -133,7 +134,7 @@ class _StaffAndCertificatesStatePageState
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-            color: Colors.white,
+            color: CustomColors.listBackground,
             width: 0.7,
             style: BorderStyle.solid,
           ),

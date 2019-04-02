@@ -23,6 +23,7 @@ class _MessageDetailPage extends State<MessageDetailPage>{
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
+          backgroundColor: CustomColors.listBackground,
           appBar: new AppBar(
             title: new Text("信息显示"),
           ),
@@ -35,7 +36,7 @@ class _MessageDetailPage extends State<MessageDetailPage>{
             elevation: 8.0,
             child: new Container(
               child:new Table(
-                border: TableBorder.all(color: Colors.white, width: 2.0, style: BorderStyle.solid),
+                border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
                 children: <TableRow>[
                   TableRow(
                       children: <Widget>[
@@ -72,7 +73,7 @@ class _MessageDetailPage extends State<MessageDetailPage>{
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
-                  color: Colors.white,
+                  color: CustomColors.listBackground,
                   width: 0.7,
                   style: BorderStyle.solid,
                 ),

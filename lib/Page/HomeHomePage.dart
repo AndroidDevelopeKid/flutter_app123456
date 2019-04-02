@@ -9,6 +9,7 @@ import 'package:flutter_app123456/Page/NoticePage.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/CustomerDao.dart';
 import 'package:flutter_app123456/common/dao/NoticeDao.dart';
+import 'package:flutter_app123456/common/dao/ReposDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Customer.dart';
 import 'package:flutter_app123456/common/model/Driver.dart';
@@ -41,6 +42,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
   void initState(){
     // TODO: implement initState
     super.initState();
+    //检查版本更新
+    ReposDao.getNewsVersion(context, false);
     //初始化本地通知
     var initializationSettingsAndroid = new AndroidInitializationSettings('icon_msg');
     //var initializationSettingsIOS = new IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);

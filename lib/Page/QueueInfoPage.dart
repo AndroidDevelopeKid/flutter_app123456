@@ -48,6 +48,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: CustomColors.listBackground,
       appBar: new AppBar(
         title: new Text("排队信息"),
       ),
@@ -69,7 +70,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
 //                  0: FixedColumnWidth(100.0),
 //                  1: FixedColumnWidth(100.0)
 //                },
-                  border: TableBorder.all(color: Colors.white, width: 2.0, style: BorderStyle.solid),
+                  border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
                   children: <TableRow>[
                     TableRow(
                         children: <Widget>[
@@ -142,7 +143,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
-              color: Colors.white,
+              color: CustomColors.listBackground,
               width: 0.7,
               style: BorderStyle.solid,
             ),
