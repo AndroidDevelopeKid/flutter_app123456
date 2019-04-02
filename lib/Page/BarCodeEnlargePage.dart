@@ -27,8 +27,7 @@ class _BarCodeEnlargePage extends State<BarCodeEnlargePage>{
       appBar: new AppBar(
         title: new Text("二维码"),
       ),
-      body:
-      new Center(
+      body: new Center(
         child: Card(
           color: Color(CustomColors.displayCardBackground),
           //margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
