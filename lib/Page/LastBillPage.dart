@@ -56,7 +56,7 @@ class _LastBillPage extends State<LastBillPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 //return Text(snapshot.data.vehicleCode);
-                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 400.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,);
+                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 350.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,);
                 return new Table(
                   border: TableBorder.all(
                       color: Color(CustomColors.tableBorderColor),
