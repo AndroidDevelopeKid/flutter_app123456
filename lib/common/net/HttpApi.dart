@@ -54,8 +54,8 @@ class HttpManager{
     //没有网络情况
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if(connectivityResult == ConnectivityResult.none){
-      return new ResultData("网络错误", false, Code.NETWORK_ERROR);
-      //return new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", noTip), false, Code.NETWORK_ERROR);
+      //return new ResultData("网络错误", false, Code.NETWORK_ERROR);
+      return new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", noTip), false, Code.NETWORK_ERROR);
 
     }
 
@@ -145,8 +145,8 @@ class HttpManager{
       print(e.toString());
       return new ResultData(response.data, false, response.statusCode);
     }
-    return new ResultData("登录请求失败", false, response.statusCode);
-    //return new ResultData(Code.errorHandleFunction(response.statusCode, "", noTip), false, response.statusCode);
+    //return new ResultData("登录请求失败", false, response.statusCode);
+    return new ResultData(Code.errorHandleFunction(response.statusCode, "", noTip), false, response.statusCode);
 
 
 
