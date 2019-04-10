@@ -161,17 +161,18 @@ class _LoginPageState extends State<LoginPage>{
                           }
                           CommonUtils.showLoadingDialog(context);
                           UserDao.login(_company.trim(), _userName.trim(), _password.trim(), store).then((res){
-                            Navigator.pop(context);
+                            //Navigator.pop(context);
                             if(res != null && res.result){
                               new Future.delayed(const Duration(seconds: 1), (){
                                 NavigatorUtils.goHome(context);
                                 return true;
                               });
                             }
-                            if(res != null && !res.result){
-                              CommonUtils.showShort(res.data.toString());
-                              return false;
-                            }
+//                            if(res != null && !res.result){
+//
+//                              CommonUtils.showShort(res.data.toString());
+//                              return false;
+//                            }
                           }
                           );
                         },
