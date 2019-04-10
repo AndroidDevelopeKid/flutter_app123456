@@ -140,28 +140,28 @@ class _CustomLocalizationsState extends State<CustomLocalizations> {
         Fluttertoast.showToast(msg: CommonUtils
             .getLocale(context)
             .networkError);
-        Navigator.pop(context);
+        //Navigator.pop(context);
         break;
       case 401:
 
         Fluttertoast.showToast(msg: CommonUtils
             .getLocale(context)
             .networkError_401);
-        Navigator.pop(context);
+        //Navigator.pop(context);
         break;
       case 403:
 
         Fluttertoast.showToast(msg: CommonUtils
             .getLocale(context)
             .networkError_403);
-        Navigator.pop(context);
+        //Navigator.pop(context);
         break;
       case 404:
 
         Fluttertoast.showToast(msg: CommonUtils
             .getLocale(context)
             .networkError_404);
-        Navigator.pop(context);
+        //Navigator.pop(context);
         break;
       case Code.NETWORK_TIMEOUT:
       //超时
@@ -169,14 +169,14 @@ class _CustomLocalizationsState extends State<CustomLocalizations> {
         Fluttertoast.showToast(msg: CommonUtils
             .getLocale(context)
             .networkErrorTimeout);
-        Navigator.pop(context);
+        //Navigator.pop(context);
         break;
       default:
 
         Fluttertoast.showToast(msg: CommonUtils
             .getLocale(context)
             .networkErrorUnknown + " " + message);
-        Navigator.pop(context);
+        //Navigator.pop(context);
         break;
     }
   }

@@ -25,7 +25,7 @@ class CustomStringZh extends CustomStringBase{
   @override
   String networkError = "网络错误";
   @override
-  String networkError_401 = "[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]";
+  String networkError_401 = "401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期";
   @override
   String networkError_403 = "403权限错误";
   @override
@@ -33,7 +33,7 @@ class CustomStringZh extends CustomStringBase{
   @override
   String networkErrorTimeout = "请求超时";
   @override
-  String networkErrorUnknown = "其他异常";
+  String networkErrorUnknown = "其他异常:";
 
   ///主页tab
   @override
