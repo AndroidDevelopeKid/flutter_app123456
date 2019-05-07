@@ -33,7 +33,7 @@ class DeliveryOrder{
   String mainVehiclePlate;
   int source;
   String sourceText;
-  int deliveryOrderState;
+  String deliveryOrderState;
   String deliveryOrderCode;
   String randomNumber;
   String transSupplierNumber;

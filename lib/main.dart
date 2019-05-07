@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_app123456/Page/LoginPage.dart';
 import 'package:flutter_app123456/Page/WelcomePage.dart';
+import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/event/HttpErrorEvent.dart';
+import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_picker/PickerLocalizationsDelegate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -131,6 +133,7 @@ class _CustomLocalizationsState extends State<CustomLocalizations> {
       stream.cancel();
       stream = null;
     }
+
   }
 
   errorHandleFunction(int code, message) {

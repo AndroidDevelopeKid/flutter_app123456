@@ -164,6 +164,7 @@ class _LoginPageState extends State<LoginPage>{
 
                             if(res != null && res.result){
                               new Future.delayed(const Duration(seconds: 1), (){
+
                                 NavigatorUtils.goHome(context);
                                 return true;
                               });

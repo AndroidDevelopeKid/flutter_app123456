@@ -42,6 +42,17 @@ class UserDao{
     ///清除授权
     HttpManager.clearAuthorization();
 
+    ///清空LocalStorage
+    await LocalStorage.remove(Config.DRIVER_ARCHIVES);
+    await LocalStorage.remove(Config.DRIVER_NAME);
+    await LocalStorage.remove(Config.USER_ID);
+    await LocalStorage.remove(Config.VEHICLE_ARCHIVES);
+    await LocalStorage.remove(Config.VEHICLE_STATE);
+    await LocalStorage.remove(Config.STAFF_AND_CERTIFICATES_STATE);
+    await LocalStorage.remove(Config.QUEUE_INFO);
+    await LocalStorage.remove(Config.LASTED_DELIVERY_ORDER);
+    await LocalStorage.remove(Config.HISTORY_DELIVERY_ORDER);
+
     Map requestParams = {
       //"tenancyName": "default",
       "usernameOrEmailAddress": userName,

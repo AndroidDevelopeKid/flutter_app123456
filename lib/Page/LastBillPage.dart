@@ -56,7 +56,7 @@ class _LastBillPage extends State<LastBillPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 //return Text(snapshot.data.vehicleCode);
-                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 350.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H);
+                var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 350.0, version: 9, errorCorrectionLevel: QrErrorCorrectLevel.H);
                 return new Table(
                   border: TableBorder.all(
                       color: Color(CustomColors.tableBorderColor),
@@ -109,7 +109,7 @@ class _LastBillPage extends State<LastBillPage> {
                       Text(
                           snapshot.data.deliveryOrderState == null
                               ? "无"
-                              : snapshot.data.deliveryOrderState.toString(),
+                              : snapshot.data.deliveryOrderState,
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
@@ -117,7 +117,7 @@ class _LastBillPage extends State<LastBillPage> {
                       Text(
                           snapshot.data.deliveryOrderCode == null
                               ? "无"
-                              : snapshot.data.deliveryOrderCode.toString(),
+                              : snapshot.data.deliveryOrderCode,
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
@@ -163,7 +163,7 @@ class _LastBillPage extends State<LastBillPage> {
                               borderRadius: BorderRadius.circular(4.0),
                               child: Hero(
                                 tag: 'image',
-                                child: new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 200.0, version: 8, errorCorrectionLevel: QrErrorCorrectLevel.H,),
+                                child: new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 200.0, version: 9, errorCorrectionLevel: QrErrorCorrectLevel.H,),
                               ),
                             )
                         ),

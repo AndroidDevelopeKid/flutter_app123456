@@ -14,7 +14,7 @@ DeliveryOrder _$DeliveryOrderFromJson(Map<String, dynamic> json) {
       json['barcode'] as String,
       json['coalText'] as String,
       json['deliveryOrderCode'] as String,
-      json['deliveryOrderState'] as int,
+      json['deliveryOrderState'] as String,
       json['generateDate'] as String,
       json['generatePerson'] as String,
       json['generateType'] as String,
