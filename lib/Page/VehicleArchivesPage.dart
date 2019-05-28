@@ -38,6 +38,10 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
     if(vehicleArchives == null){
       var userId = await LocalStorage.get(Config.USER_ID);
       var resultDataVehicle = await VehicleDao.getVehicleInfo(Config.TENANT, userId);
+      if(resultDataVehicle.data == null){
+        var dataNull = new Vehicle(0, "无", "无", "无", "无", "无", "无", "无", "无", "无", 0, "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", 0, "无", "无", "无");
+        return dataNull;
+      }
       return resultDataVehicle.data;
     }
     Vehicle vehicleData = Vehicle.fromJson(json.decode(vehicleArchives));
@@ -49,8 +53,6 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
     super.initState();
     vehicle = fetchData();
   }
-
-
 
   @override
   Widget build(BuildContext context) {

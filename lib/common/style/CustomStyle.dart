@@ -43,6 +43,7 @@ class CustomIcons{
   static const String CURRENT_ASSIGN_CUSTOMER_IMAGE = "lib/static/images/currentassgincustomer.ico";
   static const String MESSAGE_IMAGE = "lib/static/images/message32.ico";
   static const String LOGIN_BACKGROUND_IMAGE = "lib/static/images/welcome04.jpeg";
+  static const String HISTORY_BILL_SUB = "lib/static/images/historybillsub.ico";
   ///列表左侧小图标
   static const String LEFT_DISPLAY_IMAGE = "lib/static/images/leftdisplay02.ico";
 

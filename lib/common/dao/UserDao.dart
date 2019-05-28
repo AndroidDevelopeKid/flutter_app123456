@@ -98,10 +98,11 @@ class UserDao{
       }
       if(res != null && res.result){
         print("driverInfo: " + res.data.toString());
-        Driver driver = Driver.fromJson(res.data["result"]);
-        LocalStorage.save(Config.DRIVER_NAME, driver.driverName);
-        LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
-        print("driverinfo.ls" + json.encode(driver.toJson()));
+        if(res.data["result"] != null){
+          Driver driver = Driver.fromJson(res.data["result"]);
+          LocalStorage.save(Config.DRIVER_NAME, driver.driverName);
+          LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
+          print("driverinfo.ls" + json.encode(driver.toJson()));
 
 //        var vehicleResult = await VehicleDao.getVehicleInfo(driver.vehicleCode);
 //        if(Config.DEBUG){
@@ -112,9 +113,10 @@ class UserDao{
 //
 //        var vehicleStateResult = await VehicleStateDao.getVehicleStateInfo(driver.vehicleCode);
 //        print("getvehicleStateinfo:" + vehicleStateResult.data.toString());
-
-        return new DataResult(driver, true);
-
+          return new DataResult(driver, true);
+        }else{
+          return new DataResult(null, true);
+        }
       }else{
         return new DataResult(res.data, false);
       }

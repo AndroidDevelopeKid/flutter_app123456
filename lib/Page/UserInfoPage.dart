@@ -37,7 +37,12 @@ class _UserInfoPageState extends State<UserInfoPage>{
       if(driverArchives == null){
         var userId = await LocalStorage.get(Config.USER_ID);
         var resultDataDriver = await UserDao.getUserInfo(Config.TENANT, userId);
-        return resultDataDriver.data;
+        if(resultDataDriver.data == null){
+          var dataNull = new Driver("无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无");
+          return dataNull;
+        }else{
+          return resultDataDriver.data;
+        }
       }else{
         Driver driverData = Driver.fromJson(json.decode(driverArchives));
         return driverData;

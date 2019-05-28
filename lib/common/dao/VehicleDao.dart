@@ -19,11 +19,16 @@ class VehicleDao{
       }
       if(res != null && res.result){
         print("vehicleInfo: " + res.data.toString());
-        Vehicle vehicle = Vehicle.fromJson(res.data["result"][0]);
-        LocalStorage.save(Config.VEHICLE_ARCHIVES, json.encode(vehicle.toJson()));
-        print("driverinfo.ls" + json.encode(vehicle.toJson()));
+        if(res.data["result"] != null){
+          Vehicle vehicle = Vehicle.fromJson(res.data["result"][0]);
+          LocalStorage.save(Config.VEHICLE_ARCHIVES, json.encode(vehicle.toJson()));
+          print("driverinfo.ls" + json.encode(vehicle.toJson()));
 
-        return new DataResult(vehicle, true);
+          return new DataResult(vehicle, true);
+        }else{
+          return DataResult(null, true);
+        }
+
 
       }else{
         return new DataResult(res.data, false);

@@ -19,11 +19,13 @@ class StaffAndCertificatesStateDao{
       }
       if(res != null && res.result){
         print("staffAndCertificatesStateInfo: " + res.data.toString());
-
-        LocalStorage.save(Config.STAFF_AND_CERTIFICATES_STATE, json.encode(res.data["result"]));
-        print("staffAndCertificatesStateInfo.ls" + json.encode(res.data["result"]));
-
-        return new DataResult(json.encode(res.data["result"]), true);
+        if(res.data["result"] != null){
+          LocalStorage.save(Config.STAFF_AND_CERTIFICATES_STATE, json.encode(res.data["result"]));
+          print("staffAndCertificatesStateInfo.ls" + json.encode(res.data["result"]));
+          return new DataResult(json.encode(res.data["result"]), true);
+        }else{
+          return new DataResult(null, true);
+        }
 
       }else{
         return new DataResult(res.data, false);

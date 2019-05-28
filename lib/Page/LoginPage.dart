@@ -189,17 +189,4 @@ class _LoginPageState extends State<LoginPage>{
     });
   }
 
-
-//  showPickerModal(BuildContext context) {
-//    new Picker(
-//        adapter: PickerDataAdapter<String>(pickerdata: new JsonDecoder().convert(CompanyPicker)),
-//        changeToFirst: true,
-//        hideHeader: false,
-//        onConfirm: (Picker picker, List value) {
-//          print(value.toString());
-//          _company = picker.adapter.text;
-//          print(picker.adapter.text);
-//        }
-//    ).showModal(this.context);
-//  }
 }
