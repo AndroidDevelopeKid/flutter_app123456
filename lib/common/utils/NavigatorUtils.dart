@@ -60,7 +60,7 @@ class NavigatorUtils{
   static goCurrentAssignCustomer(BuildContext context){
     Navigator.push(context, new CupertinoPageRoute(builder: (context) => new CurrentAssignCustomerPage()));
   }
-  ///当前指派客户
+  ///放大二维码
   static goBarCodeEnlarge(BuildContext context, QrImage image){
     Navigator.push(context, new CupertinoPageRoute(builder: (context) => new BarCodeEnlargePage(image)));
   }

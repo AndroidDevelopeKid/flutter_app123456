@@ -79,111 +79,105 @@ class _LoginPageState extends State<LoginPage>{
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child:
-//        Scaffold(
-//          resizeToAvoidBottomPadding: false,//键盘弹出覆盖，不重新布局
-//          backgroundColor: Colors.white,
-//          body: Stack(
-//            children: <Widget>[
-//              Background(),
-//            ],
-//          ),
-//
-//        ),
         Scaffold(
           resizeToAvoidBottomPadding: false,//键盘弹出覆盖，不重新布局
-          body: new Container(
-            decoration: new BoxDecoration(
-              image: loginBackgroundImage,
+          body: //new SingleChildScrollView(
+              //child:
+              new Container(
+                decoration: new BoxDecoration(
+                  image: loginBackgroundImage,
 
-            ),
-            //color: Theme.of(context).primaryColor,
-            child: new Center(
-              child:
-             new Card(
-                ///阴影大小，默认2.0
-                elevation: 5.0,
-                shape: new RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                ///背景色
-                color: Color(CustomColors.cardWhite),
-                margin: const EdgeInsets.only(left: 50.0, right: 50.0),
-                child:
-                new Padding(
-                  padding: new EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0, bottom: 0.0),
-                  child: new Column(
-                    ///主轴方向上的对齐方式，默认start，center是将children放置在主轴中心
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    ///在主轴方向占有空间的值，默认是max，最大化主轴方向的可用空间，min相反
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      //new Image.asset(CustomIcons.DEFAULT_USER_ICON, width: 80.0, height: 80.0),
+                ),
+                //color: Theme.of(context).primaryColor,
+                child: new Center(
+                  child:
+                  new Card(
+                    ///阴影大小，默认2.0
+                    elevation: 5.0,
+                    shape: new RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    ///背景色
+                    color: Color(CustomColors.cardWhite),
+                    margin: const EdgeInsets.only(left: 50.0, right: 50.0),
+                    child:
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0, bottom: 0.0),
+                      child: new Column(
+                        ///主轴方向上的对齐方式，默认start，center是将children放置在主轴中心
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        ///在主轴方向占有空间的值，默认是max，最大化主轴方向的可用空间，min相反
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          //new Image.asset(CustomIcons.DEFAULT_USER_ICON, width: 80.0, height: 80.0),
 
 
-                      new Padding(padding: new EdgeInsets.all(10.0)),
-                      new Dropdown(
-                        items: CompanyList,
-                        value: _company,
-                        onChanged: _onCompanySelected,
-                        isExpanded: false,
-                      ),
-                      new Padding(padding: new EdgeInsets.all(10.0)),
-                      new CustomInputWidget(
-                        hintText: CommonUtils.getLocale(context).loginUsernameHintText,
-                        iconData: CustomIcons.LOGIN_USER,
-                        onChanged: (String value){
-                          _userName = value;
-                        },
-                        controller: userController,
-                      ),
-                      new Padding(padding: new EdgeInsets.all(10.0)),
-                      new CustomInputWidget(
-                        hintText: '密码',
-                        iconData: CustomIcons.LOGIN_PW,
-                        obscureText: true,
-                        onChanged: (String value){
-                          _password = value;
-                        },
-                        controller: pwController,
-                      ),
-                      new Padding(padding: new EdgeInsets.all(25.0)),
-                      new CustomFlexButton(
-                        text:  CommonUtils.getLocale(context).loginText,
-                        color: Theme.of(context).primaryColor,
-                        textColor: Color(CustomColors.textWhite),
-                        onPress: (){
-                          if(_company == null || _company.length == 0){
-                            return;
-                          }
-                          if(_userName == null || _userName.length == 0){
-                            return;
-                          }
-                          if(_password == null || _password.length == 0){
-                            return;
-                          }
-                          CommonUtils.showLoadingDialog(context);
-                          UserDao.login(_company.trim(), _userName.trim(), _password.trim(), store).then((res){
-                            if(res != null && res.result){
-                              new Future.delayed(const Duration(seconds: 1), (){
+                          new Padding(padding: new EdgeInsets.all(10.0)),
+                          new Dropdown(
+                            items: CompanyList,
+                            value: _company,
+                            onChanged: _onCompanySelected,
+                            isExpanded: false,
+                          ),
+                          new Padding(padding: new EdgeInsets.all(10.0)),
+                          new CustomInputWidget(
+                            hintText: CommonUtils.getLocale(context).loginUsernameHintText,
+                            iconData: CustomIcons.LOGIN_USER,
+                            onChanged: (String value){
+                              _userName = value;
+                            },
+                            controller: userController,
+                          ),
+                          new Padding(padding: new EdgeInsets.all(10.0)),
+                          new CustomInputWidget(
+                            hintText: '密码',
+                            iconData: CustomIcons.LOGIN_PW,
+                            obscureText: true,
+                            onChanged: (String value){
+                              _password = value;
+                            },
+                            controller: pwController,
+                          ),
+                          new Padding(padding: new EdgeInsets.all(25.0)),
+                          new CustomFlexButton(
+                            text:  CommonUtils.getLocale(context).loginText,
+                            color: Theme.of(context).primaryColor,
+                            textColor: Color(CustomColors.textWhite),
+                            onPress: (){
+                              if(_company == null || _company.length == 0){
+                                return;
+                              }
+                              if(_userName == null || _userName.length == 0){
+                                return;
+                              }
+                              if(_password == null || _password.length == 0){
+                                return;
+                              }
+                              CommonUtils.showLoadingDialog(context);
+                              UserDao.login(_company.trim(), _userName.trim(), _password.trim(), store).then((res){
+                                if(res != null && res.result){
+                                  new Future.delayed(const Duration(seconds: 1), (){
 
-                                NavigatorUtils.goHome(context);
-                                return true;
-                              });
-                            }
-                            Navigator.pop(context);
-                            if(res != null && !res.result){
-                              CommonUtils.showShort(res.data["error"]["details"]);
-                              return false;
-                            }
-                          }
-                          );
-                        },
+                                    NavigatorUtils.goHome(context);
+                                    return true;
+                                  });
+                                }
+                                Navigator.pop(context);
+                                if(res != null && !res.result){
+                                  CommonUtils.showShort(res.data["error"]["details"]);
+                                  return false;
+                                }
+                              }
+                              );
+                            },
+                          ),
+                          new Padding(padding: new EdgeInsets.all(20.0)),
+                        ],
                       ),
-                      new Padding(padding: new EdgeInsets.all(20.0)),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
+          //),
+
         ),
       );
     });

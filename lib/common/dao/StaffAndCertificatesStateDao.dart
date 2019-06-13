@@ -13,7 +13,7 @@ class StaffAndCertificatesStateDao{
     next() async {
       var res;
       if(tenantId != null && userId != null){
-        res = await HttpManager.netFetch(Address.getStaffAndCertificatesState() + "?TenantId=${int.parse(tenantId)}&UserId=${userId}", null, null, null);
+        res = await HttpManager.netFetch(Address.getStaffAndCertificatesState(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
       }else{
         res = new DataResult("获取人员及证照状态失败", false);
       }

@@ -52,6 +52,7 @@ class UserDao{
     await LocalStorage.remove(Config.QUEUE_INFO);
     await LocalStorage.remove(Config.LASTED_DELIVERY_ORDER);
     await LocalStorage.remove(Config.HISTORY_DELIVERY_ORDER);
+    await LocalStorage.remove(Config.DISPATCH_ASSIGN);
 
     Map requestParams = {
       //"tenancyName": "default",
@@ -92,7 +93,7 @@ class UserDao{
     next() async {
       var res;
       if(userId != null && tenantId != null){
-        res = await HttpManager.netFetch(Address.getDriverArchives() + "?TenantId=${int.parse(tenantId)}&UserId=${userId}", null, null, null);
+        res = await HttpManager.netFetch(Address.getDriverArchives(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
       }else{
         res = new DataResult("匿名", false);
       }
@@ -118,7 +119,7 @@ class UserDao{
           return new DataResult(null, true);
         }
       }else{
-        return new DataResult(res.data, false);
+        return new DataResult(null, false);
       }
     }
     return await next();

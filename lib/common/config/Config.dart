@@ -3,7 +3,8 @@ class Config{
   static const TENANT = "1";
   static const DEBUG = true;
 
-  static const PAGE_SIZE = 10;
+  static const PAGE_SIZE = 5;
+  static const NOTICE_PAGE_SIZE = 10;
   static const ICON_SIZE = 60.0;
   static const ICON_RIGHT_PADDING = 35.0;
 
@@ -23,6 +24,7 @@ class Config{
   static const DRIVER_NAME = "driver-name";
   static const USER_ID = "user-id";
   static const VEHICLE_ARCHIVES = "vehicle-archives";
+  static const DISPATCH_ASSIGN = "dispatch-assign";
   static const VEHICLE_STATE = "vehicle-state";
   static const STAFF_AND_CERTIFICATES_STATE = "staff-and-certificates-state";
   static const NOTICE_NEW = "notice-new";

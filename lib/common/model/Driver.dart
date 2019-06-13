@@ -5,33 +5,33 @@ part 'Driver.g.dart';
 class Driver{
   //bool isAddToUser;
   //int originalOUId;
-  String ouDisplayName;
-  String vehicleCode;
+  String ouDisplayName;//所属物流公司
+  String vehicleCode;//车辆编号
   //String signingOrganization;
-  String buckupContactPerson;
-  String buckupContactPersonPhone;
-  String buckupContactPersonAddress;
+  String buckupContactPerson;//备用联系人
+  String buckupContactPersonPhone;//备用联系方式
+  String buckupContactPersonAddress;//备用联系地址
   //String address;
   //String birthDate;
   //String certificateStartDate;
-  String certificateEndDate;
+  String certificateEndDate;//身份证到期日期
   //String nation;
   //String nationText;
-  String driverIDNumber;
-  String driverName;
-  String driverPhone;
+  String driverIDNumber;//身份证号
+  String driverName;//姓名
+  String driverPhone;//联系电话
   //String belongVehicleTypeText;
-  String personTypeText;
-  String personStateText;
+  String personTypeText;//人员类型
+  String personStateText;//人员状态
   //String joiningDate;
   //String expectedWorkDate;
-  String dlCertificateEndDate;
+  String dlCertificateEndDate;//驾驶证到期日期
   //String dlCertificateYears;
   //String dlCertificateFirstDate;
   //String residenceTypeText;
   //String oprationLicenseID;
   //String workLicenseEndDate;
-  String driverLicenseID;
+  String driverLicenseID;//驾驶证号
   Driver(
 //      this.address,
 //      this.belongVehicleTypeText,

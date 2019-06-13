@@ -13,7 +13,7 @@ class VehicleStateDao{
     next() async {
       var res;
       if(tenantId != null && userId != null){
-        res = await HttpManager.netFetch(Address.getVehicleState() + "?TenantId=${int.parse(tenantId)}&UserId=${userId}", null, null, null);
+        res = await HttpManager.netFetch(Address.getVehicleState(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
       }else{
         res = new DataResult("获取车辆状态失败", false);
       }

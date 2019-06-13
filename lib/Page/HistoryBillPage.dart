@@ -18,7 +18,7 @@ class HistoryBillPage extends StatefulWidget{
 class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
   ///消息颜色
   Color planColor = const Color(CustomColors.subLightTextColor);
-  int skipCountGlobal = 5;
+  int skipCountGlobal = 10;
   int skipCountInit = 0;
   _refreshNotify(){
     if(isShow){
@@ -76,7 +76,7 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
     // TODO: implement requestLoadMore
     var dataLoadMore = await _getData(skipCountGlobal);
     if(dataLoadMore.result){
-      skipCountGlobal = skipCountGlobal + Config.PAGE_SIZE;
+      skipCountGlobal = skipCountGlobal + Config.NOTICE_PAGE_SIZE;
       print("skipCountGlobal : " + skipCountGlobal.toString());
     }
     return dataLoadMore;
