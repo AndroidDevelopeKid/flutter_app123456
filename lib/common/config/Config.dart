@@ -1,6 +1,6 @@
 class Config{
 
-  static const TENANT = "1";
+  static const TENANT = "3";
   static const DEBUG = true;
 
   static const PAGE_SIZE = 5;
