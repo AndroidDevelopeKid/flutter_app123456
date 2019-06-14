@@ -11,8 +11,16 @@ import 'package:flutter_app123456/common/net/HttpApi.dart';
 
 class GrabSheetDao{
   static driverAutoGrabSheetSwitch(state) async {
+      var s;
+      if(state = true)
+      {
+        s = 1;
+      }else{
+        s = 2;
+      }
+
       Map requestParams = {
-        "state" : state
+        "state" : s
       };
       var res = await HttpManager.netFetch(Address.driverAutoGrabSheetSwitch(), json.encode(requestParams), null, new Options(method: 'post'));
       if(Config.DEBUG){
