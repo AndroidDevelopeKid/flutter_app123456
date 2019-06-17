@@ -161,8 +161,12 @@ class _LoginPageState extends State<LoginPage>{
                                   });
                                 }
                                 Navigator.pop(context);
-                                if(res != null && !res.result){
-                                  CommonUtils.showShort(res.data["error"]["details"]);
+                                if(!res.result){
+                                  if(res.data == null){
+                                    CommonUtils.showShort("访问异常");
+                                  }else{
+                                    CommonUtils.showShort(res.data["error"]["details"].toString());
+                                  }
                                   return false;
                                 }
                               }
