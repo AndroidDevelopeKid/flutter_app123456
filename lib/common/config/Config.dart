@@ -3,7 +3,7 @@ class Config{
   static const TENANT = "3";
   static const DEBUG = true;
 
-  static const PAGE_SIZE = 5;
+  static const PAGE_SIZE = 10;
   static const NOTICE_PAGE_SIZE = 10;
   static const ICON_SIZE = 60.0;
   static const ICON_RIGHT_PADDING = 35.0;

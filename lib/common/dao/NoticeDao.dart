@@ -11,9 +11,9 @@ class NoticeDao{
   static getPagedUserNotifications(readState, skipCount) async {
     var res;
     if(readState == null){
-      res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?MaxResultCount=${Config.PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
+      res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?MaxResultCount=${Config.NOTICE_PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
     }else{
-      res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?State=${readState}&MaxResultCount=${Config.PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
+      res = await HttpManager.netFetch(Address.getPagedUserNotifications()+ "?State=${readState}&MaxResultCount=${Config.NOTICE_PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
     }
     if(Config.DEBUG){
       print("getPagedUserNotifications res: " + res.toString() + "---" + res.result.toString() + "---");

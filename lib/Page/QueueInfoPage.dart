@@ -28,11 +28,27 @@ class _QueueInfoPage extends State<QueueInfoPage>{
     if(queueInfo == null){
       var queueInfoCallInterface = await GrabSheetDao.getCurrentQueueInfo();
       if(queueInfoCallInterface != null && queueInfoCallInterface.result){
+        if(queueInfoCallInterface.data == null){
+          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, null);
+          return dataNull;
+        }
         return Queue.fromJson(queueInfoCallInterface.data["result"]);
       }
-      if(queueInfoCallInterface != null && !queueInfoCallInterface.result){
-        return Queue.fromJson(queueInfoCallInterface.data["error"]);
+      if(!queueInfoCallInterface.result){
+        if(queueInfoCallInterface.data != null){
+          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, queueInfoCallInterface.data.toString());
+          return dataNull;
+        }
+//        else{
+//          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, null);
+//          return dataNull;
+//        }
+        //return Queue.fromJson(queueInfoCallInterface.data["error"]);
       }
+//      if(queueInfoCallInterface == null){
+//        var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, null);
+//        return dataNull;
+//      }
     }else{
       Queue queueData = Queue.fromJson(json.decode(queueInfo));
       return queueData;

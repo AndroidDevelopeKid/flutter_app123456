@@ -24,11 +24,28 @@ class _LastBillPage extends State<LastBillPage> {
     var lastedDeliveryOrder =
         await DeliveryOrderDao.getLastedDeliveryOrderRecords();
     if (lastedDeliveryOrder != null && lastedDeliveryOrder.result) {
+      if(lastedDeliveryOrder.data == null){
+        var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "当前无最新提货单");
+        return dataNull;
+      }
       return DeliveryOrder.fromJson(lastedDeliveryOrder.data["result"]);
+
     }
-    if (lastedDeliveryOrder != null && !lastedDeliveryOrder.result) {
-      return DeliveryOrder.fromJson(lastedDeliveryOrder.data["error"]);
+    if (!lastedDeliveryOrder.result) {
+      if(lastedDeliveryOrder.data != null){
+        var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, lastedDeliveryOrder.data.toString());
+        return dataNull;
+      }
+//      else{
+//        var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+//        return dataNull;
+//      }
+      //return DeliveryOrder.fromJson(lastedDeliveryOrder.data["error"]);
     }
+//    if(lastedDeliveryOrder = null){
+//      var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "服务器错误/没有权限");
+//      return dataNull;
+//    }
   }
 
   @override

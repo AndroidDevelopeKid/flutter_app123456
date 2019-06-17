@@ -3,6 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
+import 'package:flutter_app123456/common/dao/DeliveryOrderDao.dart';
+import 'package:flutter_app123456/common/dao/ResultDao.dart';
+import 'package:flutter_app123456/common/model/HistoryBill.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/widget/BaseHistoryBillState.dart';
 import 'package:flutter_app123456/widget/CustomPullLoadWidget.dart';
@@ -31,36 +34,55 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
   final CustomPullLoadWidgetControl pullLoadWidgetControl = new CustomPullLoadWidgetControl();
   ///获取数据
   _getData(skipCount) async {
-//    final List<Driver> driverList = new List();
-//    var drivers = await DriverDao.getDriverQuery(idNumber, name, phone, vehicleCode, 5, skipCount);
-//    if(drivers != null && drivers.result){
-//      print("skipCount : " + skipCountGlobal.toString());
-//      print("drivers: " + drivers.data.toString());
-//      var itemList = drivers.data["result"]["items"];
-//      print("drivers's itemList: " + itemList.toString() + itemList.length.toString());
-//      print("drivers itemList length: " + itemList.length.toString());
-//      for(int i = 0; i < itemList.length; i++){
-//        var id = itemList[i]["id"].toString();
-//        var ouDisplayName = itemList[i]["ouDisplayName"].toString();
-//        var vehicleCode = itemList[i]["vehicleCode"].toString();
-//        var driverIDNumber = itemList[i]["driverIDNumber"].toString();
-//        var driverName = itemList[i]["driverName"].toString();
-//        var driverPhone = itemList[i]["driverPhone"].toString();
-//        var personTypeText = itemList[i]["personTypeText"].toString();
-//        var personStateText = itemList[i]["personStateText"].toString();
-//        var buckupContactPerson = itemList[i]["buckupContactPerson"].toString();
-//        var buckupContactPersonAddress = itemList[i]["buckupContactPersonAddress"].toString();
-//        var buckupContactPersonPhone = itemList[i]["buckupContactPersonPhone"].toString();
-//        var driverLicenseID = itemList[i]["driverLicenseID"].toString();
-//        var certificateEndDate = itemList[i]["certificateEndDate"].toString();
-//        var dlCertificateEndDate = itemList[i]["dlCertificateEndDate"].toString();
-//        driverList.add(new Driver(id, ouDisplayName, vehicleCode, driverIDNumber, driverName, driverPhone, personTypeText, personStateText, buckupContactPerson, buckupContactPersonAddress, buckupContactPersonPhone, driverLicenseID, certificateEndDate, dlCertificateEndDate));
-//      }
-//      //return new DataResult(driverList, true);
-//    }
-//    if(drivers.data == null && !drivers.result){
-//      //return new DataResult("到底了", false);
-//    }
+    final List<HistoryBill> historyBillList = new List();
+    var historyBills = await DeliveryOrderDao.getHistoryBill(skipCount);
+    if (historyBills != null && historyBills.result) {
+      print("skipCount : " + skipCountGlobal.toString());
+      print("historyBills: " + historyBills.data.toString());
+      var itemList = historyBills.data["result"]["items"];
+      print("historyBills's itemList: " +
+          itemList.toString() +
+          itemList.length.toString());
+      print("historyBills itemList length: " + itemList.length.toString());
+      for (int i = 0; i < itemList.length; i++) {
+        var id = itemList[i]["id"].toString();
+        var vehicleCode = itemList[i]["vehicleCode"].toString();
+        var mainVehiclePlate = itemList[i]["mainVehiclePlate"].toString();
+        var deliveryOrderCode = itemList[i]["deliveryOrderCode"].toString();
+        var deliveryOrderState = itemList[i]["deliveryOrderState"].toString();
+        var generateDate = itemList[i]["generateDate"].toString();
+        var loadPlaceName = itemList[i]["loadPlaceName"].toString();
+        var unloadPlaceName = itemList[i]["unloadPlaceName"].toString();
+        var goodsName = itemList[i]["goodsName"].toString();
+        var outStockGenerateDate =
+        itemList[i]["outStockGenerateDate"].toString();
+        var outStockNetWeigh = itemList[i]["outStockNetWeigh"];
+        var weighDate = itemList[i]["weighDate"].toString();
+        var skinbackDate = itemList[i]["skinbackDate"].toString();
+        var inStockGrossWeigh = itemList[i]["inStockGrossWeigh"];
+        var inStockNetWeigh = itemList[i]["inStockNetWeigh"];
+        historyBillList.add(new HistoryBill(
+            id,
+            mainVehiclePlate,
+            vehicleCode,
+            generateDate,
+            deliveryOrderState,
+            deliveryOrderCode,
+            goodsName,
+            inStockGrossWeigh,
+            inStockNetWeigh,
+            loadPlaceName,
+            outStockGenerateDate,
+            outStockNetWeigh,
+            skinbackDate,
+            unloadPlaceName,
+            weighDate));
+      }
+      return new DataResult(historyBillList, true);
+    }
+    if (historyBills.data == null && !historyBills.result) {
+      return new DataResult("到底了", false);
+    }
   }
   ///请求刷新
   @override
