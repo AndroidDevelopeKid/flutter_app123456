@@ -36,8 +36,8 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
   Future<Vehicle> fetchData() async {
     var vehicleArchives =  await LocalStorage.get(Config.VEHICLE_ARCHIVES);
     if(vehicleArchives == null){
-      var userId = await LocalStorage.get(Config.USER_ID);
-      var resultDataVehicle = await VehicleDao.getVehicleInfo(Config.TENANT, userId);
+      //var userId = await LocalStorage.get(Config.USER_ID);Config.TENANT, userId
+      var resultDataVehicle = await VehicleDao.getVehicleInfo();
       if(resultDataVehicle.data == null){
         var dataNull = new Vehicle(0, "无", "无", "无", "无", "无", "无", "无", "无", "无", 0, "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", 0, "无", "无", "无");
         return dataNull;

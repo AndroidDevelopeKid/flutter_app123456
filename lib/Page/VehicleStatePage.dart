@@ -35,14 +35,20 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
   Future<List<VehicleState>> fetchData() async {
     var vehicleStateList = await LocalStorage.get(Config.VEHICLE_STATE);
     if(vehicleStateList == null){
-      var userId = await LocalStorage.get(Config.USER_ID);
-      var vehicleStates = await VehicleStateDao.getVehicleStateInfo(Config.TENANT, userId);
+      //var userId = await LocalStorage.get(Config.USER_ID);Config.TENANT, userId
+      var vehicleStates = await VehicleStateDao.getVehicleStateInfo();
       vehicleStateList = vehicleStates.data;
       print("first in this: " + vehicleStates.data.toString());
     }
     if (vehicleStateList != null) {
       List<dynamic> list = json.decode(vehicleStateList);
       print("list of vehicleStateList::" + list.toString());
+      if(list.length <= 0){
+        List<VehicleState> listReturnNull =
+        new List<VehicleState>();
+        listReturnNull.add(new VehicleState(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+        return listReturnNull;
+      }
       List<VehicleState> listReturn =
       new List<VehicleState>();
       for (int i = 0; i < list.length; i++) {
@@ -50,7 +56,10 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
       }
       return listReturn;
     } else {
-      return null;
+      List<VehicleState> listReturnNull =
+      new List<VehicleState>();
+      listReturnNull.add(new VehicleState(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+      return listReturnNull;
     }
   }
   @override
@@ -132,7 +141,7 @@ class _VehicleStatePageState extends State<VehicleStatePage>{
             ]),
             TableRow(children: <Widget>[
               Text("备注：", style: CustomConstant.normalTextBlack),
-              Text(subject.description == null ? "无" : subject.description.toString(), style: CustomConstant.normalTextBlack, maxLines: 3,),
+              Text(subject.description == null ? "当前车辆没有状态" : subject.description.toString(), style: CustomConstant.normalTextBlack, maxLines: 3,),
             ]),
           ],
         ),

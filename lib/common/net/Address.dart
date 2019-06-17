@@ -17,7 +17,7 @@ class Address{
   }
   ///获取车辆档案
   static getVehicleArchives(){
-    return "${host}services/app/VehicleArchives/GetVehicleArchivesStatusByMobileAsync";
+    return "${host}services/app/VehicleArchives/GetVehicleArchivesByMobileAsync";
   }
   ///获取人员及证照状态
   static getStaffAndCertificatesState(){

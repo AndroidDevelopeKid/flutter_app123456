@@ -9,14 +9,14 @@ import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 
 class VehicleDao{
-  static getVehicleInfo(tenantId, userId) async{
+  static getVehicleInfo() async{//tenantId, userId
     next() async {
       var res;
-      if(tenantId != null && userId != null){
+      //if(tenantId != null && userId != null){
         res = await HttpManager.netFetch(Address.getVehicleArchives(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
-      }else{
-        res = new DataResult("获取车辆档案失败", false);
-      }
+//      }else{
+//        res = new DataResult("获取车辆档案失败", false);
+//      }
       if(res != null && res.result){
         print("vehicleInfo: " + res.data.toString());
         if(res.data["result"] != null){
