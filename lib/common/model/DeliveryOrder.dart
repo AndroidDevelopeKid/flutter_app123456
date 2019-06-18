@@ -28,13 +28,19 @@ class DeliveryOrder{
       );
   int organizationUnitId;
   String organizationUnitName;
-  String generateDate;
-  String vehicleCode;
-  String mainVehiclePlate;
+  int loadPlaceId;
+  String loadPlaceName;//装地
+  int unloadPlaceId;
+  String unloadPlaceName;//卸地
+  int goodsId;
+  String goodsName;//煤种
+  String generateDate;//提货单时间
+  String vehicleCode;//车辆编号
+  String mainVehiclePlate;//车牌号
   int source;
   String sourceText;
-  String deliveryOrderState;
-  String deliveryOrderCode;
+  String deliveryOrderState;//提货单状态
+  String deliveryOrderCode;//提货单编号
   String randomNumber;
   String transSupplierNumber;
   String coalText;

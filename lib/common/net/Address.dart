@@ -50,7 +50,7 @@ class Address{
 
   ///登录后第一次进入界面获取是否存在当前排队,是否存在最新提货单,自动接单按钮状态
   static getQueueAndAutoAcceptOrderState(){
-    return "${host}services/app/...";
+    return "${host}services/app/AcceptOrderQueue/GetVehicleQueueAndOrderStatusByMobileAsync";
   }
 
   ///自动接单开启关闭按钮--post

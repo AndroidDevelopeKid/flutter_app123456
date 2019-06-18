@@ -27,13 +27,25 @@ DeliveryOrder _$DeliveryOrderFromJson(Map<String, dynamic> json) {
       json['transSupplierNumber'] as String,
       json['werkName'] as String,
       json['ysSunuName'] as String,
-      json['message'] as String);
+      json['message'] as String)
+    ..loadPlaceId = json['loadPlaceId'] as int
+    ..loadPlaceName = json['loadPlaceName'] as String
+    ..unloadPlaceId = json['unloadPlaceId'] as int
+    ..unloadPlaceName = json['unloadPlaceName'] as String
+    ..goodsId = json['goodsId'] as int
+    ..goodsName = json['goodsName'] as String;
 }
 
 Map<String, dynamic> _$DeliveryOrderToJson(DeliveryOrder instance) =>
     <String, dynamic>{
       'organizationUnitId': instance.organizationUnitId,
       'organizationUnitName': instance.organizationUnitName,
+      'loadPlaceId': instance.loadPlaceId,
+      'loadPlaceName': instance.loadPlaceName,
+      'unloadPlaceId': instance.unloadPlaceId,
+      'unloadPlaceName': instance.unloadPlaceName,
+      'goodsId': instance.goodsId,
+      'goodsName': instance.goodsName,
       'generateDate': instance.generateDate,
       'vehicleCode': instance.vehicleCode,
       'mainVehiclePlate': instance.mainVehiclePlate,

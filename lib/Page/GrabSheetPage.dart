@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
+import 'package:flutter_app123456/common/dao/DeliveryOrderDao.dart';
 import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
+import 'package:flutter_app123456/common/model/AutoOrderState.dart';
 import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
@@ -18,7 +20,12 @@ class GrabSheetPage extends StatefulWidget {
 
 class _GrabSheetPageState extends State<GrabSheetPage>
     with AutomaticKeepAliveClientMixin {
-  bool isCheck = false;
+  //bool isCheck = false;
+  bool isQueue;
+  bool isBill;
+  //Future<AutoOrderState> orderStateInit;
+  //AutoOrderState orderStateInit;
+  Future<bool> autoState;
   int color = CustomColors.white;
   var titles = ["排队信息", "最新提货单"];
 
@@ -28,6 +35,22 @@ class _GrabSheetPageState extends State<GrabSheetPage>
     width: Config.ARROW_ICON_WIDTH,
     height: Config.ARROW_ICON_WIDTH,
   );
+  Future<bool> _getOrderState() async {
+    var res = await GrabSheetDao.getAutoAcceptOrderState();
+    if(res != null && res.result){
+      if(res.data["result"] != null){
+        AutoOrderState autoOrderState = AutoOrderState.fromJson(res.data["result"]);
+        print("当前状态：" + autoOrderState.autoAcceptOrderState.toString() + "--" + autoOrderState.nowDeliveryOrderState.toString() + "---" + autoOrderState.nowOrderQueueState.toString());
+
+        if(autoOrderState.autoAcceptOrderState == 1){
+          return true;
+        }
+        if(autoOrderState.autoAcceptOrderState == 2){
+          return false;
+        }
+      }
+    }
+  }
 
 //  static const counterPlugin = const EventChannel('com.my.flutter/plugin');
 //  static const rabbitPlugin = const EventChannel('com.my.flutter/rabbit');
@@ -39,8 +62,15 @@ class _GrabSheetPageState extends State<GrabSheetPage>
   @override
   void initState() {
     super.initState();
+    autoState = _getOrderState();
 //    _startCounterPlugin();
 //    _startRabbitPlugin();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
   }
 
   @override
@@ -102,16 +132,179 @@ class _GrabSheetPageState extends State<GrabSheetPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return new StoreBuilder<CustomState>(
-      builder: (context, store) {
-        return Scaffold(
-          body: new ListView.builder(
-            itemCount: titles.length * 2,
-            itemBuilder: (context, i) => renderRow(i),
-          )
-        );
-      },
+    return Scaffold(
+        body:
+            new Column(
+              children: <Widget>[
+                new Container(
+                  child: FutureBuilder<bool>(
+                      future: autoState,
+                      builder: (context, snapshot){
+                        print("snapshot: " + snapshot.data.toString());
+                        if (snapshot.hasData) {
+                          bool isCheck = snapshot.data;
+                          return new Column(
+                            children: <Widget>[
+                              new Container(
+                                padding: EdgeInsets.only(
+                                    left: 20, top: 30, right: 20, bottom: 30),
+                                child:
+                                new CheckboxListTile(
+                                  title: const Text('自动接单'),
+                                  activeColor: Colors.lightGreen,
+                                  value: isCheck,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      autoState = _getOrderState();
+                                      isCheck = newValue;
+                                    });
+                                    //调取自动接单按钮开闭接口，通知服务端
+                                    GrabSheetDao.driverAutoGrabSheetSwitch(isCheck).then((res){
+                                      if(res != null && res.result){
+                                        new Future.delayed(const Duration(milliseconds: 100), (){
+                                          if(isCheck){
+                                            CommonUtils.showShort("您已开启自动接单");
+                                          }else{
+                                            CommonUtils.showShort("您已关闭自动接单");
+                                          }
+                                          return true;
+                                        });
+                                      }
+                                    });
+                                  },
+                                ),
+
+                              ),
+                              new Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  new Column(
+                                    children: <Widget>[
+                                      new IconButton(
+                                        icon: new Image.asset(CustomIcons.MANUAL_RECEIPT_IMAGE),
+                                        iconSize: Config.ICON_SIZE,
+                                        //new Icon(CustomIcons.MANUAL_RECEIPT, size: Config.ICON_SIZE,),
+                                        onPressed: () {
+                                          //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
+                                          GrabSheetDao.driverGrabSheetQueue().then((res){
+                                            if(res != null && res.result){
+                                              new Future.delayed(const Duration(milliseconds: 100), (){
+                                                CommonUtils.showShort("已排队");
+
+                                              });
+                                            }
+                                            if(res != null && !res.result){
+                                              print("手动接单 错误提示： " + res.data.toString());
+                                              new Future.delayed(const Duration(milliseconds: 100), (){
+                                                CommonUtils.showShort("" + res.data["error"]["message"].toString());
+                                                return true;
+                                              });
+                                            }
+                                          });
+                                        },
+                                        tooltip: "手动接单",
+                                        //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                                      ),
+                                      new Text("手动接单"),
+                                    ],
+                                  ),
+                                  new Column(
+                                    children: <Widget>[
+                                      new IconButton(
+                                        icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
+                                        iconSize: Config.ICON_SIZE,
+                                        //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
+                                        onPressed: () {
+                                          GrabSheetDao.cancelQueue().then((res){
+                                            if(res != null && res.result){
+                                              new Future.delayed(const Duration(milliseconds: 100), (){
+                                                CommonUtils.showShort("取消排队成功");
+                                                return true;
+                                              });
+                                            }
+                                            if(res != null && !res.result){
+                                              new Future.delayed(const Duration(milliseconds: 100), (){
+                                                CommonUtils.showShort("" + res.data["error"]["message"].toString());
+                                                return true;
+                                              });
+                                            }
+                                          });
+                                        },
+                                        tooltip: "取消排队",
+                                        //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                                      ),
+                                      new Text("取消排队"),
+                                    ],
+                                  ),
+                                  new Column(
+                                    children: <Widget>[
+                                      new IconButton(
+                                        icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
+                                        iconSize: Config.ICON_SIZE,
+                                        //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
+                                        onPressed: () {
+                                          GrabSheetDao.getCurrentQueueInfo().then((res){
+                                            if(res != null && res.result){
+                                              new Future.delayed(const Duration(milliseconds: 100), (){
+                                                CommonUtils.showShort("刷新排队成功");
+                                                return true;
+                                              });
+                                            }
+                                            if(res != null && !res.result){
+                                              new Future.delayed(const Duration(milliseconds: 100), (){
+                                                CommonUtils.showShort("" + res.data["error"]["message"].toString());
+                                                return true;
+                                              });
+                                            }
+                                          });
+                                        },
+                                        tooltip: "排队刷新",
+                                        //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                                      ),
+                                      new Text("排队刷新"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              new Padding(padding: EdgeInsets.only(bottom: 30.0))
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        }
+                        return CircularProgressIndicator();
+
+                      }),
+
+
+                ),
+                new Expanded(child: new ListView.builder(
+                  itemCount: titles.length * 2,
+                  itemBuilder: (context, i) => renderRow(i),
+                )),
+
+            ],)
+
+
+
     );
+
+
+
+//    return new FutureBuilder<AutoOrderState>(
+//      future: orderStateInit,
+//      builder: (context, snapshot) {
+//        if(snapshot.hasData){
+//          if(snapshot.data.autoAcceptOrderState == 1){
+//            isCheck = true;
+//          }
+//          if(snapshot.data.autoAcceptOrderState == 2){
+//            isCheck = false;
+//          }
+//        }
+//
+//      },
+//    );
 
 //    return new Scaffold(
 //      body:new Container(
@@ -160,136 +353,152 @@ class _GrabSheetPageState extends State<GrabSheetPage>
   }
   renderRow(i) {
     if (i == 0) {
-      var grabContainer = new Container(
-        child:
-        new Column(
-          children: <Widget>[
-            new Container(
-              padding: EdgeInsets.only(
-                  left: 20, top: 30, right: 20, bottom: 30),
-              child: new CheckboxListTile(
-                title: const Text('自动接单'),
-                activeColor: Colors.lightGreen,
-                value: this.isCheck,
-                onChanged: (bool value) {
-                  setState(() {
-                    this.isCheck = !this.isCheck;
-                  });
-                  //调取自动接单按钮开闭接口，通知服务端
-                  GrabSheetDao.driverAutoGrabSheetSwitch(this.isCheck).then((res){
-                    if(res != null && res.result){
-                      new Future.delayed(const Duration(milliseconds: 100), (){
-                        if(this.isCheck){
-                          CommonUtils.showShort("您已开启自动接单");
-                        }else{
-                          CommonUtils.showShort("您已关闭自动接单");
-                        }
-                        return true;
-                      });
-                    }
-                  });
-                },
-              ),
-            ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                new Column(
-                  children: <Widget>[
-                    new IconButton(
-                      icon: new Image.asset(CustomIcons.MANUAL_RECEIPT_IMAGE),
-                      iconSize: Config.ICON_SIZE,
-                      //new Icon(CustomIcons.MANUAL_RECEIPT, size: Config.ICON_SIZE,),
-                      onPressed: () {
-                        //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
-                        GrabSheetDao.driverGrabSheetQueue().then((res){
-                          if(res != null && res.result){
-                            new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("已排队");
-
-                            });
-                          }
-                          if(res != null && !res.result){
-                            print("手动接单 错误提示： " + res.data.toString());
-                            new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("" + res.data["error"]["message"].toString());
-                              return true;
-                            });
-                          }
-                        });
-                      },
-                      tooltip: "手动接单",
-                      //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
-                    ),
-                    new Text("手动接单"),
-                  ],
-                ),
-                new Column(
-                  children: <Widget>[
-                    new IconButton(
-                      icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
-                      iconSize: Config.ICON_SIZE,
-                      //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
-                      onPressed: () {
-                        GrabSheetDao.cancelQueue().then((res){
-                          if(res != null && res.result){
-                            new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("取消排队成功");
-                              return true;
-                            });
-                          }
-                          if(res != null && !res.result){
-                            new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("" + res.data["error"]["message"].toString());
-                              return true;
-                            });
-                          }
-                        });
-                      },
-                      tooltip: "取消排队",
-                      //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
-                    ),
-                    new Text("取消排队"),
-                  ],
-                ),
-                new Column(
-                  children: <Widget>[
-                    new IconButton(
-                      icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
-                      iconSize: Config.ICON_SIZE,
-                      //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
-                      onPressed: () {
-                        GrabSheetDao.getCurrentQueueInfo().then((res){
-                          if(res != null && res.result){
-                            new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("刷新排队成功");
-                              return true;
-                            });
-                          }
-                          if(res != null && !res.result){
-                            new Future.delayed(const Duration(milliseconds: 100), (){
-                              CommonUtils.showShort("" + res.data["error"]["message"].toString());
-                              return true;
-                            });
-                          }
-                        });
-                      },
-                      tooltip: "排队刷新",
-                      //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
-                    ),
-                    new Text("排队刷新"),
-                  ],
-                ),
-              ],
-            ),
-            new Padding(padding: EdgeInsets.only(bottom: 30.0))
-          ],
-        ),
-      );
-      return new GestureDetector(
-        onTap: () {},
-        child: grabContainer,
-      );
+//      var grabContainer =
+//      new Container(
+//        child: FutureBuilder<bool>(
+//            future: autoState,
+//            builder: (context, snapshot){
+//              print("snapshot: " + snapshot.data.toString());
+//              if (snapshot.hasData) {
+//                bool isCheck = snapshot.data;
+//                return new Column(
+//                  children: <Widget>[
+//                    new Container(
+//                      padding: EdgeInsets.only(
+//                          left: 20, top: 30, right: 20, bottom: 30),
+//                      child:
+//                      new CheckboxListTile(
+//                        title: const Text('自动接单'),
+//                        activeColor: Colors.lightGreen,
+//                        value: isCheck,
+//                        onChanged: (bool value) {
+//                          setState(() {
+//                            isCheck = !isCheck;
+//                          });
+//                          //调取自动接单按钮开闭接口，通知服务端
+//                          GrabSheetDao.driverAutoGrabSheetSwitch(isCheck).then((res){
+//                            if(res != null && res.result){
+//                              new Future.delayed(const Duration(milliseconds: 100), (){
+//                                if(isCheck){
+//                                  CommonUtils.showShort("您已开启自动接单");
+//                                }else{
+//                                  CommonUtils.showShort("您已关闭自动接单");
+//                                }
+//                                return true;
+//                              });
+//                            }
+//                          });
+//                        },
+//                      ),
+//
+//                    ),
+//                    new Row(
+//                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                      children: <Widget>[
+//                        new Column(
+//                          children: <Widget>[
+//                            new IconButton(
+//                              icon: new Image.asset(CustomIcons.MANUAL_RECEIPT_IMAGE),
+//                              iconSize: Config.ICON_SIZE,
+//                              //new Icon(CustomIcons.MANUAL_RECEIPT, size: Config.ICON_SIZE,),
+//                              onPressed: () {
+//                                //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
+//                                GrabSheetDao.driverGrabSheetQueue().then((res){
+//                                  if(res != null && res.result){
+//                                    new Future.delayed(const Duration(milliseconds: 100), (){
+//                                      CommonUtils.showShort("已排队");
+//
+//                                    });
+//                                  }
+//                                  if(res != null && !res.result){
+//                                    print("手动接单 错误提示： " + res.data.toString());
+//                                    new Future.delayed(const Duration(milliseconds: 100), (){
+//                                      CommonUtils.showShort("" + res.data["error"]["message"].toString());
+//                                      return true;
+//                                    });
+//                                  }
+//                                });
+//                              },
+//                              tooltip: "手动接单",
+//                              //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+//                            ),
+//                            new Text("手动接单"),
+//                          ],
+//                        ),
+//                        new Column(
+//                          children: <Widget>[
+//                            new IconButton(
+//                              icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
+//                              iconSize: Config.ICON_SIZE,
+//                              //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
+//                              onPressed: () {
+//                                GrabSheetDao.cancelQueue().then((res){
+//                                  if(res != null && res.result){
+//                                    new Future.delayed(const Duration(milliseconds: 100), (){
+//                                      CommonUtils.showShort("取消排队成功");
+//                                      return true;
+//                                    });
+//                                  }
+//                                  if(res != null && !res.result){
+//                                    new Future.delayed(const Duration(milliseconds: 100), (){
+//                                      CommonUtils.showShort("" + res.data["error"]["message"].toString());
+//                                      return true;
+//                                    });
+//                                  }
+//                                });
+//                              },
+//                              tooltip: "取消排队",
+//                              //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+//                            ),
+//                            new Text("取消排队"),
+//                          ],
+//                        ),
+//                        new Column(
+//                          children: <Widget>[
+//                            new IconButton(
+//                              icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
+//                              iconSize: Config.ICON_SIZE,
+//                              //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
+//                              onPressed: () {
+//                                GrabSheetDao.getCurrentQueueInfo().then((res){
+//                                  if(res != null && res.result){
+//                                    new Future.delayed(const Duration(milliseconds: 100), (){
+//                                      CommonUtils.showShort("刷新排队成功");
+//                                      return true;
+//                                    });
+//                                  }
+//                                  if(res != null && !res.result){
+//                                    new Future.delayed(const Duration(milliseconds: 100), (){
+//                                      CommonUtils.showShort("" + res.data["error"]["message"].toString());
+//                                      return true;
+//                                    });
+//                                  }
+//                                });
+//                              },
+//                              tooltip: "排队刷新",
+//                              //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+//                            ),
+//                            new Text("排队刷新"),
+//                          ],
+//                        ),
+//                      ],
+//                    ),
+//                    new Padding(padding: EdgeInsets.only(bottom: 30.0))
+//                  ],
+//                );
+//              } else if (snapshot.hasError) {
+//                return Text("${snapshot.error}");
+//              }
+//              return CircularProgressIndicator();
+//
+//            }),
+//
+//
+//      );
+//      return new GestureDetector(
+//        onTap: () {},
+//        child: grabContainer,
+//      );
     }
     --i;
     if (i.isOdd) {

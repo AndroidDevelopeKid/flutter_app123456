@@ -106,8 +106,13 @@ class HttpManager{
         print('请求异常url: ' + url);
       }
 
-      //return new ResultData(errorResponse.data, false, errorResponse.statusCode);
-      return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
+      if(errorResponse.statusCode == Code.NETWORK_TIMEOUT){
+        return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
+
+      }else{
+        return new ResultData(errorResponse.data, false, errorResponse.statusCode);
+      }
+
 
     }
     ///网络请求成功后正常返回的数据debug

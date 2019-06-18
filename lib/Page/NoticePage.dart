@@ -60,29 +60,29 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
     var notifications = await NoticeDao.getPagedUserNotifications(state,skipCount);
     if(notifications != null && notifications.result){
 
-        print("skipCount : " + skipCountGlobal.toString());
+        //print("skipCount : " + skipCountGlobal.toString());
 //      int totalCount = notifications.data["result"]["totalCount"];
 //      int pageCount = totalCount ~/ Config.PAGE_SIZE + 1;
 //      pageCount--;
 //      if(pageCount == 0){
 //
 //      }
-      print("notifications in noticePage: " + notifications.data.toString());
+      //print("notifications in noticePage: " + notifications.data.toString());
       var itemList = notifications.data["result"]["items"];
-      print("notifications in noticePage itemList: " + itemList.toString() + itemList.length.toString());
-      print("notifications in noticePage itemList length: " + itemList.length.toString());
+      //print("notifications in noticePage itemList: " + itemList.toString() + itemList.length.toString());
+      //print("notifications in noticePage itemList length: " + itemList.length.toString());
       for(int i = 0; i < itemList.length; i++){
-        print("notifications in noticePage item" + i.toString() + ":" + itemList[i]["notification"]["data"]["messageText"].toString());
+        //print("notifications in noticePage item" + i.toString() + ":" + itemList[i]["notification"]["data"]["messageText"].toString());
         var msg = itemList[i]["notification"]["data"]["messageText"].toString();
         var messageSource = itemList[i]["notification"]["data"]["messageSource"].toString();
         var messageFlag = itemList[i]["notification"]["data"]["messageFlag"].toString();
         var senderUserName = itemList[i]["notification"]["data"]["senderUserName"].toString();
         var creationTime = itemList[i]["notification"]["creationTime"].toString();
-        print("NoticePage msg: " + msg + messageSource + messageFlag + senderUserName + creationTime);
+        //print("NoticePage msg: " + msg + messageSource + messageFlag + senderUserName + creationTime);
         var isRead = itemList[i]["state"];
-        print("NoticePage isRead: " + isRead.toString());
+        //print("NoticePage isRead: " + isRead.toString());
         var id = itemList[i]["id"];
-        print("NoticePage id: " + id.toString());
+        //print("NoticePage id: " + id.toString());
         messagePushList.add(new MessagePush(id.toString(), isRead, msg, senderUserName, messageSource, messageFlag, creationTime));
       }
       return new DataResult(messagePushList, true);
@@ -97,13 +97,14 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
   requestRefresh() {
     // TODO: implement requestRefresh
     //getMessagePush();
+    skipCountGlobal =10;
     return _getData(readState,skipCountInit);
   }
   ///请求加载更多
   @override
-  requestLoadMore() {
+  requestLoadMore() async {
     // TODO: implement requestLoadMore
-    var dataLoadMore = _getData(readState,skipCountGlobal);
+    var dataLoadMore = await _getData(readState,skipCountGlobal);
     if(dataLoadMore.result){
       skipCountGlobal = skipCountGlobal + Config.NOTICE_PAGE_SIZE;
       print("skipCountGlobal : " + skipCountGlobal.toString());

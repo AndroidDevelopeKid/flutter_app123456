@@ -38,7 +38,7 @@ class HistoryBillItem extends StatelessWidget{
             ]),
             TableRow(children: <Widget>[
               Text("提货单时间：", style: CustomConstant.normalTextBlack),
-              Text(historyBillItemViewModel.generateDate == null ? "无" : historyBillItemViewModel.generateDate.substring(0,10), style: CustomConstant.normalTextBlack),
+              Text(historyBillItemViewModel.generateDate == null ? "无" : historyBillItemViewModel.generateDate, style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("装地-提货点：", style: CustomConstant.normalTextBlack),

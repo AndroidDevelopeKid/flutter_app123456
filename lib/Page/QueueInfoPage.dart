@@ -36,7 +36,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
       }
       if(!queueInfoCallInterface.result){
         if(queueInfoCallInterface.data != null){
-          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, queueInfoCallInterface.data.toString());
+          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, queueInfoCallInterface.data["error"]["message"]);
           return dataNull;
         }
 //        else{

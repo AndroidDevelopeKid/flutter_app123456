@@ -37,12 +37,17 @@ class MessageItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                  new Text(
-                    messageItemViewModel.msg == "null" ? "无内容" : messageItemViewModel.msg,
-                  ),
-                  new Text(
-                    messageItemViewModel.creationTime == "null" ? "几天前" : TimelineUtil.formatByDateTime(DateTime.parse(messageItemViewModel.creationTime), dayFormat: DayFormat.Simple),
-                  ),
+                    Expanded(child:
+                    new Text(
+                      messageItemViewModel.msg == "null" ? "无内容" : messageItemViewModel.msg,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    ),
+                    new Text(
+                      messageItemViewModel.creationTime == "null" ? "几天前" : TimelineUtil.formatByDateTime(DateTime.parse(messageItemViewModel.creationTime), dayFormat: DayFormat.Simple),
+                    ),
+
+
                 ],),
               ],
             ),

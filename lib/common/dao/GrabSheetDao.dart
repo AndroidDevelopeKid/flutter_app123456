@@ -75,7 +75,7 @@ class GrabSheetDao{
   }
   //登录进入后获取上次状态
   static getAutoAcceptOrderState() async {
-    var res = await HttpManager.netFetch(Address.getQueueAndAutoAcceptOrderState(), null, null, new Options(method: 'post'));
+    var res = await HttpManager.netFetch(Address.getQueueAndAutoAcceptOrderState(), null, null, null);
     if(Config.DEBUG){
       print("queueAndAutoAcceptOrderState res: " + res.toString() + "---" + res.result.toString() + "---");
     }

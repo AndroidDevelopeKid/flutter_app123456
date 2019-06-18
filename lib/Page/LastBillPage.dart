@@ -33,7 +33,7 @@ class _LastBillPage extends State<LastBillPage> {
     }
     if (!lastedDeliveryOrder.result) {
       if(lastedDeliveryOrder.data != null){
-        var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, lastedDeliveryOrder.data.toString());
+        var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, lastedDeliveryOrder.data["error"]["message"]);
         return dataNull;
       }
 //      else{
@@ -97,28 +97,11 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("组织名称：", style: CustomConstant.normalTextBlack),
+                      Text("提货单号：", style: CustomConstant.normalTextBlack),
                       Text(
-                          snapshot.data.organizationUnitName == null
+                          snapshot.data.deliveryOrderCode == null
                               ? "无"
-                              : snapshot.data.organizationUnitName,
-                          style: CustomConstant.normalTextBlack),
-                    ]),
-                    TableRow(children: <Widget>[
-                      Text("生成时间：", style: CustomConstant.normalTextBlack),
-                      Text(
-                          snapshot.data.generateDate == null
-                              ? "无"
-                              : TimelineUtil.formatByDateTime(
-                                  DateTime.parse(snapshot.data.generateDate)),
-                          style: CustomConstant.normalTextBlack),
-                    ]),
-                    TableRow(children: <Widget>[
-                      Text("来源：", style: CustomConstant.normalTextBlack),
-                      Text(
-                          snapshot.data.sourceText == null
-                              ? "无"
-                              : snapshot.data.sourceText,
+                              : snapshot.data.deliveryOrderCode,
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
@@ -130,28 +113,28 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("提货单编号：", style: CustomConstant.normalTextBlack),
+                      Text("提货单时间：", style: CustomConstant.normalTextBlack),
                       Text(
-                          snapshot.data.deliveryOrderCode == null
+                          snapshot.data.generateDate == null
                               ? "无"
-                              : snapshot.data.deliveryOrderCode,
+                              : snapshot.data.generateDate,
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("随机编号：", style: CustomConstant.normalTextBlack),
+                      Text("装地-提货点：", style: CustomConstant.normalTextBlack),
                       Text(
-                          snapshot.data.randomNumber == null
+                          snapshot.data.loadPlaceName == null
                               ? "无"
-                              : snapshot.data.randomNumber,
+                              : snapshot.data.loadPlaceName,
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("运输供应商编号：", style: CustomConstant.normalTextBlack),
+                      Text("卸地-采购方：", style: CustomConstant.normalTextBlack),
                       Text(
-                          snapshot.data.transSupplierNumber == null
+                          snapshot.data.unloadPlaceName == null
                               ? "无"
-                              : snapshot.data.transSupplierNumber,
-                          style: CustomConstant.normalTextBlack)
+                              : snapshot.data.unloadPlaceName,
+                          style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
                       Text("煤种：", style: CustomConstant.normalTextBlack),
@@ -180,7 +163,7 @@ class _LastBillPage extends State<LastBillPage> {
                               borderRadius: BorderRadius.circular(4.0),
                               child: Hero(
                                 tag: 'image',
-                                child: new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 200.0, version: 9, errorCorrectionLevel: QrErrorCorrectLevel.H,),
+                                child: snapshot.data.barcode == null ? new Text("无",style: CustomConstant.normalTextBlack) : new QrImage(data: snapshot.data.barcode,size: 200.0, version: 9, errorCorrectionLevel: QrErrorCorrectLevel.H,),
                               ),
                             )
                         ),

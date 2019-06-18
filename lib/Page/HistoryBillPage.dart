@@ -89,6 +89,7 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
   requestRefresh() {
     // TODO: implement requestRefresh
     //getMessagePush();
+    skipCountGlobal = 10;
     print("parameters: " + skipCountInit.toString());
     return _getData(skipCountInit);
   }
