@@ -158,7 +158,7 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
                     TableRow(
                         children: <Widget>[
                           Text("加盟日期：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.joiningDate == null ? "0000-00-00" : snapshot.data.joiningDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.joiningDate == null ? "无" : snapshot.data.joiningDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
                         ]
                     ),
                   ],

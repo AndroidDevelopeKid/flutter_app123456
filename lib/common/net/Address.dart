@@ -48,6 +48,11 @@ class Address{
     return "${host}services/app/AcceptOrderQueue/GetAcceptOrderQueueByUserByMobileAsync";
   }
 
+  ///登录后第一次进入界面获取是否存在当前排队,是否存在最新提货单,自动接单按钮状态
+  static getQueueAndAutoAcceptOrderState(){
+    return "${host}services/app/...";
+  }
+
   ///自动接单开启关闭按钮--post
   static driverAutoGrabSheetSwitch(){
     return "${host}services/app/AutoAcceptOrderState/CreateOrUpdateAutoAcceptOrderStateByMobileAsync";

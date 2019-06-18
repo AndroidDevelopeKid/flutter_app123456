@@ -108,7 +108,7 @@ class _LastBillPage extends State<LastBillPage> {
                       Text("生成时间：", style: CustomConstant.normalTextBlack),
                       Text(
                           snapshot.data.generateDate == null
-                              ? "00-00 00:00"
+                              ? "无"
                               : TimelineUtil.formatByDateTime(
                                   DateTime.parse(snapshot.data.generateDate)),
                           style: CustomConstant.normalTextBlack),

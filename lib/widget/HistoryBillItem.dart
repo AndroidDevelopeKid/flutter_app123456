@@ -38,7 +38,7 @@ class HistoryBillItem extends StatelessWidget{
             ]),
             TableRow(children: <Widget>[
               Text("提货单时间：", style: CustomConstant.normalTextBlack),
-              Text(historyBillItemViewModel.generateDate == null ? "0000-00-00" : historyBillItemViewModel.generateDate.substring(0,10), style: CustomConstant.normalTextBlack),
+              Text(historyBillItemViewModel.generateDate == null ? "无" : historyBillItemViewModel.generateDate.substring(0,10), style: CustomConstant.normalTextBlack),
             ]),
             TableRow(children: <Widget>[
               Text("装地-提货点：", style: CustomConstant.normalTextBlack),
@@ -54,7 +54,7 @@ class HistoryBillItem extends StatelessWidget{
             ]),
             TableRow(children: <Widget>[
               Text("提货点称重时间：", style: CustomConstant.normalTextBlack),
-              Text(historyBillItemViewModel.outStockGenerateDate == null ? "0000-00-00" : historyBillItemViewModel.outStockGenerateDate.substring(0,10), style: CustomConstant.normalTextBlack, maxLines: 3,),
+              Text(historyBillItemViewModel.outStockGenerateDate == null ? "无" : historyBillItemViewModel.outStockGenerateDate.substring(0,10), style: CustomConstant.normalTextBlack, maxLines: 3,),
             ]),
             TableRow(children: <Widget>[
               Text("提货点净重：", style: CustomConstant.normalTextBlack),
@@ -62,11 +62,11 @@ class HistoryBillItem extends StatelessWidget{
             ]),
             TableRow(children: <Widget>[
               Text("采购方称重时间：", style: CustomConstant.normalTextBlack),
-              Text(historyBillItemViewModel.weighDate == null ? "0000-00-00" : historyBillItemViewModel.weighDate.substring(0,10), style: CustomConstant.normalTextBlack, maxLines: 3,),
+              Text(historyBillItemViewModel.weighDate == null ? "无" : historyBillItemViewModel.weighDate.substring(0,10), style: CustomConstant.normalTextBlack, maxLines: 3,),
             ]),
             TableRow(children: <Widget>[
               Text("采购方回皮时间：", style: CustomConstant.normalTextBlack),
-              Text(historyBillItemViewModel.skinbackDate == null ? "0000-00-00" : historyBillItemViewModel.skinbackDate.substring(0,10), style: CustomConstant.normalTextBlack, maxLines: 3,),
+              Text(historyBillItemViewModel.skinbackDate == null ? "无" : historyBillItemViewModel.skinbackDate.substring(0,10), style: CustomConstant.normalTextBlack, maxLines: 3,),
             ]),
             TableRow(children: <Widget>[
               Text("采购方毛重：", style: CustomConstant.normalTextBlack),

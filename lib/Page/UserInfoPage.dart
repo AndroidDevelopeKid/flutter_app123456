@@ -137,7 +137,7 @@ class _UserInfoPageState extends State<UserInfoPage>{
                   TableRow(
                     children: <Widget>[
                       Text("身份证到期日期：", style: CustomConstant.normalTextBlack),
-                      Text(snapshot.data.certificateEndDate == null ? "0000-00-00" : snapshot.data.certificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack),
+                      Text(snapshot.data.certificateEndDate == null ? "无" : snapshot.data.certificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack),
                     ]
                   ),
                   TableRow(
@@ -173,7 +173,7 @@ class _UserInfoPageState extends State<UserInfoPage>{
                   TableRow(
                       children: <Widget>[
                         Text("驾驶证到期日期：", style: CustomConstant.normalTextBlack),
-                        Text(snapshot.data.dlCertificateEndDate == null ? "0000-00-00" : snapshot.data.dlCertificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
+                        Text(snapshot.data.dlCertificateEndDate == null ? "无" : snapshot.data.dlCertificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
                       ]
                   ),
                 ],

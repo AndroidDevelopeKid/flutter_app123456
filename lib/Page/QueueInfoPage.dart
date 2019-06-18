@@ -109,7 +109,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                     TableRow(
                         children: <Widget>[
                           Text("排队时间：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.queueDateTime == null ? "00-00 00:00" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack),
+                          Text(snapshot.data.queueDateTime == null ? "无" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack),
                         ]
                     ),
                     TableRow(
@@ -139,7 +139,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                     TableRow(
                         children: <Widget>[
                           Text("排队变化时间：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.queueChangeDateTime == null ? "00-00 00:00" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueChangeDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack)
+                          Text(snapshot.data.queueChangeDateTime == null ? "无" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueChangeDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack)
                         ]
                     ),
                     TableRow(
