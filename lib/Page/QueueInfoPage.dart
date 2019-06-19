@@ -10,6 +10,7 @@ import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Queue.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
+import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 
 class QueueInfoPage extends StatefulWidget{
   static final String name = "QueueInfo";
@@ -81,6 +82,149 @@ class _QueueInfoPage extends State<QueueInfoPage>{
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 //return Text(snapshot.data.vehicleCode);
+                return new Container(
+                  child: Column(
+                    children: <Widget>[
+                      new Table(
+//                columnWidths: {
+//                  0: FixedColumnWidth(100.0),
+//                  1: FixedColumnWidth(100.0)
+//                },
+                        border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
+                        children: <TableRow>[
+                          TableRow(
+                              children: <Widget>[
+                                Text("车辆编号：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.vehicleCode == null ? "无" : snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("车牌号：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.mainVehiclePlate == null ? "无" : snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("司机身份证号：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.driverIDCardNumber == null ? "无" : snapshot.data.driverIDCardNumber, style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("排队时间：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.queueDateTime == null ? "无" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("排队状态：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.queueState == null ? "无" : snapshot.data.queueState, style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("还需等待内部车辆排队数量：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.frontInnerQueueVehicleAmount == null ? "无" : snapshot.data.frontInnerQueueVehicleAmount.toString(), style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("还需等待全部车辆排队数量：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.frontTotalQueueVehicleAmount == null ? "无" : snapshot.data.frontTotalQueueVehicleAmount.toString(), style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("排队来源：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.queueSource == null ? "无" : snapshot.data.queueSource, style: CustomConstant.normalTextBlack),
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("排队变化时间：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.queueChangeDateTime == null ? "无" : TimelineUtil.formatByDateTime(DateTime.parse(snapshot.data.queueChangeDateTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack)
+                              ]
+                          ),
+                          TableRow(
+                              children: <Widget>[
+                                Text("备注：", style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.message == null ? "无" : snapshot.data.message, style: CustomConstant.normalTextBlack)
+                              ]
+                          ),
+                        ],
+                      ),
+                      Padding(padding: EdgeInsets.all(10.0)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                        new Column(
+                          children: <Widget>[
+                            new IconButton(
+                              icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
+                              iconSize: Config.ICON_SIZE,
+                              //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
+                              onPressed: () {
+                                GrabSheetDao.cancelQueue().then((res){
+                                  if(res != null && res.result){
+                                    new Future.delayed(const Duration(milliseconds: 100), (){
+                                      CommonUtils.showShort("取消排队成功");
+                                      setState(() {
+                                        queue = fetchData();
+                                      });
+                                      return true;
+                                    });
+                                  }
+                                  if(res != null && !res.result){
+                                    new Future.delayed(const Duration(milliseconds: 100), (){
+                                      CommonUtils.showShort("" + res.data["error"]["message"].toString());
+                                      return true;
+                                    });
+                                  }
+                                });
+                              },
+                              tooltip: "取消排队",
+                              //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                            ),
+                            new Text("取消排队"),
+                          ],
+                        ),
+                        new Column(
+                          children: <Widget>[
+                            new IconButton(
+                              icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
+                              iconSize: Config.ICON_SIZE,
+                              //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
+                              onPressed: () {
+                                GrabSheetDao.getCurrentQueueInfo().then((res){
+                                  if(res != null && res.result){
+                                    new Future.delayed(const Duration(milliseconds: 100), (){
+                                      CommonUtils.showShort("刷新排队成功");
+                                      setState(() {
+                                        queue = fetchData();
+                                      });
+                                      return true;
+                                    });
+                                  }
+                                  if(res != null && !res.result){
+                                    new Future.delayed(const Duration(milliseconds: 100), (){
+                                      CommonUtils.showShort("" + res.data["error"]["message"].toString());
+                                      return true;
+                                    });
+                                  }
+                                });
+                              },
+                              tooltip: "排队刷新",
+                              //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
+                            ),
+                            new Text("排队刷新"),
+                          ],
+                        ),
+                      ],),
+                    ],
+                  ),
+
+                );
                 return new Table(
 //                columnWidths: {
 //                  0: FixedColumnWidth(100.0),

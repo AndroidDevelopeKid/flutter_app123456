@@ -176,7 +176,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
 
                               ),
                               new Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   new Column(
                                     children: <Widget>[
@@ -208,62 +208,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                                       new Text("手动接单"),
                                     ],
                                   ),
-                                  new Column(
-                                    children: <Widget>[
-                                      new IconButton(
-                                        icon: new Image.asset(CustomIcons.CANCEL_QUEUE_IMAGE),
-                                        iconSize: Config.ICON_SIZE,
-                                        //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
-                                        onPressed: () {
-                                          GrabSheetDao.cancelQueue().then((res){
-                                            if(res != null && res.result){
-                                              new Future.delayed(const Duration(milliseconds: 100), (){
-                                                CommonUtils.showShort("取消排队成功");
-                                                return true;
-                                              });
-                                            }
-                                            if(res != null && !res.result){
-                                              new Future.delayed(const Duration(milliseconds: 100), (){
-                                                CommonUtils.showShort("" + res.data["error"]["message"].toString());
-                                                return true;
-                                              });
-                                            }
-                                          });
-                                        },
-                                        tooltip: "取消排队",
-                                        //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
-                                      ),
-                                      new Text("取消排队"),
-                                    ],
-                                  ),
-                                  new Column(
-                                    children: <Widget>[
-                                      new IconButton(
-                                        icon: new Image.asset(CustomIcons.QUEUE_REFRESH_IMAGE),
-                                        iconSize: Config.ICON_SIZE,
-                                        //new Icon(CustomIcons.QUEUE_REFRESH, size: Config.ICON_SIZE),
-                                        onPressed: () {
-                                          GrabSheetDao.getCurrentQueueInfo().then((res){
-                                            if(res != null && res.result){
-                                              new Future.delayed(const Duration(milliseconds: 100), (){
-                                                CommonUtils.showShort("刷新排队成功");
-                                                return true;
-                                              });
-                                            }
-                                            if(res != null && !res.result){
-                                              new Future.delayed(const Duration(milliseconds: 100), (){
-                                                CommonUtils.showShort("" + res.data["error"]["message"].toString());
-                                                return true;
-                                              });
-                                            }
-                                          });
-                                        },
-                                        tooltip: "排队刷新",
-                                        //padding: EdgeInsets.only(right: 40.0, bottom: 45.0),
-                                      ),
-                                      new Text("排队刷新"),
-                                    ],
-                                  ),
+
                                 ],
                               ),
                               new Padding(padding: EdgeInsets.only(bottom: 30.0))
