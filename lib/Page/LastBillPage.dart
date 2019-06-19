@@ -24,7 +24,7 @@ class _LastBillPage extends State<LastBillPage> {
     var lastedDeliveryOrder =
         await DeliveryOrderDao.getLastedDeliveryOrderRecords();
     if (lastedDeliveryOrder != null && lastedDeliveryOrder.result) {
-      if(lastedDeliveryOrder.data == null){
+      if(lastedDeliveryOrder.data["result"] == null){
         var dataNull = new DeliveryOrder(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "当前无最新提货单");
         return dataNull;
       }

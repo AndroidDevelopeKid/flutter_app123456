@@ -29,7 +29,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
     if(queueInfo == null){
       var queueInfoCallInterface = await GrabSheetDao.getCurrentQueueInfo();
       if(queueInfoCallInterface != null && queueInfoCallInterface.result){
-        if(queueInfoCallInterface.data == null){
+        if(queueInfoCallInterface.data["result"] == null){
           var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, null);
           return dataNull;
         }
@@ -165,17 +165,22 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                               iconSize: Config.ICON_SIZE,
                               //new Icon(CustomIcons.CANCEL_QUEUE, size: Config.ICON_SIZE),
                               onPressed: () {
+
                                 GrabSheetDao.cancelQueue().then((res){
                                   if(res != null && res.result){
+                                    setState(() {
+                                      queue = fetchData();
+                                    });
                                     new Future.delayed(const Duration(milliseconds: 100), (){
                                       CommonUtils.showShort("取消排队成功");
-                                      setState(() {
-                                        queue = fetchData();
-                                      });
+
                                       return true;
                                     });
                                   }
                                   if(res != null && !res.result){
+                                    setState(() {
+                                      queue = fetchData();
+                                    });
                                     new Future.delayed(const Duration(milliseconds: 100), (){
                                       CommonUtils.showShort("" + res.data["error"]["message"].toString());
                                       return true;
@@ -198,15 +203,18 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                               onPressed: () {
                                 GrabSheetDao.getCurrentQueueInfo().then((res){
                                   if(res != null && res.result){
+                                    setState(() {
+                                      queue = fetchData();
+                                    });
                                     new Future.delayed(const Duration(milliseconds: 100), (){
                                       CommonUtils.showShort("刷新排队成功");
-                                      setState(() {
-                                        queue = fetchData();
-                                      });
                                       return true;
                                     });
                                   }
                                   if(res != null && !res.result){
+                                    setState(() {
+                                      queue = fetchData();
+                                    });
                                     new Future.delayed(const Duration(milliseconds: 100), (){
                                       CommonUtils.showShort("" + res.data["error"]["message"].toString());
                                       return true;

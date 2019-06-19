@@ -66,7 +66,7 @@ class UserDao{
 
     var res = await HttpManager.netFetch(Address.getAuthorization(), json.encode(requestParams), header, new Options(method: 'post'));
     if(Config.DEBUG){
-      print("res and res.result and res.data: " + res.toString() + "---" + res.result.toString() + "---");
+      print("res and res.result and res.data: " + res.data.toString() + "---" + res.result.toString() + "---");
     }
     var resultDataDriver;
     var resultDataVehicle;

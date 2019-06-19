@@ -49,11 +49,13 @@ class GrabSheetDao{
   }
   //取消排队
   static cancelQueue() async{
+
       var res = await HttpManager.netFetch(Address.cancelQueue(), null, null, new Options(method: 'post'));
       if(Config.DEBUG){
         print("cancelQueue res: " + res.toString() + "---" + res.result.toString() + "---");
       }
       if(res != null && res.result){
+        await LocalStorage.remove(Config.QUEUE_INFO);
         return DataResult(res.data, res.result);
       }else{
         return DataResult(res.data, false);
@@ -61,13 +63,15 @@ class GrabSheetDao{
   }
   //当前提货单
   static getCurrentQueueInfo() async{
+
       var res = await HttpManager.netFetch(Address.getCurrentQueueInfo(), null, null, null);
       if(Config.DEBUG){
         print("getCurrentQueueInfo res: " + res.toString() + "---" + res.result.toString() + "---");
       }
       if(res != null && res.result){
+        await LocalStorage.remove(Config.QUEUE_INFO);
         Queue queue = Queue.fromJson(res.data["result"]);
-        LocalStorage.save(Config.QUEUE_INFO, json.encode(queue.toJson()));
+        await LocalStorage.save(Config.QUEUE_INFO, json.encode(queue.toJson()));
         return DataResult(res.data, res.result);
       }else{
         return DataResult(res.data, false);
