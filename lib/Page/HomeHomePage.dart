@@ -1,31 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_app123456/Page/NoticePage.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
-import 'package:flutter_app123456/common/dao/CustomerDao.dart';
 import 'package:flutter_app123456/common/dao/NoticeDao.dart';
 import 'package:flutter_app123456/common/dao/ReposDao.dart';
-import 'package:flutter_app123456/common/local/LocalStorage.dart';
-import 'package:flutter_app123456/common/model/Customer.dart';
-import 'package:flutter_app123456/common/model/Driver.dart';
-import 'package:flutter_app123456/common/net/HttpApi.dart';
 import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
-import 'package:flutter_app123456/widget/BasePersonState.dart';
-import 'package:flutter_app123456/widget/CustomPullLoadWidget.dart';
-import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/io.dart';
 
 class HomeHomePage extends StatefulWidget {
   @override
@@ -33,6 +17,8 @@ class HomeHomePage extends StatefulWidget {
 }
 
 class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClientMixin {
+
+
   @override
   bool get wantKeepAlive => true;
 
@@ -46,8 +32,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
     ReposDao.getNewsVersion(context, false);
     //初始化本地通知
     var initializationSettingsAndroid = new AndroidInitializationSettings('icon_msg');
-    //var initializationSettingsIOS = new IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, null);
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: null);//onSelectNotification
     var timer = new Timer.periodic(const Duration(seconds: 60), (Void) async{
       //这里调用消息接口
@@ -60,6 +46,32 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
       print("timer notifications: " + notifications.data.toString());
     });
 
+  }
+  Future onDidRecieveLocalNotification(
+      int id, String title, String body, String payload) async {
+    // 展示通知内容的 dialog.
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => new CupertinoAlertDialog(
+        title: new Text(title),
+        content: new Text(body),
+        actions: [
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: new Text('Ok'),
+            onPressed: () async {
+              Navigator.of(context, rootNavigator: true).pop();
+//              await Navigator.push(
+//                context,
+//                new MaterialPageRoute(
+//                  builder: (context) => new SecondScreen(payload),
+//                ),
+//              );
+            },
+          )
+        ],
+      ),
+    );
   }
 //  Future onSelectNotification(String payload) async {
 //    if (payload != null) {

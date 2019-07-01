@@ -51,9 +51,9 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
         var deliveryOrderCode = itemList[i]["deliveryOrderCode"].toString();
         var deliveryOrderState = itemList[i]["deliveryOrderState"].toString();
         var generateDate = itemList[i]["generateDate"].toString();
-        var loadPlaceName = itemList[i]["loadPlaceName"].toString();
-        var unloadPlaceName = itemList[i]["unloadPlaceName"].toString();
-        var goodsName = itemList[i]["goodsName"].toString();
+        var loadPlaceName = itemList[i]["loadPlaceName"];
+        var unloadPlaceName = itemList[i]["unloadPlaceName"];
+        var goodsName = itemList[i]["goodsName"];
         var outStockGenerateDate =
         itemList[i]["outStockGenerateDate"].toString();
         var outStockNetWeigh = itemList[i]["outStockNetWeigh"];
