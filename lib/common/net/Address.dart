@@ -11,6 +11,10 @@ class Address{
   static getAuthorization(){
     return "${host}TokenAuth/Authenticate";
   }
+  ///获取二维码名片
+  static getMyBarcode(){
+    return "${host}services/app/...";
+  }
   ///获取司机档案
   static getDriverArchives(){
     return "${host}services/app/VehicleDriverArchive/GetVehicleDriverArchivesByMobileAsync";

@@ -15,6 +15,8 @@ class Config{
   static const BEARER_KEY = "bearer";
 
   static const USER_NAME_KEY = "user-name";
+  static const MY_BARCODE = "my-barcode";
+
 
   static const PW_KEY = "user-pw";
   static const COMPANY_KEY = "company";

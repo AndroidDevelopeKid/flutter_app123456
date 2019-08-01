@@ -8,8 +8,11 @@ import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
+import 'package:flutter_app123456/widget/BannerItemFactory.dart';
+import 'package:flutter_app123456/widget/Pair.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:banner_view/banner_view.dart';
 
 class HomeHomePage extends StatefulWidget {
   @override
@@ -109,6 +112,19 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
+  BannerView _bannerView(){
+    // 盛放图片的 List
+    List<Pair<String, Color>> param = [
+      Pair.create(CustomIcons.BANNER_IMAGE_01, Colors.red[500]),
+      Pair.create(CustomIcons.BANNER_IMAGE_02, Colors.green[500]),//Colors.green[500]
+    ];
+
+    return new BannerView(
+      BannerItemFactory.banners(param),
+      intervalDuration: new Duration(seconds: 2),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +132,21 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
     return new StoreBuilder<CustomState>(
         builder:(context, store){
           return Scaffold(
-            body: new GridView.count(
-              crossAxisCount: 3,
-              padding: EdgeInsets.all(20.0),
-              children: _buildWidgetList(),
-            ),
+            body:new Column(children: <Widget>[
+              new Container(
+                alignment: Alignment.center,
+                height: 180.0,
+                child: this._bannerView(),
+                padding: EdgeInsets.only(bottom: 10.0),
+              ),
+              new Expanded(child: new GridView.count(
+                crossAxisCount: 3,
+                padding: EdgeInsets.all(20.0),
+                children: _buildWidgetList(),
+              ),
+              )
+            ],),
+
           );
         },
     );
@@ -131,6 +157,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
       new Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+
           new Expanded(
             child:
             new IconButton(
@@ -180,8 +207,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.REFUEL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                CommonUtils.showShort("敬请期待...");
-                //NavigatorUtils.goRefuelInquiry(context);
+                //CommonUtils.showShort("敬请期待...");
+                NavigatorUtils.goRefuelInquiry(context);
               },
               tooltip: "加油查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -201,8 +228,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.TOLL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
-                CommonUtils.showShort("敬请期待...");
-                //NavigatorUtils.goTollInquiry(context);
+                //CommonUtils.showShort("敬请期待...");
+                NavigatorUtils.goTollInquiry(context);
               },
               tooltip: "过路费查询",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
@@ -264,8 +291,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.CURRENT_ASSIGN_CUSTOMER, size: Config.ICON_SIZE),
               onPressed: (){
-                CommonUtils.showShort("敬请期待...");
-                //NavigatorUtils.goCurrentAssignCustomer(context);
+                //CommonUtils.showShort("敬请期待...");
+                NavigatorUtils.goCurrentAssignCustomer(context);
               },
               tooltip: "当前指派客户",
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),

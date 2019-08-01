@@ -28,7 +28,7 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  var titles = ["人员档案", "车辆档案", "人员及证件状态", "车辆状态"];
+  var titles = ["我的二维码名片","人员档案", "车辆档案", "人员及证件状态", "车辆状态"];
 
   var _userAvatar;
   var _userFullName;
@@ -153,46 +153,4 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
     NavigatorUtils.goDisplayUserInfo(context, title);
   }
 
-  ///*********************测试异步获取数据进行页面显示****************************
-//  Future<Customer> customerList;
-//
-//
-//  Future<Customer> fetchData() async {
-//    var res = await CustomerDao.getCustomerList("");
-//    if (res != null && res.result) {
-//      Customer customer = Customer.fromJson(res.data['result']['items'][0]);
-//      return customer;
-//    }
-//  }
-//  @override
-//  void initState() {
-//    // TODO: implement initState
-//    super.initState();
-//    customerList = fetchData();
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    //super.build(context);
-//    //return new StoreBuilder<CustomState>(
-//    //  builder: (context, store) {
-//    return new Scaffold(
-//      body: new Center(
-//        child: FutureBuilder<Customer>(
-//          future: customerList,
-//          builder: (context, snapshot) {
-//            if (snapshot.hasData) {
-//              return Text(snapshot.data.name);
-//            } else if (snapshot.hasError) {
-//              return Text("${snapshot.error}");
-//            }
-//            return CircularProgressIndicator();
-//          },
-//        ),
-//      ),
-//    );
-//    //    },
-//    //  );
-//  }
-  ///************************************************************
 }

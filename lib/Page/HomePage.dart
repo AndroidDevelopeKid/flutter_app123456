@@ -18,6 +18,7 @@ class HomePage extends StatelessWidget{
         context: context,
         builder: (context) => new AlertDialog(
           content: new Text("退出？"),
+          backgroundColor: Colors.white,
           actions: <Widget>[
             new FlatButton(onPressed: () => Navigator.of(context).pop(false), child: new Text("取消")),
             new FlatButton(
@@ -72,7 +73,6 @@ class HomePage extends StatelessWidget{
           new HomeHomePage(),
           new GrabSheetPage(),
           new NoticePage(),
-          //new FinancePage(),
           new MyPage()
         ],
         backgroundColor: Theme.of(context).primaryColor,

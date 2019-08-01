@@ -9,6 +9,7 @@ import 'package:flutter_app123456/Page/HistoryBillPage.dart';
 import 'package:flutter_app123456/Page/LastBillPage.dart';
 import 'package:flutter_app123456/Page/MaintenanceFeeInquiryPage.dart';
 import 'package:flutter_app123456/Page/MessageDetailPage.dart';
+import 'package:flutter_app123456/Page/MyBarcodePage.dart';
 import 'package:flutter_app123456/Page/OtherCostInquiryPage.dart';
 import 'package:flutter_app123456/Page/QueueInfoPage.dart';
 import 'package:flutter_app123456/Page/RefuelInquiryPage.dart';
@@ -67,6 +68,9 @@ class NavigatorUtils{
   ///显示人员档案，车辆档案，人员及证件状态，车辆状态页
   static goDisplayUserInfo(BuildContext context, String title){
     switch(title){
+      case "我的二维码名片":
+        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MyBarcodePage()));
+        break;
       case "人员档案":
         Navigator.push(context, new CupertinoPageRoute(builder: (context) => new UserInfoPage()));
         break;

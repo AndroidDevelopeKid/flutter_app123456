@@ -43,6 +43,8 @@ class CustomIcons{
   static const String CURRENT_ASSIGN_CUSTOMER_IMAGE = "lib/static/images/currentassgincustomer.ico";
   static const String MESSAGE_IMAGE = "lib/static/images/message32.ico";
   static const String LOGIN_BACKGROUND_IMAGE = "lib/static/images/welcome04.jpeg";
+  static const String BANNER_IMAGE_01 = "lib/static/images/banner01.jpeg";
+  static const String BANNER_IMAGE_02 = "lib/static/images/banner02.jpeg";
   static const String HISTORY_BILL_SUB = "lib/static/images/historybillsub.ico";
   ///列表左侧小图标
   static const String LEFT_DISPLAY_IMAGE = "lib/static/images/leftdisplay02.ico";
@@ -93,6 +95,10 @@ class CustomConstant{
   static const normalTextSize = 18.0;
   static const minTextSize = 12.0;
   static const smallTextSize = 14.0;
+
+  static const hintText = TextStyle(
+      color: Color(0x8A000000)
+  );
 
   static const smallTextBold = TextStyle(
     color: Color(CustomColors.mainTextColor),

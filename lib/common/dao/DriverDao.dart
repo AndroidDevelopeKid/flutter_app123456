@@ -15,15 +15,15 @@ class DriverDao {
 
   //当前指派客户
   static getDispatchAssignInfo() async{
-    next() async {
+
       var res;
-      res = await HttpManager.netFetch(Address.getVehicleArchives(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+      res = await HttpManager.netFetch(Address.getDispatchAssign(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
       if(res != null && res.result){
-        print("vehicleInfo: " + res.data.toString());
+        print("dispatchAssign: " + res.data.toString());
         if(res.data["result"] != null){
           DispatchAssign dispatchAssign = DispatchAssign.fromJson(res.data["result"]);
           LocalStorage.save(Config.DISPATCH_ASSIGN, json.encode(dispatchAssign.toJson()));
-          print("driverinfo.ls" + json.encode(dispatchAssign.toJson()));
+          print("dispatchAssign.ls" + json.encode(dispatchAssign.toJson()));
 
           return new DataResult(dispatchAssign, true);
         }else{
@@ -34,8 +34,8 @@ class DriverDao {
       }else{
         return new DataResult(res.data, false);
       }
-    }
-    return await next();
+
+
 
   }
 }

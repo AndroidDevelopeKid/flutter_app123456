@@ -89,6 +89,26 @@ class UserDao{
   static initUserInfo(Store store) async {
 
   }
+  ///获取用户二维码名片
+  static getMyBarcode(tenantId) async{
+    var res;
+    if(tenantId != null){
+      res = await HttpManager.netFetch(Address.getMyBarcode(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+    }else{
+      res = new DataResult("无二维码", false);
+    }
+    if(res != null && res.result){
+      print("barcode: " + res.data.toString());
+      if(res.data["result"] != null){
+        LocalStorage.save(Config.MY_BARCODE, res.data["result"]);
+        return new DataResult(res.data["result"], true);
+      }else{
+        return new DataResult(null, true);
+      }
+    }else{
+      return new DataResult(null, false);
+    }
+  }
   static getUserInfo(tenantId,userId) async {
     next() async {
       var res;
