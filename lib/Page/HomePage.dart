@@ -33,6 +33,7 @@ class HomePage extends StatelessWidget{
                   await LocalStorage.remove(Config.QUEUE_INFO);
                   await LocalStorage.remove(Config.LASTED_DELIVERY_ORDER);
                   await LocalStorage.remove(Config.HISTORY_DELIVERY_ORDER);
+                  await LocalStorage.remove(Config.MY_BARCODE);
                   Navigator.of(context).pop(true);
                 },
                 child: new Text("确认")

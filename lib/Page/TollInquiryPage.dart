@@ -3,6 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
+import 'package:flutter_app123456/common/dao/ResultDao.dart';
+import 'package:flutter_app123456/common/dao/TollDao.dart';
+import 'package:flutter_app123456/common/model/Toll.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/widget/BaseTollInquiryState.dart';
 import 'package:flutter_app123456/widget/CustomFlexButton.dart';
@@ -24,10 +27,12 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
   int skipCountGlobal = 10;
   int skipCountInit = 0;
 
-  var _dateBegin = "";
-  var _dateEnd = "";
+  var _dateBegin = DateTime.now().subtract(new Duration(days: 3)).toString().substring(0,10);
+  var _dateEnd = DateTime.now().add(new Duration(days: 1)).toString().substring(0,10);
   var _dateBeginNext = "";
   var _dateEndNext = "";
+
+  var _isExpanded = false;
 
   final CustomPullLoadWidgetControl pullLoadWidgetControl =
   new CustomPullLoadWidgetControl();
@@ -71,7 +76,31 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
 
   ///获取数据
   _getData(dateBegin, dateEnd, skipCount) async {
-
+    final List<Toll> tollList = new List();
+    var tolls = await TollDao.getTollInquiry(dateBegin, dateEnd, skipCount);
+    if (tolls != null && tolls.result) {
+      print("skipCount : " + skipCountGlobal.toString());
+      print("tolls: " + tolls.data.toString());
+      var itemList = tolls.data["result"]["items"];
+      print("tolls's itemList: " +
+          itemList.toString() +
+          itemList.length.toString());
+      print("tolls itemList length: " + itemList.length.toString());
+      for (int i = 0; i < itemList.length; i++) {
+        var id = itemList[i]["id"];
+        var happenDate = itemList[i]["happenDate"];
+        var vehicleCode = itemList[i]["vehicleCode"];
+        var driverName = itemList[i]["driverName"];
+        var taxAmount = itemList[i]["taxAmount"];
+        var customerId = itemList[i]["customerId"];
+        var customerIdName = itemList[i]["customerIdName"];
+        tollList.add(new Toll(id, vehicleCode, customerId, customerIdName, driverName, happenDate, taxAmount));
+      }
+      return new DataResult(tollList, true);
+    }
+    if (tolls.data == null && !tolls.result) {
+      return new DataResult("到底了", false);
+    }
   }
 
   ///请求刷新
@@ -90,13 +119,13 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
 
   ///请求加载更多
   @override
-  requestLoadMore() {
+  requestLoadMore() async {
     // TODO: implement requestLoadMore
-    var dataLoadMore = _getData(_dateBeginNext.trim(), _dateEndNext.trim(),
+    var dataLoadMore = await _getData(_dateBeginNext.trim(), _dateEndNext.trim(),
         skipCountGlobal);
     if (dataLoadMore.result) {
       skipCountGlobal = skipCountGlobal + Config.PAGE_SIZE;
-      print("skipCountGlobal : " + skipCountGlobal.toString());
+      //print("skipCountGlobal : " + skipCountGlobal.toString());
     }
     return dataLoadMore;
   }
@@ -136,53 +165,87 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          new Padding(padding: EdgeInsets.all(2.0)),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Expanded(
-                child: new OutlineButton(
-                  child: new Padding(
-                    padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                    child: new Text(
-                      _dateBegin == ""
-                          ? DateTime.now().subtract(new Duration(days: 3)).toString().substring(0,10)
-                          : _dateBegin.toString().substring(0, 10),
-                      style: CustomConstant.hintText,
+          new ExpansionPanelList(
+            children: <ExpansionPanel>[
+              ExpansionPanel(
+                headerBuilder: (context, isExpanded){
+                  return new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Padding(padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                        child: new OutlineButton(
+                          child: new Text("查询"),
+                          borderSide: new BorderSide(color: Colors.blue),
+                          //color: Colors.blueAccent,
+                          //text: '查询',
+                          onPressed: () {
+                            handleRefresh();
+                            _dateBeginNext = _dateBegin;
+                            _dateEndNext = _dateEnd;
+                          },
+                        ),
+                      ),
+
+                      new Center(child: new Text("点击展开查询条件"),)
+                    ],
+
+                  );
+                },
+                body: new Column(
+                  children: <Widget>[
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Expanded(
+                          child: new OutlineButton(
+                            child: new Padding(
+                              padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                              child: new Text(
+                                _dateBegin == ""
+                                    ? DateTime.now().subtract(new Duration(days: 3)).toString().substring(0,10)
+                                    : _dateBegin.toString().substring(0, 10),
+                                style: CustomConstant.hintText,
+                              ),
+                            ),
+                            color: Color(CustomColors.white),
+                            borderSide: new BorderSide(color: Colors.grey),
+                            onPressed: () => _showDatePickerBegin(),
+                          ),
+                        ),
+                        //new Text("-->"),
+                        new Padding(padding: EdgeInsets.all(5.0)),
+                        Expanded(
+                            child: new OutlineButton(
+                              child: new Padding(
+                                padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                child: new Text(
+                                    _dateEnd == ""
+                                        ? DateTime.now().toString().substring(0,10)
+                                        : _dateEnd.toString().substring(0, 10),
+                                    style: CustomConstant.hintText),
+                              ),
+                              borderSide: new BorderSide(color: Colors.grey),
+                              onPressed: () => _showDatePickerEnd(),
+                            ))
+                      ],
                     ),
-                  ),
-                  color: Color(CustomColors.white),
-                  borderSide: new BorderSide(color: Colors.grey),
-                  onPressed: () => _showDatePickerBegin(),
+                    new Padding(padding: EdgeInsets.all(2.0)),
+
+                  ],
                 ),
-              ),
-              //new Text("-->"),
-              new Padding(padding: EdgeInsets.all(5.0)),
-              Expanded(
-                  child: new OutlineButton(
-                    child: new Padding(
-                      padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                      child: new Text(
-                          _dateEnd == ""
-                              ? DateTime.now().toString().substring(0,10)
-                              : _dateEnd.toString().substring(0, 10),
-                          style: CustomConstant.hintText),
-                    ),
-                    borderSide: new BorderSide(color: Colors.grey),
-                    onPressed: () => _showDatePickerEnd(),
-                  ))
+                isExpanded: _isExpanded,
+                canTapOnHeader: true,
+
+              )
             ],
-          ),
-          new Padding(padding: EdgeInsets.all(2.0)),
-          new CustomFlexButton(
-            color: Colors.blue,
-            text: '查询',
-            onPress: () {
-              handleRefresh();
-              _dateBeginNext = _dateBegin;
-              _dateEndNext = _dateEnd;
+            expansionCallback: (panelIndex, isExpanded){
+              setState(() {
+                _isExpanded = !isExpanded;
+              });
             },
+            animationDuration: Duration(milliseconds: 500),
           ),
+
           new Padding(padding: EdgeInsets.all(2.0)),
           new Expanded(
               child: new CustomPullLoadWidget(

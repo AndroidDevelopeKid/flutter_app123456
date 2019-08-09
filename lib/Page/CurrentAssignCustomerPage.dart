@@ -65,7 +65,7 @@ class _CurrentAssignCustomerPage extends State<CurrentAssignCustomerPage>{
               if (snapshot.hasData) {
                 //return Text(snapshot.data.vehicleCode);
                 return new Table(
-                  border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
+                  //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
                   children: <TableRow>[
                     TableRow(
                         children: <Widget>[
@@ -85,12 +85,12 @@ class _CurrentAssignCustomerPage extends State<CurrentAssignCustomerPage>{
                           Text(snapshot.data.groupText == null ? "无" : snapshot.data.groupText, style: CustomConstant.normalTextBlack),
                         ]
                     ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("备注：", style: CustomConstant.normalTextBlack),
-                          Text(snapshot.data.remark == null ? "无" : snapshot.data.remark, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
+//                    TableRow(
+//                        children: <Widget>[
+//                          Text("备注：", style: CustomConstant.normalTextBlack),
+//                          Text(snapshot.data.remark == null ? "无" : snapshot.data.remark, style: CustomConstant.normalTextBlack),
+//                        ]
+//                    ),
                     TableRow(
                         children: <Widget>[
                           Text("是否激活：", style: CustomConstant.normalTextBlack),

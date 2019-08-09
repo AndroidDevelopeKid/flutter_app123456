@@ -73,11 +73,12 @@ class FlutterReduxApp extends StatelessWidget {
             ///参数以键值对的形式传递
             ///key：路由名字
             ///value：对应的Widget
+            initialRoute: "login",
             routes: {
-              WelcomePage.sName: (context){
-                store.state.platformLocale = Localizations.localeOf(context);
-                return WelcomePage();
-              },
+//              WelcomePage.sName: (context){
+//                store.state.platformLocale = Localizations.localeOf(context);
+//                return WelcomePage();
+//              },
               HomePage.sName: (context){
                 return new CustomLocalizations(
                   child: new HomePage(),
@@ -85,9 +86,10 @@ class FlutterReduxApp extends StatelessWidget {
                 );
               },
               LoginPage.sName: (context){
-                return new CustomLocalizations(
-                  child: new LoginPage(),
-                );
+                return LoginPage();
+//                return new CustomLocalizations(
+//                  child: new LoginPage(),
+//                );
               }
             },
           );

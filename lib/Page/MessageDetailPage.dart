@@ -36,35 +36,36 @@ class _MessageDetailPage extends State<MessageDetailPage>{
             elevation: 8.0,
             child: new Container(
               child:new Table(
-                border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
                 children: <TableRow>[
                   TableRow(
                       children: <Widget>[
-                        Text("信息来源：", style: CustomConstant.normalTextBlack),
+                        Text("信息来源：", style: CustomConstant.normalTextBlue),
                         Text(model.messageSource == "null" ? "无" : model.messageSource, style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
-                        Text("信息标识：", style: CustomConstant.normalTextBlack),
+                        Text("信息标识：", style: CustomConstant.normalTextBlue),
                         Text(model.messageFlag == "null" ? "无" : model.messageFlag, style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
-                        Text("发送人：", style: CustomConstant.normalTextBlack),
+                        Text("发送人：", style: CustomConstant.normalTextBlue),
                         Text(model.senderUserName == "" ? "无" : model.senderUserName, style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
-                        Text("信息创建时间：", style: CustomConstant.normalTextBlack),
+                        Text("信息创建时间：", style: CustomConstant.normalTextBlue),
                         Text(model.creationTime == "null" ? "00-00 00:00" : TimelineUtil.formatByDateTime(DateTime.parse(model.creationTime), dayFormat: DayFormat.Full), style: CustomConstant.normalTextBlack),
                       ]
                   ),
                   TableRow(
                       children: <Widget>[
-                        Text("信息内容：", style: CustomConstant.normalTextBlack),
+                        Text("信息内容：", style: CustomConstant.normalTextBlue),
                         Text(model.msg == "null" ? "无内容" : model.msg, style: CustomConstant.normalTextBlack),
                   ]
                   ),

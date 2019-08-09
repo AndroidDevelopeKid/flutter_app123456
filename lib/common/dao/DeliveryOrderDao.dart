@@ -19,10 +19,10 @@ class DeliveryOrderDao{
     }
   }
 
-  static getHistoryBill(skipCount) async {
+  static getHistoryBill(dateBegin, dateEnd, skipCount) async {
     var res;
     res = await HttpManager.netFetch(
-        Address.getHistoryBill()+ "?MaxResultCount=${Config.PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
+        Address.getHistoryBill()+ "?StartGenerateDate=${dateBegin}&EndGenerateDate=${dateEnd}&MaxResultCount=${Config.PAGE_SIZE}&SkipCount=${skipCount}", null, null, null);
     if (res != null && res.result) {
       print("get history delivery order records success : " +  res.data.toString());
       return DataResult(res.data, true);

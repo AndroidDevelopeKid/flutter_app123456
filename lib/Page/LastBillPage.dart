@@ -75,13 +75,14 @@ class _LastBillPage extends State<LastBillPage> {
                 //return Text(snapshot.data.vehicleCode);
                 var image = new QrImage(data: snapshot.data.barcode == null ? "" : snapshot.data.barcode,size: 350.0, version: 9, errorCorrectionLevel: QrErrorCorrectLevel.H);
                 return new Table(
-                  border: TableBorder.all(
-                      color: Color(CustomColors.tableBorderColor),
-                      width: 2.0,
-                      style: BorderStyle.solid),
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+//                  border: TableBorder.all(
+//                      color: Color(CustomColors.tableBorderColor),
+//                      width: 2.0,
+//                      style: BorderStyle.solid),
                   children: <TableRow>[
                     TableRow(children: <Widget>[
-                      Text("车辆编号：", style: CustomConstant.normalTextBlack),
+                      Text("车辆编号：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.vehicleCode == null
                               ? "无"
@@ -89,7 +90,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("车牌号：", style: CustomConstant.normalTextBlack),
+                      Text("车牌号：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.mainVehiclePlate == null
                               ? "无"
@@ -97,7 +98,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("提货单号：", style: CustomConstant.normalTextBlack),
+                      Text("提货单号：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.deliveryOrderCode == null
                               ? "无"
@@ -105,7 +106,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("提货单状态：", style: CustomConstant.normalTextBlack),
+                      Text("提货单状态：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.deliveryOrderState == null
                               ? "无"
@@ -113,7 +114,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("提货单时间：", style: CustomConstant.normalTextBlack),
+                      Text("提货单时间：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.generateDate == null
                               ? "无"
@@ -121,7 +122,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("装地-提货点：", style: CustomConstant.normalTextBlack),
+                      Text("装地-提货点：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.loadPlaceName == null
                               ? "无"
@@ -129,7 +130,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("卸地-采购方：", style: CustomConstant.normalTextBlack),
+                      Text("卸地-采购方：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.unloadPlaceName == null
                               ? "无"
@@ -137,7 +138,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[
-                      Text("煤种：", style: CustomConstant.normalTextBlack),
+                      Text("煤种：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.coalText == null
                               ? "无"
@@ -145,7 +146,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack)
                     ]),
                     TableRow(children: <Widget>[
-                      Text("备注：", style: CustomConstant.normalTextBlack),
+                      Text("备注：", style: CustomConstant.normalTextBlue),
                       Text(
                           snapshot.data.message == null
                               ? "无"
@@ -153,7 +154,7 @@ class _LastBillPage extends State<LastBillPage> {
                           style: CustomConstant.normalTextBlack)
                     ]),
                     TableRow(children: <Widget>[
-                      Text("二维码：", style: CustomConstant.normalTextBlack),
+                      Text("二维码：", style: CustomConstant.normalTextBlue),
                       new Container(
                         child: GestureDetector(
                             onTap: (){

@@ -2,8 +2,9 @@
 import 'package:flutter_app123456/common/config/Config.dart';
 
 class Address{
-  //static const String host = "http://10.1.9.167/api/";
-  static const String host = "https://api.yixintm.com/api/";
+  static const String host = "http://10.1.9.167/api/";
+  //static const String host = "http://default.yixintm.com/api/";
+  //static const String host = "https://api.yixintm.com/api/";
   static const String hostGit = "https://api.github.com/";
   static const String updateUrl = "https://www.pgyer.com/Yc9G";
 
@@ -13,7 +14,7 @@ class Address{
   }
   ///获取二维码名片
   static getMyBarcode(){
-    return "${host}services/app/...";
+    return "${host}services/app/VehicleDriverArchive/GetVehicleDriverArchivesCardByMobileAsync";
   }
   ///获取司机档案
   static getDriverArchives(){
@@ -87,7 +88,16 @@ class Address{
   }
   ///当前指派客户
   static getDispatchAssign(){
-    return "${host}services/app/VehicleDispatchAssignAppService/GetVehicleDispatchAssignForMobileAsync";
+    return "${host}services/app/VehicleDispatchAssign/GetVehicleDispatchAssignForMobileAsync";
+  }
+  ///加油查询
+  static getRefuelInquiry(){
+    return "${host}services/app/VehicleRefuel/GetVehicleRefuelListByMobileAsync";
+
+  }
+  ///过路费查询
+  static getTollInquiry(){
+    return "${host}services/app/TransportSingleVehicleRoadCost/GetSingleVehicleRoadCostListByMobileAsync";
   }
 
   ///仓release get

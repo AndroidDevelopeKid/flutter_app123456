@@ -31,11 +31,19 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
     }
 
   }
+
+  var _dateBegin = "";
+  var _dateEnd = "";
+  var _dateBeginNext = "";
+  var _dateEndNext = "";
+
+  var _isExpanded = false;
+
   final CustomPullLoadWidgetControl pullLoadWidgetControl = new CustomPullLoadWidgetControl();
   ///获取数据
-  _getData(skipCount) async {
+  _getData(dateBegin, dateEnd, skipCount) async {
     final List<HistoryBill> historyBillList = new List();
-    var historyBills = await DeliveryOrderDao.getHistoryBill(skipCount);
+    var historyBills = await DeliveryOrderDao.getHistoryBill(dateBegin, dateEnd, skipCount);
     if (historyBills != null && historyBills.result) {
       print("skipCount : " + skipCountGlobal.toString());
       print("historyBills: " + historyBills.data.toString());
@@ -50,33 +58,21 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
         var mainVehiclePlate = itemList[i]["mainVehiclePlate"].toString();
         var deliveryOrderCode = itemList[i]["deliveryOrderCode"].toString();
         var deliveryOrderState = itemList[i]["deliveryOrderState"].toString();
+        var deliveryOrderStateText = itemList[i]["deliveryOrderStateText"];
         var generateDate = itemList[i]["generateDate"].toString();
+        var loadPlaceId = itemList[i]["loadPlaceId"];
         var loadPlaceName = itemList[i]["loadPlaceName"];
+        var unloadPlaceId = itemList[i]["unloadPlaceId"];
         var unloadPlaceName = itemList[i]["unloadPlaceName"];
+        var goodsId = itemList[i]["goodsId"];
         var goodsName = itemList[i]["goodsName"];
-        var outStockGenerateDate =
-        itemList[i]["outStockGenerateDate"].toString();
+        var outStockGenerateDate = itemList[i]["outStockGenerateDate"].toString();
         var outStockNetWeigh = itemList[i]["outStockNetWeigh"];
         var weighDate = itemList[i]["weighDate"].toString();
         var skinbackDate = itemList[i]["skinbackDate"].toString();
         var inStockGrossWeigh = itemList[i]["inStockGrossWeigh"];
         var inStockNetWeigh = itemList[i]["inStockNetWeigh"];
-        historyBillList.add(new HistoryBill(
-            id,
-            mainVehiclePlate,
-            vehicleCode,
-            generateDate,
-            deliveryOrderState,
-            deliveryOrderCode,
-            goodsName,
-            inStockGrossWeigh,
-            inStockNetWeigh,
-            loadPlaceName,
-            outStockGenerateDate,
-            outStockNetWeigh,
-            skinbackDate,
-            unloadPlaceName,
-            weighDate));
+        historyBillList.add(new HistoryBill(id, mainVehiclePlate, vehicleCode, generateDate, deliveryOrderState, deliveryOrderCode, goodsName, inStockGrossWeigh, inStockNetWeigh, loadPlaceName, outStockGenerateDate, outStockNetWeigh, skinbackDate, unloadPlaceName, weighDate, deliveryOrderStateText, goodsId, loadPlaceId, unloadPlaceId));
       }
       return new DataResult(historyBillList, true);
     }
@@ -91,13 +87,14 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
     //getMessagePush();
     skipCountGlobal = 10;
     print("parameters: " + skipCountInit.toString());
-    return _getData(skipCountInit);
+    return _getData(_dateBegin, _dateEnd, skipCountInit);
   }
   ///请求加载更多
   @override
   requestLoadMore() async {
     // TODO: implement requestLoadMore
-    var dataLoadMore = await _getData(skipCountGlobal);
+    var dataLoadMore = await _getData(_dateBeginNext.trim(),
+        _dateEndNext.trim(), skipCountGlobal);
     if(dataLoadMore.result){
       skipCountGlobal = skipCountGlobal + Config.NOTICE_PAGE_SIZE;
       print("skipCountGlobal : " + skipCountGlobal.toString());
@@ -124,6 +121,33 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
   void dispose() {
     super.dispose();
   }
+  _showDatePickerBegin() async {
+    DateTime _picker = await showDatePicker(
+      context: context,
+      initialDate: new DateTime.now(),
+      firstDate: new DateTime.now().subtract(new Duration(days: 3000)),
+      // 减 30 天
+      lastDate: new DateTime.now().add(new Duration(days: 30)), // 加 30 天
+    );
+    if (_picker == null) return;
+    setState(() {
+      _dateBegin = _picker.toString();
+    });
+  }
+  _showDatePickerEnd() async {
+    DateTime _picker = await showDatePicker(
+      context: context,
+      initialDate: new DateTime.now(),
+      firstDate: new DateTime.now().subtract(new Duration(days: 3000)),
+      // 减 30 天
+      lastDate: new DateTime.now().add(new Duration(days: 30)), // 加 30 天
+    );
+    if (_picker == null) return;
+    setState(() {
+      _dateEnd = _picker.toString();
+    });
+  }
+
 
 
   @override
@@ -137,6 +161,86 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          new ExpansionPanelList(
+            children: <ExpansionPanel>[
+              ExpansionPanel(
+                headerBuilder: (context, isExpanded){
+                  return new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Padding(padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                        child: new OutlineButton(
+                          child: new Text("查询"),
+                          borderSide: new BorderSide(color: Colors.blue),
+                          //color: Colors.blueAccent,
+                          //text: '查询',
+                          onPressed: () {
+                            handleRefresh();
+                            _dateBeginNext = _dateBegin;
+                            _dateEndNext = _dateEnd;
+                          },
+                        ),
+                      ),
+
+                      new Center(child: new Text("点击展开查询条件"),)
+                    ],
+
+                  );
+                },
+                body: new Column(
+                  children: <Widget>[
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Expanded(
+                          child: new OutlineButton(
+                            child: new Padding(
+                              padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                              child: new Text(
+                                _dateBegin == ""
+                                    ? DateTime.now().toString().substring(0,10)
+                                    : _dateBegin.toString().substring(0, 10),
+                                style: CustomConstant.hintText,
+                              ),
+                            ),
+                            color: Color(CustomColors.white),
+                            borderSide: new BorderSide(color: Colors.grey),
+                            onPressed: () => _showDatePickerBegin(),
+                          ),
+                        ),
+                        //new Text("-->"),
+                        new Padding(padding: EdgeInsets.all(5.0)),
+                        Expanded(
+                            child: new OutlineButton(
+                              child: new Padding(
+                                padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                child: new Text(
+                                    _dateEnd == ""
+                                        ? DateTime.now().toString().substring(0,10)
+                                        : _dateEnd.toString().substring(0, 10),
+                                    style: CustomConstant.hintText),
+                              ),
+                              borderSide: new BorderSide(color: Colors.grey),
+                              onPressed: () => _showDatePickerEnd(),
+                            ))
+                      ],
+                    ),
+                    new Padding(padding: EdgeInsets.all(5.0)),
+
+                  ],
+                ),
+                isExpanded: _isExpanded,
+                canTapOnHeader: true,
+
+              )
+            ],
+            expansionCallback: (panelIndex, isExpanded){
+              setState(() {
+                _isExpanded = !isExpanded;
+              });
+            },
+            animationDuration: Duration(milliseconds: 500),
+          ),
           new Expanded(
               child: new CustomPullLoadWidget(
                 pullLoadWidgetControl,

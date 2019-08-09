@@ -127,7 +127,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
 //  }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 
   @override
   Widget build(BuildContext context) {

@@ -92,11 +92,11 @@ class UserDao{
   ///获取用户二维码名片
   static getMyBarcode(tenantId) async{
     var res;
-    if(tenantId != null){
-      res = await HttpManager.netFetch(Address.getMyBarcode(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
-    }else{
-      res = new DataResult("无二维码", false);
-    }
+//    if(tenantId != null){
+    res = await HttpManager.netFetch(Address.getMyBarcode(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+//    }else{
+//      res = new DataResult("无二维码", false);
+//    }
     if(res != null && res.result){
       print("barcode: " + res.data.toString());
       if(res.data["result"] != null){

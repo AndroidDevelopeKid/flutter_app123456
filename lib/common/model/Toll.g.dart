@@ -7,12 +7,22 @@ part of 'Toll.dart';
 // **************************************************************************
 
 Toll _$TollFromJson(Map<String, dynamic> json) {
-  return Toll(json['vehicleCode'] as String, json['mainVehiclePlate'] as String,
-      json['id'] as String);
+  return Toll(
+      json['id'] as String,
+      json['vehicleCode'] as String,
+      json['customerId'] as int,
+      json['customerIdName'] as String,
+      json['driverName'] as String,
+      json['happenDate'] as String,
+      (json['taxAmount'] as num)?.toDouble());
 }
 
 Map<String, dynamic> _$TollToJson(Toll instance) => <String, dynamic>{
+      'happenDate': instance.happenDate,
       'vehicleCode': instance.vehicleCode,
-      'mainVehiclePlate': instance.mainVehiclePlate,
+      'driverName': instance.driverName,
+      'taxAmount': instance.taxAmount,
+      'customerId': instance.customerId,
+      'customerIdName': instance.customerIdName,
       'id': instance.id
     };

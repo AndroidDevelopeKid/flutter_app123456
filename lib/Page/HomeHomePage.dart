@@ -115,8 +115,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
   BannerView _bannerView(){
     // 盛放图片的 List
     List<Pair<String, Color>> param = [
-      Pair.create(CustomIcons.BANNER_IMAGE_01, Colors.red[500]),
-      Pair.create(CustomIcons.BANNER_IMAGE_02, Colors.green[500]),//Colors.green[500]
+      Pair.create(CustomIcons.BANNER_IMAGE_01, null),//Colors.red[500]
+      Pair.create(CustomIcons.BANNER_IMAGE_02, null),//Colors.green[500]
     ];
 
     return new BannerView(

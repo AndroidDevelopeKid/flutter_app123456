@@ -18,12 +18,28 @@ class RefuelInquiryItem extends StatelessWidget{
       elevation: 8.0,
       child: new Container(
         child: new Table(
-          border: TableBorder.all(
-              color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
           children: <TableRow>[
             TableRow(children: <Widget>[
-              Text("加油时间：", style: CustomConstant.normalTextBlack),
-              Text(refuelInquiryItemViewModel.refuelTime == null ? "无" : refuelInquiryItemViewModel.vehicleCode, style: CustomConstant.normalTextBlack),
+              Text("加油时间：", style: CustomConstant.normalTextBlue),
+              Text(refuelInquiryItemViewModel.refuelTime == null ? "无" : refuelInquiryItemViewModel.refuelTime, style: CustomConstant.normalTextBlack),
+            ]),
+            TableRow(children: <Widget>[
+              Text("加油车辆编号：", style: CustomConstant.normalTextBlue),
+              Text(refuelInquiryItemViewModel.refuelVehicleCode == null ? "无" : refuelInquiryItemViewModel.refuelVehicleCode, style: CustomConstant.normalTextBlack),
+            ]),
+            TableRow(children: <Widget>[
+              Text("加油升数：", style: CustomConstant.normalTextBlue),
+              Text(refuelInquiryItemViewModel.refuelLitres == null ? "无" : refuelInquiryItemViewModel.refuelLitres.toString(), style: CustomConstant.normalTextBlack),
+            ]),
+            TableRow(children: <Widget>[
+              Text("油品：", style: CustomConstant.normalTextBlue),
+              Text(refuelInquiryItemViewModel.fuelText == null ? "无" : refuelInquiryItemViewModel.fuelText, style: CustomConstant.normalTextBlack),
+            ]),
+            TableRow(children: <Widget>[
+              Text("加油站：", style: CustomConstant.normalTextBlue),
+              Text(refuelInquiryItemViewModel.fillingStationText == null ? "无" : refuelInquiryItemViewModel.fillingStationText, style: CustomConstant.normalTextBlack),
             ]),
 
           ],
@@ -44,14 +60,26 @@ class RefuelInquiryItem extends StatelessWidget{
 }
 
 class RefuelInquiryItemViewModel {
-  String vehicleCode;//车辆编号
-  String mainVehiclePlate;//车牌号
+  String id;
   String refuelTime;//加油时间
+  double refuelLitres;//加油升数
+  int fuel;//油品
+  String fuelText;//油品显示文本
+  String refuelVehicleCode;//加油车辆编号
+  int fillingStation;//加油站
+  String fillingStationText;//加油站显示文本
+  int flag;//加油标识
 
   RefuelInquiryItemViewModel.fromMap(Refuel refuel) {
-    vehicleCode = refuel.vehicleCode;
-    mainVehiclePlate = refuel.mainVehiclePlate;
+    id = refuel.id;
     refuelTime = refuel.refuelTime;
+    refuelLitres = refuel.refuelLitres;
+    fuel = refuel.fuel;
+    fuelText = refuel.fuelText;
+    refuelVehicleCode = refuel.refuelVehicleCode;
+    fillingStation = refuel.fillingStation;
+    fillingStationText = refuel.fillingStationText;
+    flag = refuel.flag;
   }
 
 }

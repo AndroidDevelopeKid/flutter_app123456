@@ -6,6 +6,7 @@ class CustomColors{
   static const int textWhite = 0xFFFFFFFF;
   static const int white = 0xFFFFFFFF;
   static const int black = 0xFF000000;
+  static const int blue = 0xFF3399FF;
   static const int lightBlue = 0xFF00FFFF;
   static const int primaryDarkValue = 0xFF121917;
   static const int subLightTextColor = 0xffc4c4c4;
@@ -21,6 +22,7 @@ class CustomColors{
   static const int mainTextColor = primaryDarkValue;
   static const int textColorWhite = white;
   static const int textColorBlack = black;
+  static const int textColorBlue = blue;
 
   //static const int defaultColor =
 }
@@ -115,6 +117,12 @@ class CustomConstant{
     color: Color(CustomColors.textColorBlack),
     fontSize: normalTextSize,
   );
+
+  static const normalTextBlue = TextStyle(
+    color: Color(CustomColors.textColorBlue),
+    fontSize: normalTextSize,
+  );
+
 
   static const normalText = TextStyle(
     color: Color(CustomColors.mainTextColor),

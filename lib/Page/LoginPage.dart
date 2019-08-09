@@ -85,7 +85,8 @@ class _LoginPageState extends State<LoginPage>{
               //child:
               new Container(
                 decoration: new BoxDecoration(
-                  image: loginBackgroundImage,
+                  //image: loginBackgroundImage,
+                  gradient: new LinearGradient(colors: [Color(0xffFFFFFF),Color(0xff0872EA)], begin: Alignment.topLeft, end: Alignment.bottomRight)
 
                 ),
                 //color: Theme.of(context).primaryColor,
