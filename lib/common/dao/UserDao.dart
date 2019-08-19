@@ -100,7 +100,7 @@ class UserDao{
     if(res != null && res.result){
       print("barcode: " + res.data.toString());
       if(res.data["result"] != null){
-        LocalStorage.save(Config.MY_BARCODE, res.data["result"]);
+        //LocalStorage.save(Config.MY_BARCODE, res.data["result"]);
         return new DataResult(res.data["result"], true);
       }else{
         return new DataResult(null, true);

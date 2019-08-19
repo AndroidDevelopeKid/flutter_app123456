@@ -34,14 +34,14 @@ class _MyBarcodePageState extends State<MyBarcodePage>{
 
 
   Future<String> fetchData() async {
-    var myBarcode = await LocalStorage.get(Config.MY_BARCODE);
-    if(myBarcode == null){
-      var resultDataMyBarcode = await UserDao.getMyBarcode(Config.TENANT);
-      return resultDataMyBarcode.data;
+    //var myBarcode = await LocalStorage.get(Config.MY_BARCODE);
+    //if(myBarcode == null){
+    var resultDataMyBarcode = await UserDao.getMyBarcode(Config.TENANT);
+    return resultDataMyBarcode.data;
 
-    }else{
-      return myBarcode;
-    }
+    //}else{
+    //  return myBarcode;
+    //}
 
   }
   @override

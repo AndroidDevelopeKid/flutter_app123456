@@ -131,7 +131,7 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
     );
     if (_picker == null) return;
     setState(() {
-      _dateBegin = _picker.toString();
+      _dateBegin = _picker.toString().substring(0, 10);
     });
   }
   _showDatePickerEnd() async {
@@ -144,7 +144,7 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
     );
     if (_picker == null) return;
     setState(() {
-      _dateEnd = _picker.toString();
+      _dateEnd = _picker.toString().substring(0, 10);
     });
   }
 

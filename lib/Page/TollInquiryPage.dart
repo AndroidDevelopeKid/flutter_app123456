@@ -47,7 +47,7 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
     );
     if (_picker == null) return;
     setState(() {
-      _dateBegin = _picker.toString();
+      _dateBegin = _picker.toString().substring(0, 10);
     });
   }
 
@@ -61,7 +61,7 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
     );
     if (_picker == null) return;
     setState(() {
-      _dateEnd = _picker.toString();
+      _dateEnd = _picker.toString().substring(0, 10);
     });
   }
 
