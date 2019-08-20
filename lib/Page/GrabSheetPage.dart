@@ -161,7 +161,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                                     //调取自动接单按钮开闭接口，通知服务端
                                     GrabSheetDao.driverAutoGrabSheetSwitch(isCheck).then((res){
                                       if(res != null && res.result){
-                                        new Future.delayed(const Duration(milliseconds: 100), (){
+                                        new Future.delayed(const Duration(milliseconds: 10), (){
                                           if(isCheck){
                                             CommonUtils.showShort("您已开启自动接单");
                                           }else{
