@@ -1,6 +1,6 @@
 class Config{
 
-  static const TENANT = "1";
+  static const TENANT = "3";
   static const DEBUG = true;
 
   static const PAGE_SIZE = 10;
@@ -20,6 +20,9 @@ class Config{
 
   static const PW_KEY = "user-pw";
   static const COMPANY_KEY = "company";
+
+  static const TENANT_NAMES = "tenant-names";
+  static const TENANT_IDS = "tenant-ids";
 
 
   static const DRIVER_ARCHIVES = "driver-archives";

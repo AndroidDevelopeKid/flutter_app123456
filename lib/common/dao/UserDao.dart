@@ -19,10 +19,21 @@ import 'package:flutter_app123456/common/redux/UserRedux.dart';
 import 'package:redux/redux.dart';
 
 class UserDao{
-  static login(company, userName, password, store) async{
+  static login(company, userName, password) async{
 
     print("company login:" + company);
+//    int id;
+//    List<String> names = await LocalStorage.get(Config.TENANT_NAMES);
+//    List<int> ids = await LocalStorage.get(Config.TENANT_IDS);
+//    for(int i = 0; i < names.length; i++){
+//      if(company == names[i]){
+//        id = ids[i];
+//      }
+//    }
+//
+//    String tenantId = id.toString();//Config.TENANT;
     String tenantId = Config.TENANT;
+
 //    String type = userName + ":" + password;
 //    var bytes = utf8.encode(type);
 //    var base64Str = base64.encode(bytes);
@@ -143,6 +154,17 @@ class UserDao{
       }
     }
     return await next();
+  }
+
+  ///登陆信息
+  static getTenants(maxResultCount, skipCount) async {
+    var res = await HttpManager.netFetch(Address.getTenant() + "?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}", null, null, null);
+    if(res != null && res.result){
+      print("tenants: " + res.data.toString());
+      return new DataResult(res.data, true);
+    }else{
+      return new DataResult(res.data, false);
+    }
   }
 
 

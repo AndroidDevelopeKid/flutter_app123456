@@ -2,7 +2,7 @@
 import 'package:flutter_app123456/common/config/Config.dart';
 
 class Address{
-  static const String host = "http://10.1.9.167/api/";
+  static const String host = "https://mpi.yixintm.com/api/";
   //static const String host = "http://default.yixintm.com/api/";
   //static const String host = "https://api.yixintm.com/api/";
   static const String hostGit = "https://api.github.com/";
@@ -11,6 +11,10 @@ class Address{
   ///获取授权 post
   static getAuthorization(){
     return "${host}TokenAuth/Authenticate";
+  }
+  ///获取租户
+  static getTenant(){
+    return "${host}services/app/Tenant/GetTenantsAsync";
   }
   ///获取二维码名片
   static getMyBarcode(){
