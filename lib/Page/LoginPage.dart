@@ -36,47 +36,33 @@ class _LoginPageState extends State<LoginPage> {
   ///构造方法
   _LoginPageState() : super();
 
-  Future<List<String>> tenantArray;
-  List<String> tArray;
+  Future<List<Tenant>> tenants;
 
-  Future<List<String>> fetchData(skipCount) async {
+  Future<List<Tenant>> fetchData(skipCount) async {
     final List<Tenant> tenantList = new List();
     var tenants = await UserDao.getTenants(100, skipCount);
-    if (tenants.data == null) {
-      List<String> tl = ["", "", ""];
-      return tl;
-    }
-    if (tenants.data != null && !tenants.result) {
-      List<String> tl = ["", "", ""];
-      return tl;
-    }
+
     if (tenants.data != null && tenants.result) {
       var itemList = tenants.data["result"]["items"];
       print("tenants's itemList: " +
           itemList.toString() +
           itemList.length.toString());
       print("tenants itemList length: " + itemList.length.toString());
-      List<String> array;
-      List<int> arrayId;
       for (int i = 0; i < itemList.length; i++) {
         var id = itemList[i]["id"];
         var tenancyName = itemList[i]["tenancyName"];
         var name = itemList[i]["name"];
         var isActive = itemList[i]["isActive"];
-        array.add(name);
-        arrayId.add(id);
         tenantList.add(new Tenant(isActive, id, name, tenancyName));
       }
-      await LocalStorage.save(Config.TENANT_NAMES, array);
-      await LocalStorage.save(Config.TENANT_IDS, arrayId);
-      return array;
+      return tenantList;
     }
   }
 
   @override
   void initState() {
     super.initState();
-    tArray = ["贺泰物流运输有限责任公司"];//fetchData(0);
+    tenants = fetchData(0);
     initParams();
   }
 
@@ -106,9 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(_company == null){
-      _company = tArray[0];
-    }
+
 
     return new GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -131,11 +115,20 @@ class _LoginPageState extends State<LoginPage> {
             //color: Theme.of(context).primaryColor,
             child: new Center(
                 child:
-//                FutureBuilder<List<String>>(
-//                    future: tenantArray,
-//                    builder: (context, snapshot) {
-//                      if (snapshot.hasData) {
-                        new Card(
+                FutureBuilder<List<Tenant>>(
+                    future: tenants,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<String> tArray = List();
+                        List<int> tIdArray = List();
+                        for(int i = 0; i < snapshot.data.length; i++){
+                          tArray.insert(i, snapshot.data[i].name);
+                          tIdArray.insert(i, snapshot.data[i].id);
+                        }
+                        if (_company == null) {
+                          _company = tArray[0];
+                        }
+                        return new Card(
                           ///阴影大小，默认2.0
                           elevation: 5.0,
                           shape: new RoundedRectangleBorder(
@@ -212,8 +205,15 @@ class _LoginPageState extends State<LoginPage> {
                                         _password.length == 0) {
                                       return;
                                     }
+                                    int id;
+                                    for (int i = 0; i < tArray.length; i++) {
+                                      if (_company == tArray[i]) {
+                                        id = tIdArray[i];
+                                      }
+                                    }
+
                                     CommonUtils.showLoadingDialog(context);
-                                    UserDao.login(_company.trim(),
+                                    UserDao.login(id.toString().trim(),
                                             _userName.trim(), _password.trim())
                                         .then((res) {
                                       if (res != null && res.result) {
@@ -241,13 +241,13 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                        ),
-//                      } else if (snapshot.hasError) {
-//                        return Text("${snapshot.error}");
-//                      }
-                      //return CircularProgressIndicator();
-                 //   }
-               //     )
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      }
+                      return CircularProgressIndicator();
+                    }
+                    )
               ),
             //),
           ),
