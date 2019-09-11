@@ -150,11 +150,9 @@ class UserDao{
   ///登陆信息
   static getTenants(maxResultCount, skipCount) async {
     var res = await HttpManager.netFetch(Address.getTenant() + "?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}", null, null, null);
-    if(res != null && !res.result){
+    if(res != null ){
       print("tenants: " + res.data.toString());
       return new DataResult(res.data, true);
-    }else{
-      return new DataResult(res.data, false);
     }
   }
 

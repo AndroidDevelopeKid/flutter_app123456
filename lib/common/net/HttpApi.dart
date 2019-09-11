@@ -147,7 +147,7 @@ class HttpManager{
         return new ResultData(response.data, true, Code.SUCCESS, headers: response.headers);
       }
     }catch(e){
-      print(e.toString());
+      print("e:" + e.toString());
       return new ResultData(response.data, false, response.statusCode);
     }
     //return new ResultData("登录请求失败", false, response.statusCode);
