@@ -16,9 +16,11 @@ Queue _$QueueFromJson(Map<String, dynamic> json) {
       json['frontTotalQueueVehicleAmount'] as int,
       json['queueChangeDateTime'] as String,
       json['queueDateTime'] as String,
-      json['queueSource'] as String,
-      json['queueState'] as String,
-      json['message'] as String);
+      json['queueSource'] as int,
+      json['queueState'] as int,
+      json['message'] as String,
+      json['organizationTypeText'] as String,
+      json['queueStateText'] as String);
 }
 
 Map<String, dynamic> _$QueueToJson(Queue instance) => <String, dynamic>{
@@ -27,9 +29,11 @@ Map<String, dynamic> _$QueueToJson(Queue instance) => <String, dynamic>{
       'driverIDCardNumber': instance.driverIDCardNumber,
       'queueDateTime': instance.queueDateTime,
       'queueState': instance.queueState,
+      'queueStateText': instance.queueStateText,
       'frontInnerQueueVehicleAmount': instance.frontInnerQueueVehicleAmount,
       'frontTotalQueueVehicleAmount': instance.frontTotalQueueVehicleAmount,
       'queueSource': instance.queueSource,
+      'organizationTypeText': instance.organizationTypeText,
       'queueChangeDateTime': instance.queueChangeDateTime,
       'id': instance.id,
       'message': instance.message

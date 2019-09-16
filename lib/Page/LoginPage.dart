@@ -29,6 +29,8 @@ class _LoginPageState extends State<LoginPage> {
   String _company;
   var _userName = "";
   var _password = "";
+  List<String> tArray = List();
+  List<int> tIdArray = List();
 
   final TextEditingController userController = new TextEditingController();
   final TextEditingController pwController = new TextEditingController();
@@ -92,8 +94,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return new GestureDetector(
         behavior: HitTestBehavior.translucent,
 
@@ -114,142 +114,151 @@ class _LoginPageState extends State<LoginPage> {
                     end: Alignment.bottomRight)),
             //color: Theme.of(context).primaryColor,
             child: new Center(
-                child:
-                FutureBuilder<List<Tenant>>(
-                    future: tenants,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<String> tArray = List();
-                        List<int> tIdArray = List();
-                        for(int i = 0; i < snapshot.data.length; i++){
-                          tArray.insert(i, snapshot.data[i].name);
-                          tIdArray.insert(i, snapshot.data[i].id);
-                        }
-                        if (_company == null) {
-                          _company = tArray[0];
-                        }
-                        return new Card(
-                          ///阴影大小，默认2.0
-                          elevation: 5.0,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
+              child:
+//                FutureBuilder<List<Tenant>>(
+//                    future: tenants,
+//                    builder: (context, snapshot) {
+//                      if (snapshot.hasData) {
+//                        List<String> tArray = List();
+//                        List<int> tIdArray = List();
+//                        for(int i = 0; i < snapshot.data.length; i++){
+//                          tArray.insert(i, snapshot.data[i].name);
+//                          tIdArray.insert(i, snapshot.data[i].id);
+//                        }
+//                        if (_company == null) {
+//                          _company = tArray[0];
+//                        }
+                  new Card(
+                ///阴影大小，默认2.0
+                elevation: 5.0,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
 
-                          ///背景色
-                          color: Color(CustomColors.cardWhite),
-                          margin:
-                              const EdgeInsets.only(left: 50.0, right: 50.0),
-                          child: new Padding(
-                            padding: new EdgeInsets.only(
-                                left: 30.0,
-                                top: 10.0,
-                                right: 30.0,
-                                bottom: 0.0),
-                            child: new Column(
-                              ///主轴方向上的对齐方式，默认start，center是将children放置在主轴中心
-                              mainAxisAlignment: MainAxisAlignment.center,
+                ///背景色
+                color: Color(CustomColors.cardWhite),
+                margin: const EdgeInsets.only(left: 50.0, right: 50.0),
+                child: new Padding(
+                  padding: new EdgeInsets.only(
+                      left: 30.0, top: 10.0, right: 30.0, bottom: 0.0),
+                  child: new Column(
+                    ///主轴方向上的对齐方式，默认start，center是将children放置在主轴中心
+                    mainAxisAlignment: MainAxisAlignment.center,
 
-                              ///在主轴方向占有空间的值，默认是max，最大化主轴方向的可用空间，min相反
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                //new Image.asset(CustomIcons.DEFAULT_USER_ICON, width: 80.0, height: 80.0),
+                    ///在主轴方向占有空间的值，默认是max，最大化主轴方向的可用空间，min相反
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      //new Image.asset(CustomIcons.DEFAULT_USER_ICON, width: 80.0, height: 80.0),
 
-                                new Padding(padding: new EdgeInsets.all(10.0)),
-                                new Row(children: <Widget>[
-                                  Expanded(child:
-                                  new Dropdown(
-                                    items: tArray,
-                                    value: _company,
-                                    onChanged: _onCompanySelected,
-                                    isExpanded: true,
-                                  ),
-                                  ),
-                                ],),
-
-                                new Padding(padding: new EdgeInsets.all(10.0)),
-                                new CustomInputWidget(
-                                  hintText: CommonUtils.getLocale(context)
-                                      .loginUsernameHintText,
-                                  iconData: CustomIcons.LOGIN_USER,
-                                  onChanged: (String value) {
-                                    _userName = value;
-                                  },
-                                  controller: userController,
-                                ),
-                                new Padding(padding: new EdgeInsets.all(10.0)),
-                                new CustomInputWidget(
-                                  hintText: '密码',
-                                  iconData: CustomIcons.LOGIN_PW,
-                                  obscureText: true,
-                                  onChanged: (String value) {
-                                    _password = value;
-                                  },
-                                  controller: pwController,
-                                ),
-                                new Padding(padding: new EdgeInsets.all(25.0)),
-                                new CustomFlexButton(
-                                  text:
-                                      CommonUtils.getLocale(context).loginText,
-                                  color: Theme.of(context).primaryColor,
-                                  textColor: Color(CustomColors.textWhite),
-                                  onPress: () {
-                                    if (_company == null ||
-                                        _company.length == 0) {
-                                      return;
-                                    }
-                                    if (_userName == null ||
-                                        _userName.length == 0) {
-                                      return;
-                                    }
-                                    if (_password == null ||
-                                        _password.length == 0) {
-                                      return;
-                                    }
-                                    int id;
-                                    for (int i = 0; i < tArray.length; i++) {
-                                      if (_company == tArray[i]) {
-                                        id = tIdArray[i];
+                      new Padding(padding: new EdgeInsets.all(10.0)),
+                      new Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: FutureBuilder<List<Tenant>>(
+                                  future: tenants,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      for (int i = 0;
+                                          i < snapshot.data.length;
+                                          i++) {
+                                        tArray.insert(i, snapshot.data[i].name);
+                                        tIdArray.insert(i, snapshot.data[i].id);
                                       }
+                                      if (_company == null) {
+                                        _company = tArray[0];
+                                      }
+                                      return new Dropdown(
+                                        items: tArray,
+                                        value: _company,
+                                        onChanged: _onCompanySelected,
+                                        isExpanded: true,
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
                                     }
+                                    return CircularProgressIndicator();
+                                  })),
+                        ],
+                      ),
 
-                                    CommonUtils.showLoadingDialog(context);
-                                    UserDao.login(id.toString().trim(),
-                                            _userName.trim(), _password.trim())
-                                        .then((res) {
-                                      if (res != null && res.result) {
-                                        new Future.delayed(
-                                            const Duration(seconds: 1), () {
-                                          NavigatorUtils.goHome(context);
-                                          return true;
-                                        });
-                                      }
-                                      Navigator.pop(context);
-                                      if (!res.result) {
-                                        if (res.data == null) {
-                                          CommonUtils.showShort("访问异常");
-                                        } else {
-                                          CommonUtils.showShort(res
-                                              .data["error"]["details"]
-                                              .toString());
-                                        }
-                                        return false;
-                                      }
-                                      return true;
-                                    });
-                                  },
-                                ),
-                                new Padding(padding: new EdgeInsets.all(20.0)),
-                              ],
-                            ),
-                          ),
-                        );
-                      } else if (snapshot.hasError) {
+                      new Padding(padding: new EdgeInsets.all(10.0)),
+                      new CustomInputWidget(
+                        hintText: CommonUtils.getLocale(context)
+                            .loginUsernameHintText,
+                        iconData: CustomIcons.LOGIN_USER,
+                        onChanged: (String value) {
+                          _userName = value;
+                        },
+                        controller: userController,
+                      ),
+                      new Padding(padding: new EdgeInsets.all(10.0)),
+                      new CustomInputWidget(
+                        hintText: '密码',
+                        iconData: CustomIcons.LOGIN_PW,
+                        obscureText: true,
+                        onChanged: (String value) {
+                          _password = value;
+                        },
+                        controller: pwController,
+                      ),
+                      new Padding(padding: new EdgeInsets.all(25.0)),
+                      new CustomFlexButton(
+                        text: CommonUtils.getLocale(context).loginText,
+                        color: Theme.of(context).primaryColor,
+                        textColor: Color(CustomColors.textWhite),
+                        onPress: () {
+                          if (_company == null || _company.length == 0) {
+                            return;
+                          }
+                          if (_userName == null || _userName.length == 0) {
+                            return;
+                          }
+                          if (_password == null || _password.length == 0) {
+                            return;
+                          }
+                          int id;
+                          for (int i = 0; i < tArray.length; i++) {
+                            if (_company == tArray[i]) {
+                              id = tIdArray[i];
+                            }
+                          }
+
+                          CommonUtils.showLoadingDialog(context);
+                          UserDao.login(id.toString().trim(), _userName.trim(),
+                                  _password.trim())
+                              .then((res) {
+                            if (res != null && res.result) {
+                              new Future.delayed(const Duration(seconds: 1),
+                                  () {
+                                NavigatorUtils.goHome(context);
+                                return true;
+                              });
+                            }
+                            Navigator.pop(context);
+                            if (!res.result) {
+                              if (res.data == null) {
+                                CommonUtils.showShort("访问异常");
+                              } else {
+                                CommonUtils.showShort(
+                                    res.data["error"]["details"].toString());
+                              }
+                              return false;
+                            }
+                            return true;
+                          });
+                        },
+                      ),
+                      new Padding(padding: new EdgeInsets.all(20.0)),
+                    ],
+                  ),
+                ),
+              ),
+              /*} else if (snapshot.hasError) {
                         return Text("${snapshot.error}");
                       }
                       return CircularProgressIndicator();
                     }
-                    )
-              ),
+                    )*/
+            ),
             //),
           ),
         ));

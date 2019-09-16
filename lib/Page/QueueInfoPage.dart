@@ -30,14 +30,14 @@ class _QueueInfoPage extends State<QueueInfoPage>{
       var queueInfoCallInterface = await GrabSheetDao.getCurrentQueueInfo();
       if(queueInfoCallInterface != null && queueInfoCallInterface.result){
         if(queueInfoCallInterface.data["result"] == null){
-          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, null);
+          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, null, null, null);
           return dataNull;
         }
         return Queue.fromJson(queueInfoCallInterface.data["result"]);
       }
       if(!queueInfoCallInterface.result){
         if(queueInfoCallInterface.data != null){
-          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, queueInfoCallInterface.data["error"]["message"]);
+          var dataNull = new Queue(null, null, null, null, null, null, null, null, null, null, queueInfoCallInterface.data["error"]["message"],null, null);
           return dataNull;
         }
 //        else{
@@ -116,7 +116,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                           TableRow(
                               children: <Widget>[
                                 Text("排队状态：", style: CustomConstant.normalTextBlue),
-                                Text(snapshot.data.queueState == null ? "无" : snapshot.data.queueState, style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.queueStateText == null ? "无" : snapshot.data.queueStateText, style: CustomConstant.normalTextBlack),
                               ]
                           ),
                           TableRow(
@@ -134,7 +134,7 @@ class _QueueInfoPage extends State<QueueInfoPage>{
                           TableRow(
                               children: <Widget>[
                                 Text("排队来源：", style: CustomConstant.normalTextBlue),
-                                Text(snapshot.data.queueSource == null ? "无" : snapshot.data.queueSource, style: CustomConstant.normalTextBlack),
+                                Text(snapshot.data.organizationTypeText == null ? "无" : snapshot.data.organizationTypeText, style: CustomConstant.normalTextBlack),
                               ]
                           ),
                           TableRow(

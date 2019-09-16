@@ -14,16 +14,20 @@ class Queue{
       this.queueDateTime,
       this.queueSource,
       this.queueState,
-      this.message
+      this.message,
+      this.organizationTypeText,
+      this.queueStateText
       );
   String vehicleCode;
   String mainVehiclePlate;
   String driverIDCardNumber;
   String queueDateTime;
-  String queueState;
+  int queueState;
+  String queueStateText;
   int frontInnerQueueVehicleAmount;
   int frontTotalQueueVehicleAmount;
-  String queueSource;
+  int queueSource;
+  String organizationTypeText;
   String queueChangeDateTime;
   String id;
   String message;
