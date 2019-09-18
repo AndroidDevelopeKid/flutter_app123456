@@ -205,15 +205,15 @@ class _LoginPageState extends State<LoginPage> {
                         text: CommonUtils.getLocale(context).loginText,
                         color: Theme.of(context).primaryColor,
                         textColor: Color(CustomColors.textWhite),
-                        onPress: () {
+                        onPress: () async {
                           if (_company == null || _company.length == 0) {
-                            return;
+                            return false;
                           }
                           if (_userName == null || _userName.length == 0) {
-                            return;
+                            return false;
                           }
                           if (_password == null || _password.length == 0) {
-                            return;
+                            return false;
                           }
                           int id;
                           for (int i = 0; i < tArray.length; i++) {
@@ -223,9 +223,9 @@ class _LoginPageState extends State<LoginPage> {
                           }
 
                           CommonUtils.showLoadingDialog(context);
-                          UserDao.login(id.toString().trim(), _userName.trim(),
-                                  _password.trim())
-                              .then((res) {
+                          var res = await UserDao.login(id.toString().trim(), _userName.trim(),
+                                  _password.trim());
+                              //.then((res) {
                             if (res != null && res.result) {
                               new Future.delayed(const Duration(seconds: 1),
                                   () {
@@ -244,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                               return false;
                             }
                             return true;
-                          });
+                          //});
                         },
                       ),
                       new Padding(padding: new EdgeInsets.all(20.0)),

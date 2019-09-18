@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter_app123456/common/config/Config.dart';
+import 'package:flutter_app123456/common/dao/UserDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
@@ -88,8 +89,10 @@ class HttpManager{
     Dio dio = new Dio();
     Response response;
     try{
-      print("message" + url.toString() + "----" + params.toString() + "---" + option.headers.toString());
+      print("request begin message：" + url.toString() + "----" + params.toString() + "---" + option.headers.toString());
       response = await dio.request(url, data: params, options: option);
+      print("request after message：" + response.toString());
+
     } on DioError catch(e){
       Response errorResponse;
       if(e.response != null){
@@ -112,6 +115,18 @@ class HttpManager{
       }else{
         return new ResultData(errorResponse.data, false, errorResponse.statusCode);
       }
+
+      ///添加重新获取token继续请求的代码
+//      if(errorResponse.statusCode == 403){
+//        //重新获取token
+//        ///清除授权
+//        String companyId = await LocalStorage.get(Config.TENANT_ID);
+//        String userName = await LocalStorage.get(Config.USER_NAME_KEY);
+//        String password = await LocalStorage.get(Config.PW_KEY);
+//        UserDao.login(companyId, userName, password).then((res){});
+//
+//      }
+
 
 
     }
@@ -148,6 +163,7 @@ class HttpManager{
       }
     }catch(e){
       print("e:" + e.toString());
+
       return new ResultData(response.data, false, response.statusCode);
     }
     //return new ResultData("登录请求失败", false, response.statusCode);

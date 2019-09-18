@@ -20,7 +20,7 @@ class VehicleStateDao{
       if(res != null && res.result){
         print("vehicleStateInfo: " + res.data.toString());
         if(res.data["result"] != null){
-          LocalStorage.save(Config.VEHICLE_STATE, json.encode(res.data["result"]));
+          //LocalStorage.save(Config.VEHICLE_STATE, json.encode(res.data["result"]));
           print("vehicleStateInfo.ls" + json.encode(res.data["result"]));
 
           return new DataResult(json.encode(res.data["result"]), true);

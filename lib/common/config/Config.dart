@@ -1,6 +1,7 @@
 class Config{
 
   static const TENANT = "3";
+  static const TENANT_ID = "tenant-id";
   static const DEBUG = true;
 
   static const PAGE_SIZE = 10;

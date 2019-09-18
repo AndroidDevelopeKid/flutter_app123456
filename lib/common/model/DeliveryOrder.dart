@@ -11,7 +11,7 @@ class DeliveryOrder{
       this.barcode,
       this.coalText,
       this.deliveryOrderCode,
-      this.deliveryOrderState,
+      this.deliveryOrderStateText,
       this.generateDate,
       this.generatePerson,
       this.generateType,
@@ -39,7 +39,7 @@ class DeliveryOrder{
   String mainVehiclePlate;//车牌号
   int source;
   String sourceText;
-  String deliveryOrderState;//提货单状态
+  String deliveryOrderStateText;//提货单状态
   String deliveryOrderCode;//提货单编号
   String randomNumber;
   String transSupplierNumber;

@@ -108,9 +108,9 @@ class _LastBillPage extends State<LastBillPage> {
                     TableRow(children: <Widget>[
                       Text("提货单状态：", style: CustomConstant.normalTextBlue),
                       Text(
-                          snapshot.data.deliveryOrderState == null
+                          snapshot.data.deliveryOrderStateText == null
                               ? "无"
-                              : snapshot.data.deliveryOrderState,
+                              : snapshot.data.deliveryOrderStateText,
                           style: CustomConstant.normalTextBlack),
                     ]),
                     TableRow(children: <Widget>[

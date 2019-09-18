@@ -32,6 +32,7 @@ class UserDao{
 //      print("base64Str login " + base64Str);
 //    }
     await LocalStorage.save(Config.USER_NAME_KEY, userName);
+    await LocalStorage.save(Config.TENANT_ID, tenantId);
 //    await LocalStorage.save(Config.USER_BASIC_CODE, base64Str);
 
 //    Map requestParams = {
@@ -48,6 +49,7 @@ class UserDao{
     await LocalStorage.remove(Config.DRIVER_ARCHIVES);
     await LocalStorage.remove(Config.DRIVER_NAME);
     await LocalStorage.remove(Config.USER_ID);
+    await LocalStorage.remove(Config.TENANT_ID);
     await LocalStorage.remove(Config.VEHICLE_ARCHIVES);
     await LocalStorage.remove(Config.VEHICLE_STATE);
     await LocalStorage.remove(Config.STAFF_AND_CERTIFICATES_STATE);
@@ -124,7 +126,7 @@ class UserDao{
         if(res.data["result"] != null){
           Driver driver = Driver.fromJson(res.data["result"]);
           LocalStorage.save(Config.DRIVER_NAME, driver.driverName);
-          LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
+          //LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
           print("driverinfo.ls" + json.encode(driver.toJson()));
 
 //        var vehicleResult = await VehicleDao.getVehicleInfo(driver.vehicleCode);
@@ -154,6 +156,26 @@ class UserDao{
       print("tenants: " + res.data.toString());
       return new DataResult(res.data, true);
     }
+  }
+
+  ///刷新token
+  static refreshToken() async {
+    String userName = await LocalStorage.get(Config.USER_NAME_KEY);
+    String password = await LocalStorage.get(Config.PW_KEY);
+    String tenantId = await LocalStorage.get(Config.TENANT_ID);
+    ///清除授权
+    HttpManager.clearAuthorization();
+    Map requestParams = {
+      //"tenancyName": "default",
+      "usernameOrEmailAddress": userName,
+      "password": password
+    };
+
+    Map<String,String> header = {
+      "Abp.TenantId" : tenantId,
+    };
+    var res = await HttpManager.netFetch(Address.getAuthorization(), json.encode(requestParams), header, new Options(method: 'post'));
+
   }
 
 
