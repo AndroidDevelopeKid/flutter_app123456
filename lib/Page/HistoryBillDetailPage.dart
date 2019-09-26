@@ -104,7 +104,7 @@ class _HistoryBillDetailPage extends State<HistoryBillDetailPage>{
                       TableRow(
                           children: <Widget>[
                             Text("提货点称重时间：", style: CustomConstant.normalTextBlue),
-                            Text(model.outStockGenerateDate == "null" ? "无" : model.outStockGenerateDate, style: CustomConstant.normalTextBlack),
+                            Text(model.outStockGenerateDate  ?? "无", style: CustomConstant.normalTextBlack),
                           ]
                       ),
                       TableRow(
@@ -116,13 +116,13 @@ class _HistoryBillDetailPage extends State<HistoryBillDetailPage>{
                       TableRow(
                           children: <Widget>[
                             Text("采购方称重时间：", style: CustomConstant.normalTextBlue),
-                            Text(model.weighDate == "null" ? "无" : model.skinbackDate, style: CustomConstant.normalTextBlack),
+                            Text(model.weighDate ?? "无", style: CustomConstant.normalTextBlack),
                           ]
                       ),
                       TableRow(
                           children: <Widget>[
                             Text("采购方回皮时间：", style: CustomConstant.normalTextBlue),
-                            Text(model.skinbackDate == "null" ? "无" : model.skinbackDate, style: CustomConstant.normalTextBlack),
+                            Text(model.skinbackDate ?? "无", style: CustomConstant.normalTextBlack),
                           ]
                       ),
                       TableRow(

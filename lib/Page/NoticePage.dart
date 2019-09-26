@@ -85,10 +85,10 @@ class _NoticePageState extends BaseMessagePushState<NoticePage>{
         //print("NoticePage id: " + id.toString());
         messagePushList.add(new MessagePush(id.toString(), isRead, msg, senderUserName, messageSource, messageFlag, creationTime));
       }
-      return new DataResult(messagePushList, true);
+      return new DataResult(messagePushList, true, notifications.code);
     }
     if(notifications != null && !notifications.result){
-      return new DataResult("没有新的消息了", false);
+      return new DataResult("没有新的消息了", false, notifications.code);
     }
 
   }

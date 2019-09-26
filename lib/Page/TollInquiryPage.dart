@@ -96,10 +96,10 @@ class _TollInquiryPage extends BaseTollInquiryState<TollInquiryPage>{
         var customerIdName = itemList[i]["customerIdName"];
         tollList.add(new Toll(id, vehicleCode, customerId, customerIdName, driverName, happenDate, taxAmount));
       }
-      return new DataResult(tollList, true);
+      return new DataResult(tollList, true, tolls.code);
     }
     if (tolls.data == null && !tolls.result) {
-      return new DataResult("到底了", false);
+      return new DataResult("到底了", false, tolls.code);
     }
   }
 

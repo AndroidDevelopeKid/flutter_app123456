@@ -24,6 +24,8 @@ class CustomColors{
   static const int textColorBlack = black;
   static const int textColorBlue = blue;
 
+  static const int loginButtonColor = 0xFF4C88FF;
+
   //static const int defaultColor =
 }
 ///图标
@@ -53,6 +55,9 @@ class CustomIcons{
 
   ///登录页图标
   static const String LOGIN_IMAGE = "lib/static/images/login_ic.ico";
+
+  ///test loginbackground
+  static const String LOGIN_BACKGROUND = "lib/static/images/loginbackground.png";
 
 
   static const IconData LOGIN_COMPANY = const IconData(0xe84f, fontFamily: CustomIcons.FONT_FAMILY);

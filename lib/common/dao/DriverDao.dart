@@ -9,6 +9,8 @@ import 'package:flutter_app123456/common/model/DispatchAssign.dart';
 import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 
+import 'UserDao.dart';
+
 class DriverDao {
   static getDriverInfo() async {
   }
@@ -18,6 +20,10 @@ class DriverDao {
 
       var res;
       res = await HttpManager.netFetch(Address.getDispatchAssign(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+      if(res.code == 403){
+        await UserDao.refreshToken();
+        res = await HttpManager.netFetch(Address.getDispatchAssign(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+      }
       if(res != null && res.result){
         print("dispatchAssign: " + res.data.toString());
         if(res.data["result"] != null){
@@ -25,14 +31,14 @@ class DriverDao {
           LocalStorage.save(Config.DISPATCH_ASSIGN, json.encode(dispatchAssign.toJson()));
           print("dispatchAssign.ls" + json.encode(dispatchAssign.toJson()));
 
-          return new DataResult(dispatchAssign, true);
+          return new DataResult(dispatchAssign, true, res.code);
         }else{
-          return DataResult(null, true);
+          return DataResult(null, true, res.code);
         }
 
 
       }else{
-        return new DataResult(res.data, false);
+        return new DataResult(res.data, false, res.code);
       }
 
 

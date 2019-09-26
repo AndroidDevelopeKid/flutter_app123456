@@ -32,8 +32,8 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
 
   }
 
-  var _dateBegin = "";
-  var _dateEnd = "";
+  var _dateBegin = DateTime.now().add(new Duration()).toString().substring(0,10);
+  var _dateEnd = DateTime.now().add(new Duration(days: 1)).toString().substring(0,10);
   var _dateBeginNext = "";
   var _dateEndNext = "";
 
@@ -74,10 +74,10 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage>{
         var inStockNetWeigh = itemList[i]["inStockNetWeigh"];
         historyBillList.add(new HistoryBill(id, mainVehiclePlate, vehicleCode, generateDate, deliveryOrderState, deliveryOrderCode, goodsName, inStockGrossWeigh, inStockNetWeigh, loadPlaceName, outStockGenerateDate, outStockNetWeigh, skinbackDate, unloadPlaceName, weighDate, deliveryOrderStateText, goodsId, loadPlaceId, unloadPlaceId));
       }
-      return new DataResult(historyBillList, true);
+      return new DataResult(historyBillList, true, historyBills.code);
     }
     if (historyBills.data == null && !historyBills.result) {
-      return new DataResult("到底了", false);
+      return new DataResult("到底了", false, historyBills.code);
     }
   }
   ///请求刷新

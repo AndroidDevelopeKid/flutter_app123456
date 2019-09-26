@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_app123456/common/config/CompanyPicker.dart';
@@ -15,7 +16,6 @@ import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/CustomFlexButton.dart';
 import 'package:flutter_app123456/widget/CustomInputWidget.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 class LoginPage extends StatefulWidget {
   static final String sName = "login";
@@ -25,6 +25,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   ///物流公司，用户名和密码
   String _company;
   var _userName = "";
@@ -115,19 +116,6 @@ class _LoginPageState extends State<LoginPage> {
             //color: Theme.of(context).primaryColor,
             child: new Center(
               child:
-//                FutureBuilder<List<Tenant>>(
-//                    future: tenants,
-//                    builder: (context, snapshot) {
-//                      if (snapshot.hasData) {
-//                        List<String> tArray = List();
-//                        List<int> tIdArray = List();
-//                        for(int i = 0; i < snapshot.data.length; i++){
-//                          tArray.insert(i, snapshot.data[i].name);
-//                          tIdArray.insert(i, snapshot.data[i].id);
-//                        }
-//                        if (_company == null) {
-//                          _company = tArray[0];
-//                        }
                   new Card(
                 ///阴影大小，默认2.0
                 elevation: 5.0,
@@ -157,11 +145,15 @@ class _LoginPageState extends State<LoginPage> {
                                   future: tenants,
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
+                                      tArray.clear();
+                                      tIdArray.clear();
+
                                       for (int i = 0;
                                           i < snapshot.data.length;
                                           i++) {
                                         tArray.insert(i, snapshot.data[i].name);
                                         tIdArray.insert(i, snapshot.data[i].id);
+                                        print("snapshot:" + snapshot.data[i].name);
                                       }
                                       if (_company == null) {
                                         _company = tArray[0];
@@ -207,12 +199,15 @@ class _LoginPageState extends State<LoginPage> {
                         textColor: Color(CustomColors.textWhite),
                         onPress: () async {
                           if (_company == null || _company.length == 0) {
+                            CommonUtils.showShort("物流公司出错！");
                             return false;
                           }
                           if (_userName == null || _userName.length == 0) {
+                            CommonUtils.showShort("用户名或密码不可为空！");
                             return false;
                           }
                           if (_password == null || _password.length == 0) {
+                            CommonUtils.showShort("用户名或密码不可为空！");
                             return false;
                           }
                           int id;
@@ -223,41 +218,31 @@ class _LoginPageState extends State<LoginPage> {
                           }
 
                           CommonUtils.showLoadingDialog(context);
-                          var res = await UserDao.login(id.toString().trim(), _userName.trim(),
-                                  _password.trim());
-                              //.then((res) {
-                            if (res != null && res.result) {
-                              new Future.delayed(const Duration(seconds: 1),
-                                  () {
+                          var res = await UserDao.login(id.toString().trim(), _userName.trim(), _password.trim());
+                          if (res != null && res.result) {
+                            new Future.delayed(const Duration(seconds: 1), () {
                                 NavigatorUtils.goHome(context);
                                 return true;
-                              });
+                            });
+                          }
+                          Navigator.pop(context);
+                          
+
+                          if (!res.result) {
+                            if(Config.DEBUG){
+                              print("返回结果：" + res.data.toString());
                             }
-                            Navigator.pop(context);
-                            if (!res.result) {
-                              if (res.data == null) {
-                                CommonUtils.showShort("访问异常");
-                              } else {
-                                CommonUtils.showShort(
-                                    res.data["error"]["details"].toString());
-                              }
-                              return false;
-                            }
-                            return true;
-                          //});
+                            CommonUtils.showShort(res.data.toString());
+                          }
+                          return true;
                         },
                       ),
+
                       new Padding(padding: new EdgeInsets.all(20.0)),
                     ],
                   ),
                 ),
               ),
-              /*} else if (snapshot.hasError) {
-                        return Text("${snapshot.error}");
-                      }
-                      return CircularProgressIndicator();
-                    }
-                    )*/
             ),
             //),
           ),

@@ -55,8 +55,8 @@ class HttpManager{
     //没有网络情况
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if(connectivityResult == ConnectivityResult.none){
-      //return new ResultData("网络错误", false, Code.NETWORK_ERROR);
-      return new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", noTip), false, Code.NETWORK_ERROR);
+      return new ResultData("网络错误", false, Code.NETWORK_ERROR);
+      //return new ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, "", noTip), false, Code.NETWORK_ERROR);
 
     }
 
@@ -109,22 +109,14 @@ class HttpManager{
         print('请求异常url: ' + url);
       }
 
-      if(errorResponse.statusCode == Code.NETWORK_TIMEOUT){
-        return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
-
-      }else{
-        return new ResultData(errorResponse.data, false, errorResponse.statusCode);
-      }
-
-      ///添加重新获取token继续请求的代码
-//      if(errorResponse.statusCode == 403){
-//        //重新获取token
-//        ///清除授权
-//        String companyId = await LocalStorage.get(Config.TENANT_ID);
-//        String userName = await LocalStorage.get(Config.USER_NAME_KEY);
-//        String password = await LocalStorage.get(Config.PW_KEY);
-//        UserDao.login(companyId, userName, password).then((res){});
+//      if(errorResponse.statusCode == Code.NETWORK_TIMEOUT){
+//        return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
 //
+//      }else if(errorResponse.statusCode == Code.PERMISSION_ERROR){
+//        return new ResultData(Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
+//      }
+//      else{
+        return new ResultData(errorResponse.data, false, errorResponse.statusCode);
 //      }
 
 
@@ -163,12 +155,13 @@ class HttpManager{
       }
     }catch(e){
       print("e:" + e.toString());
+      //return new ResultData(Code.errorHandleFunction(Code.OTHER_ERROR, e.toString(), noTip), false, Code.OTHER_ERROR);
 
       return new ResultData(response.data, false, response.statusCode);
     }
     //return new ResultData("登录请求失败", false, response.statusCode);
-    return new ResultData(Code.errorHandleFunction(response.statusCode, "", noTip), false, response.statusCode);
-
+    //return new ResultData(Code.errorHandleFunction(response.statusCode, "", noTip), false, response.statusCode);
+    return new ResultData(response.data, false, response.statusCode);
 
 
 

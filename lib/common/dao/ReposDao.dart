@@ -33,15 +33,15 @@ class ReposDao{
       List<Release> list = new List();
       var dataList = res.data;
       if (dataList == null || dataList.length == 0) {
-        return new DataResult(null, false);
+        return new DataResult(null, false, res.code);
       }
       for (int i = 0; i < dataList.length; i++) {
         var data = dataList[i];
         list.add(Release.fromJson(data));
       }
-      return new DataResult(list, true);
+      return new DataResult(list, true, res.code);
     } else {
-      return new DataResult(null, false);
+      return new DataResult(null, false, res.code);
     }
   }
 

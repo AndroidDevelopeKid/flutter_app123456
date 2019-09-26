@@ -72,22 +72,13 @@ class UserDao{
     if(Config.DEBUG){
       print("res and res.result and res.data: " + res.data.toString() + "---" + res.result.toString() + "---");
     }
-    var resultDataDriver;
-    var resultDataVehicle;
     if(res != null && res.result){
       await LocalStorage.save(Config.PW_KEY, password);
       await LocalStorage.save(Config.USER_ID, res.data["result"]["userId"].toString());
-      //resultDataDriver = await getUserInfo(tenantId,res.data["result"]["userId"]);
-
-      if(Config.DEBUG){
-        //print("userResult: " + resultDataDriver.result.toString());
-        //print("resultDateDriver.data: "+ resultDataDriver.data.toString());
-      }
-      //redux 管理user状态
-      //store.dispatch(new UpdateDriverAction(resultDataDriver.data));
 
     }
-    return new DataResult(res.data, res.result);
+
+    return new DataResult(res.data, res.result, res.code);
   }
   ///初始化用户信息
   static initUserInfo(Store store) async {
@@ -96,54 +87,44 @@ class UserDao{
   ///获取用户二维码名片
   static getMyBarcode(tenantId) async{
     var res;
-//    if(tenantId != null){
     res = await HttpManager.netFetch(Address.getMyBarcode(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
-//    }else{
-//      res = new DataResult("无二维码", false);
-//    }
+    if(res.code == 403){
+      await refreshToken();
+      res = await HttpManager.netFetch(Address.getMyBarcode(), null, null, null);
+    }
     if(res != null && res.result){
       print("barcode: " + res.data.toString());
       if(res.data["result"] != null){
-        //LocalStorage.save(Config.MY_BARCODE, res.data["result"]);
-        return new DataResult(res.data["result"], true);
+        return new DataResult(res.data["result"], true, res.code);
       }else{
-        return new DataResult(null, true);
+        return new DataResult(null, true, res.code);
       }
-    }else{
-      return new DataResult(null, false);
     }
+    else{
+      return new DataResult(null, false, res.code);
+    }
+
   }
   static getUserInfo(tenantId,userId) async {
     next() async {
       var res;
-      if(userId != null && tenantId != null){
-        res = await HttpManager.netFetch(Address.getDriverArchives(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
-      }else{
-        res = new DataResult("匿名", false);
+      res = await HttpManager.netFetch(Address.getDriverArchives(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+      if(res.code == 403){
+        await refreshToken();
+        res = await HttpManager.netFetch(Address.getDriverArchives(), null, null, null);
       }
       if(res != null && res.result){
         print("driverInfo: " + res.data.toString());
         if(res.data["result"] != null){
           Driver driver = Driver.fromJson(res.data["result"]);
           LocalStorage.save(Config.DRIVER_NAME, driver.driverName);
-          //LocalStorage.save(Config.DRIVER_ARCHIVES, json.encode(driver.toJson()));
           print("driverinfo.ls" + json.encode(driver.toJson()));
-
-//        var vehicleResult = await VehicleDao.getVehicleInfo(driver.vehicleCode);
-//        if(Config.DEBUG){
-//          print("getuserinfo -> getvehicleinfo:" + vehicleResult.data.toString());
-//        }
-//        var staffAndCertificatesStateResult = await StaffAndCertificatesStateDao.getStaffAndCertificatesStateInfo(driver.driverIDNumber);
-//        print("getstaffAndCertificatesStateinfo:" + staffAndCertificatesStateResult.data.toString());
-//
-//        var vehicleStateResult = await VehicleStateDao.getVehicleStateInfo(driver.vehicleCode);
-//        print("getvehicleStateinfo:" + vehicleStateResult.data.toString());
-          return new DataResult(driver, true);
+          return new DataResult(driver, true, res.code);
         }else{
-          return new DataResult(null, true);
+          return new DataResult(null, true, res.code);
         }
       }else{
-        return new DataResult(null, false);
+        return new DataResult(null, false, res.code);
       }
     }
     return await next();
@@ -154,7 +135,7 @@ class UserDao{
     var res = await HttpManager.netFetch(Address.getTenant() + "?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}", null, null, null);
     if(res != null ){
       print("tenants: " + res.data.toString());
-      return new DataResult(res.data, true);
+      return new DataResult(res.data, true, res.code);
     }
   }
 

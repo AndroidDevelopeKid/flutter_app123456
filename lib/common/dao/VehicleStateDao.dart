@@ -8,28 +8,30 @@ import 'package:flutter_app123456/common/model/Vehicle.dart';
 import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/net/HttpApi.dart';
 
+import 'UserDao.dart';
+
 class VehicleStateDao{
   static getVehicleStateInfo() async{//tenantId, userId
     next() async {
       var res;
-      //if(tenantId != null && userId != null){
-        res = await HttpManager.netFetch(Address.getVehicleState(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
-//      }else{
-//        res = new DataResult("获取车辆状态失败", false);
-//      }
+      res = await HttpManager.netFetch(Address.getVehicleState(), null, null, null);// + "?TenantId=${int.parse(tenantId)}&UserId=${userId}"
+      if(res.code == 403){
+        await UserDao.refreshToken();
+        res = await HttpManager.netFetch(Address.getVehicleState(), null, null, null);
+      }
       if(res != null && res.result){
         print("vehicleStateInfo: " + res.data.toString());
         if(res.data["result"] != null){
           //LocalStorage.save(Config.VEHICLE_STATE, json.encode(res.data["result"]));
           print("vehicleStateInfo.ls" + json.encode(res.data["result"]));
 
-          return new DataResult(json.encode(res.data["result"]), true);
+          return new DataResult(json.encode(res.data["result"]), true, res.code);
         }else{
-          return new DataResult(null, true);
+          return new DataResult(null, true, res.code);
         }
 
       }else{
-        return new DataResult(res.data, false);
+        return new DataResult(res.data, false, res.code);
       }
     }
     return await next();

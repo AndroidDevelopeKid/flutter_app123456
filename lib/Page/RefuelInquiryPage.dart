@@ -99,10 +99,10 @@ class _RefuelInquiryPage extends BaseRefuelInquiryState<RefuelInquiryPage>{
         var flag = itemList[i]["flag"];
         refuelList.add(new Refuel(refuelTime, id, fillingStation, fillingStationText, flag, fuel, fuelText, refuelLitres, refuelVehicleCode));
       }
-      return new DataResult(refuelList, true);
+      return new DataResult(refuelList, true, refuels.code);
     }
     if (refuels.data == null && !refuels.result) {
-      return new DataResult("到底了", false);
+      return new DataResult("到底了", false, refuels.code);
     }
   }
 
