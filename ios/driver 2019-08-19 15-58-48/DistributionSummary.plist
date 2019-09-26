@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>driver.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>6BF6BFAE5E43DBE9995D855F69BD2C75207080C5</string>
+				<key>dateExpires</key>
+				<string>2022/6/19</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6BF6BFAE5E43DBE9995D855F69BD2C75207080C5</string>
+						<key>dateExpires</key>
+						<string>2022/6/19</string>
+						<key>type</key>
+						<string>iOS Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>App.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>9N2TPH9J8Q</string>
+						<key>name</key>
+						<string>INNER MONGOLIA YITAI COAL CO.,LTD.</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6BF6BFAE5E43DBE9995D855F69BD2C75207080C5</string>
+						<key>dateExpires</key>
+						<string>2022/6/19</string>
+						<key>type</key>
+						<string>iOS Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>Flutter.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>9N2TPH9J8Q</string>
+						<key>name</key>
+						<string>INNER MONGOLIA YITAI COAL CO.,LTD.</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>9N2TPH9J8Q.driver.flutter</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>9N2TPH9J8Q</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>9N2TPH9J8Q.driver.flutter</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>driver.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>c4ac6ee7-c210-4561-85f9-8bbbd0d9a8f4</string>
+				<key>name</key>
+				<string>pick.flutter.app</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>9N2TPH9J8Q</string>
+				<key>name</key>
+				<string>INNER MONGOLIA YITAI COAL CO.,LTD.</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
