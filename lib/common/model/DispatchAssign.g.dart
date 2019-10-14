@@ -8,14 +8,15 @@ part of 'DispatchAssign.dart';
 
 DispatchAssign _$DispatchAssignFromJson(Map<String, dynamic> json) {
   return DispatchAssign(
-      json['id'] as String,
-      json['vehicleCode'] as String,
-      json['isActive'] as bool,
-      json['organizationUnitName'] as String,
-      json['organizationUnitId'] as int,
-      json['group'] as String,
-      json['groupText'] as String,
-      json['remark'] as String);
+    json['id'] as String,
+    json['vehicleCode'] as String,
+    json['isActive'] as bool,
+    json['organizationUnitName'] as String,
+    json['organizationUnitId'] as int,
+    json['group'] as String,
+    json['groupText'] as String,
+    json['remark'] as String,
+  );
 }
 
 Map<String, dynamic> _$DispatchAssignToJson(DispatchAssign instance) =>
@@ -27,5 +28,5 @@ Map<String, dynamic> _$DispatchAssignToJson(DispatchAssign instance) =>
       'groupText': instance.groupText,
       'remark': instance.remark,
       'isActive': instance.isActive,
-      'id': instance.id
+      'id': instance.id,
     };

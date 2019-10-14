@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:common_utils/common_utils.dart';
@@ -12,11 +11,11 @@ import 'package:flutter_app123456/common/model/Driver.dart';
 import 'package:flutter_app123456/common/model/Vehicle.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
+import 'package:flutter_app123456/widget/CustomErrorReturnWidget.dart';
+import 'package:flutter_app123456/widget/CustomTableRowWidget.dart';
 
-class VehicleArchivesPage extends StatefulWidget{
+class VehicleArchivesPage extends StatefulWidget {
   static final String name = "vehicleInfo";
-
-
 
   VehicleArchivesPage({Key key}) : super(key: key);
 
@@ -24,22 +23,19 @@ class VehicleArchivesPage extends StatefulWidget{
   _VehicleArchivesPageState createState() => _VehicleArchivesPageState();
 }
 
-class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
-
-
+class _VehicleArchivesPageState extends State<VehicleArchivesPage> {
   _VehicleArchivesPageState();
 
   ///*********************异步获取数据进行页面显示****************************
   Future<Vehicle> vehicle;
 
-
   Future<Vehicle> fetchData() async {
-    var vehicleArchives =  await LocalStorage.get(Config.VEHICLE_ARCHIVES);
-    if(vehicleArchives == null){
+    var vehicleArchives;//await LocalStorage.get(Config.VEHICLE_ARCHIVES);
+    if (vehicleArchives == null) {
       //var userId = await LocalStorage.get(Config.USER_ID);Config.TENANT, userId
       var resultDataVehicle = await VehicleDao.getVehicleInfo();
-      if(resultDataVehicle.data == null){
-        var dataNull = new Vehicle(0, "无", "无", "无", "无", "无", "无", "无", "无", "无", 0, "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", 0, "无", "无", "无");
+      if (resultDataVehicle.data == null) {
+        var dataNull = new Vehicle(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         return dataNull;
       }
       return resultDataVehicle.data;
@@ -47,6 +43,7 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
     Vehicle vehicleData = Vehicle.fromJson(json.decode(vehicleArchives));
     return vehicleData;
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -56,136 +53,134 @@ class _VehicleArchivesPageState extends State<VehicleArchivesPage>{
 
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
-    //return new StoreBuilder<CustomState>(
-    //  builder: (context, store) {
     return new Scaffold(
-      backgroundColor: CustomColors.listBackground,
       appBar: new AppBar(
-        title: new Text("车辆档案"),
+        leading: IconButton(
+            iconSize: 15.0,
+            icon: Icon(CustomIcons.BACK, color: Color(0xff4C88FF)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+        title: new Text("车辆档案",
+            style: TextStyle(fontSize: 18.0, color: Colors.black)),
       ),
-      body:
-      new Card(
-        color: Color(CustomColors.displayCardBackground),
-        //margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
-        margin: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 4.0, right: 4.0),
-        elevation: 8.0,
-        child: new Container(
+      body: Padding(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Container(
           child: FutureBuilder<Vehicle>(
             future: vehicle,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                //return Text(snapshot.data.vehicleCode);
-                return new Table(
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-//                columnWidths: {
-//                  0: FixedColumnWidth(100.0),
-//                  1: FixedColumnWidth(100.0)
-//                },
-                  //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
-                  children: <TableRow>[
-                    TableRow(
-                        children: <Widget>[
-                          Text("车辆编号：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.vehicleCode == null ? "无": snapshot.data.vehicleCode, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车牌号：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.mainVehiclePlate == null ? "无" : snapshot.data.mainVehiclePlate, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("物流公司：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.ouDisplayName == null ? "无" : snapshot.data.ouDisplayName, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车辆类型：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.vehicleTypeText == null ? "无" : snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("业务类型：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.vehicleBusinessTypeText == null ? "无" : snapshot.data.vehicleBusinessTypeText, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车型：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.vehicleTypeText == null ? "无" : snapshot.data.vehicleTypeText, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车辆状态：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.vehicleStateText == null ? "无": snapshot.data.vehicleStateText, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车主姓名：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.ownerName == null ? "无" : snapshot.data.ownerName, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车主身份证号：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.ownerIDNumber == null ? "无" : snapshot.data.ownerIDNumber, style: CustomConstant.normalTextBlack),
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车主联系方式：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.ownerPhone == null ? "无" : snapshot.data.ownerPhone, style: CustomConstant.normalTextBlack)
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("车架号：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.trailerFrameNumber == null ? "无" : snapshot.data.trailerFrameNumber, style: CustomConstant.normalTextBlack)
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("发动机编号：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.engineNumber == null ? "无" : snapshot.data.engineNumber, style: CustomConstant.normalTextBlack)
-                        ]
-                    ),
-                    TableRow(
-                        children: <Widget>[
-                          Text("加盟日期：", style: CustomConstant.normalTextBlue),
-                          Text(snapshot.data.joiningDate == null ? "无" : snapshot.data.joiningDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
-                        ]
-                    ),
-                  ],
-                );
+                return Padding(
+                    padding: EdgeInsets.only(
+                        top: 15.0, left: 25.0, right: 25.0, bottom: 15.0),
+                    child: Table(
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      children: <TableRow>[
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车辆编号",
+                              snapshot.data.vehicleCode == null
+                                  ? "无"
+                                  : snapshot.data.vehicleCode,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车牌号",
+                              snapshot.data.mainVehiclePlate == null
+                                  ? "无"
+                                  : snapshot.data.mainVehiclePlate,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("物流公司",
+                              snapshot.data.ouDisplayName == null
+                                  ? "无"
+                                  : snapshot.data.ouDisplayName,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车辆类型",
+                              snapshot.data.vehicleTypeText == null
+                                  ? "无"
+                                  : snapshot.data.vehicleTypeText,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("业务类型",
+                              snapshot.data.vehicleBusinessTypeText == null
+                                  ? "无"
+                                  : snapshot.data.vehicleBusinessTypeText,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车型",
+                              snapshot.data.vehicleTypeText == null
+                                  ? "无"
+                                  : snapshot.data.vehicleTypeText,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车辆状态",
+                              snapshot.data.vehicleStateText == null
+                                  ? "无"
+                                  : snapshot.data.vehicleStateText,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车主姓名",
+                              snapshot.data.ownerName == null
+                                  ? "无"
+                                  : snapshot.data.ownerName,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车主身份证号",
+                              snapshot.data.ownerIDNumber == null
+                                  ? "无"
+                                  : snapshot.data.ownerIDNumber,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车主联系方式",
+                              snapshot.data.ownerPhone == null
+                                  ? "无"
+                                  : snapshot.data.ownerPhone,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("车架号",
+                              snapshot.data.trailerFrameNumber == null
+                                  ? "无"
+                                  : snapshot.data.trailerFrameNumber,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("发动机编号",
+                              snapshot.data.engineNumber == null
+                                  ? "无"
+                                  : snapshot.data.engineNumber,),
+                        ]),
+                        TableRow(children: <Widget>[
+                          CustomTableRowWidget("加盟日期",
+                              snapshot.data.joiningDate == null
+                                  ? "无"
+                                  : snapshot.data.joiningDate
+                                      .toString()
+                                      .substring(0, 10),),
+                        ]),
+                      ],
+                    ));
               } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+                return CustomErrorReturnWidget();
               }
-              return CircularProgressIndicator();
+              return SizedBox(height: 2.0, child: LinearProgressIndicator());
             },
           ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(2.0),
             border: Border.all(
-              color: CustomColors.listBackground,
-              width: 0.7,
+              color: Color(0xffF9FBFF),
+              width: 1.0,
               style: BorderStyle.solid,
             ),
           ),
-          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0, bottom: 12.0),
         ),
-
       ),
     );
-    //    },
-    //  );
   }
-///************************************************************
+
+  ///************************************************************
 
 }

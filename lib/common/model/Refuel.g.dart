@@ -8,15 +8,16 @@ part of 'Refuel.dart';
 
 Refuel _$RefuelFromJson(Map<String, dynamic> json) {
   return Refuel(
-      json['refuelTime'] as String,
-      json['id'] as String,
-      json['fillingStation'] as int,
-      json['fillingStationText'] as String,
-      json['flag'] as int,
-      json['fuel'] as int,
-      json['fuelText'] as String,
-      (json['refuelLitres'] as num)?.toDouble(),
-      json['refuelVehicleCode'] as String);
+    json['refuelTime'] as String,
+    json['id'] as String,
+    json['fillingStation'] as int,
+    json['fillingStationText'] as String,
+    json['flag'] as int,
+    json['fuel'] as int,
+    json['fuelText'] as String,
+    (json['refuelLitres'] as num)?.toDouble(),
+    json['refuelVehicleCode'] as String,
+  );
 }
 
 Map<String, dynamic> _$RefuelToJson(Refuel instance) => <String, dynamic>{
@@ -28,5 +29,5 @@ Map<String, dynamic> _$RefuelToJson(Refuel instance) => <String, dynamic>{
       'refuelVehicleCode': instance.refuelVehicleCode,
       'fillingStation': instance.fillingStation,
       'fillingStationText': instance.fillingStationText,
-      'flag': instance.flag
+      'flag': instance.flag,
     };

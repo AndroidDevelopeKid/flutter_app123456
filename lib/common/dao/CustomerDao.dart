@@ -18,7 +18,7 @@ class CustomerDao {
     var res;
     res = await HttpManager.netFetch(Address.getDriverArchives(),
         json.encode(requestParams), null, new Options(method: 'post'));
-    if(res.code == 403){
+    if (res.code == Config.ERROR_CODE401 || res.code == Config.ERROR_CODE403) {
       await UserDao.refreshToken();
       res = await HttpManager.netFetch(Address.getDriverArchives(),
           json.encode(requestParams), null, new Options(method: 'post'));

@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^5.0.2
   banner_view: ^1.1.2
   intro_slider: ^2.2.5
+  fluro: ^1.5.1
 
 dev_dependencies:
   flutter_test:
@@ -96,7 +97,39 @@ flutter:
   - lib/static/images/historybillsub.ico
   - lib/static/images/banner01.jpeg
   - lib/static/images/banner02.jpeg
-  - lib/static/images/loginbackground.png
+  - assets/images/loginbackground.png
+  - assets/images/logo.png
+  - assets/images/statelogo.png
+  - assets/images/yixincloud.png
+  - assets/images/banner.png
+  - assets/images/cost.png
+  - assets/images/current-customer.png
+  - assets/images/freight.png
+  - assets/images/history-bill.png
+  - assets/images/maintenance.png
+  - assets/images/refuel.png
+  - assets/images/right.png
+  - assets/images/toll.png
+  - assets/images/welcome.png
+  - assets/images/read.png
+  - assets/images/readpressed.png
+  - assets/images/unread.png
+  - assets/images/unreadpressed.png
+  - assets/images/setallread.png
+  - assets/images/icon_msg.png
+  - assets/images/messageunread.png
+  - assets/images/nomore.png
+  - assets/images/mybackground.png
+  - assets/images/query.png
+  - assets/images/form.png
+  - assets/images/dairy.png
+  fonts:
+  - family: MyIcons
+    fonts:
+     - asset: assets/fonts/iconfont.ttf
+  - family: MyFont
+    fonts:
+     - asset: assets/fonts/DroidSans.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

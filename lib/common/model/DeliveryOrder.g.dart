@@ -8,26 +8,27 @@ part of 'DeliveryOrder.dart';
 
 DeliveryOrder _$DeliveryOrderFromJson(Map<String, dynamic> json) {
   return DeliveryOrder(
-      json['id'] as String,
-      json['mainVehiclePlate'] as String,
-      json['vehicleCode'] as String,
-      json['barcode'] as String,
-      json['coalText'] as String,
-      json['deliveryOrderCode'] as String,
-      json['deliveryOrderStateText'] as String,
-      json['generateDate'] as String,
-      json['generatePerson'] as String,
-      json['generateType'] as String,
-      json['organizationUnitId'] as int,
-      json['organizationUnitName'] as String,
-      json['randomNumber'] as String,
-      json['source'] as int,
-      json['sourceText'] as String,
-      json['sunuName'] as String,
-      json['transSupplierNumber'] as String,
-      json['werkName'] as String,
-      json['ysSunuName'] as String,
-      json['message'] as String)
+    json['id'] as String,
+    json['mainVehiclePlate'] as String,
+    json['vehicleCode'] as String,
+    json['barcode'] as String,
+    json['coalText'] as String,
+    json['deliveryOrderCode'] as String,
+    json['deliveryOrderStateText'] as String,
+    json['generateDate'] as String,
+    json['generatePerson'] as String,
+    json['generateType'] as String,
+    json['organizationUnitId'] as int,
+    json['organizationUnitName'] as String,
+    json['randomNumber'] as String,
+    json['source'] as int,
+    json['sourceText'] as String,
+    json['sunuName'] as String,
+    json['transSupplierNumber'] as String,
+    json['werkName'] as String,
+    json['ysSunuName'] as String,
+    json['message'] as String,
+  )
     ..loadPlaceId = json['loadPlaceId'] as int
     ..loadPlaceName = json['loadPlaceName'] as String
     ..unloadPlaceId = json['unloadPlaceId'] as int
@@ -63,5 +64,5 @@ Map<String, dynamic> _$DeliveryOrderToJson(DeliveryOrder instance) =>
       'sunuName': instance.sunuName,
       'ysSunuName': instance.ysSunuName,
       'id': instance.id,
-      'message': instance.message
+      'message': instance.message,
     };

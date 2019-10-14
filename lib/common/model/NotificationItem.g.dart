@@ -7,8 +7,13 @@ part of 'NotificationItem.dart';
 // **************************************************************************
 
 NotificationItem _$NotificationItemFromJson(Map<String, dynamic> json) {
-  return NotificationItem(json['id'] as String, json['userId'] as int,
-      json['tenantId'] as int, json['notification'], json['state'] as int);
+  return NotificationItem(
+    json['id'] as String,
+    json['userId'] as int,
+    json['tenantId'] as int,
+    json['notification'],
+    json['state'] as int,
+  );
 }
 
 Map<String, dynamic> _$NotificationItemToJson(NotificationItem instance) =>
@@ -17,5 +22,5 @@ Map<String, dynamic> _$NotificationItemToJson(NotificationItem instance) =>
       'userId': instance.userId,
       'state': instance.state,
       'notification': instance.notification,
-      'id': instance.id
+      'id': instance.id,
     };

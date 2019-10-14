@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app123456/Page/HomePage.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_app123456/Page/LoginPage.dart';
-import 'package:flutter_app123456/Page/WelcomePage.dart';
-import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/event/HttpErrorEvent.dart';
-import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_picker/PickerLocalizationsDelegate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -21,9 +20,12 @@ import 'package:redux/redux.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 
+
 void main(){
   runApp(new FlutterReduxApp());
   PaintingBinding.instance.imageCache.maximumSize = 100;
+  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
 
 class FlutterReduxApp extends StatelessWidget {
@@ -57,40 +59,19 @@ class FlutterReduxApp extends StatelessWidget {
             locale:store.state.locale,///区域
             supportedLocales: [store.state.locale],///支持区域，传入支持的语种组数
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              // This is the theme of your application.
-              //
-              // Try running your application with "flutter run". You'll see the
-              // application has a blue toolbar. Then, without quitting the app, try
-              // changing the primarySwatch below to Colors.green and then invoke
-              // "hot reload" (press "r" in the console where you ran "flutter run",
-              // or simply save your changes to "hot reload" in a Flutter IDE).
-              // Notice that the counter didn't reset back to zero; the application
-              // is not restarted.
-              primarySwatch: Colors.blue,
-            ),
             ///路由，声明程序中有哪个通过Navigation.of(context).pushNamed跳转的路由
             ///参数以键值对的形式传递
             ///key：路由名字
             ///value：对应的Widget
             initialRoute: "login",
             routes: {
-//              WelcomePage.sName: (context){
-//                store.state.platformLocale = Localizations.localeOf(context);
-//                return WelcomePage();
-//              },
               HomePage.sName: (context){
-                return new CustomLocalizations(
-                  child: new HomePage(),
+                return  HomePage();
 
-                );
               },
               LoginPage.sName: (context){
                 return LoginPage();
-//                return new CustomLocalizations(
-//                  child: new LoginPage(),
-//                );
-              }
+              },
             },
           );
         }));

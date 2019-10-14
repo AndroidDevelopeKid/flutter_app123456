@@ -4,6 +4,9 @@ class Config{
   static const TENANT_ID = "tenant-id";
   static const DEBUG = true;
 
+  static const ERROR_CODE401 = 401;
+  static const ERROR_CODE403 = 403;
+
   static const PAGE_SIZE = 10;
   static const NOTICE_PAGE_SIZE = 10;
   static const ICON_SIZE = 60.0;

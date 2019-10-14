@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/NoticeDao.dart';
 import 'package:flutter_app123456/common/dao/ReposDao.dart';
-import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/BannerItemFactory.dart';
 import 'package:flutter_app123456/widget/Pair.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:banner_view/banner_view.dart';
 
 class HomeHomePage extends StatefulWidget {
@@ -32,7 +30,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
     // TODO: implement initState
     super.initState();
     //检查版本更新
-    ReposDao.getNewsVersion(context, false);
+    //ReposDao.getNewsVersion(context, false);
     //初始化本地通知
     var initializationSettingsAndroid = new AndroidInitializationSettings('icon_msg');
     var initializationSettingsIOS = new IOSInitializationSettings();
@@ -64,12 +62,6 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
             child: new Text('Ok'),
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
-//              await Navigator.push(
-//                context,
-//                new MaterialPageRoute(
-//                  builder: (context) => new SecondScreen(payload),
-//                ),
-//              );
             },
           )
         ],
@@ -115,8 +107,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
   BannerView _bannerView(){
     // 盛放图片的 List
     List<Pair<String, Color>> param = [
-      Pair.create(CustomIcons.BANNER_IMAGE_01, null),//Colors.red[500]
-      Pair.create(CustomIcons.BANNER_IMAGE_02, null),//Colors.green[500]
+      Pair.create(CustomIcons.BANNER, null),
     ];
 
     return new BannerView(
@@ -129,18 +120,27 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return new StoreBuilder<CustomState>(
-        builder:(context, store){
-          return Scaffold(
+
+    return Scaffold(
+            appBar: new AppBar(
+              elevation: 0,
+              brightness: Brightness.light,
+              backgroundColor: Colors.white,
+              title: Row(children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 15.0, top: 15.0, bottom: 9.0),
+                  child: Image.asset("assets/images/statelogo.png"),
+                ),
+              ],
+              ),
+            ),
             body:new Column(children: <Widget>[
               new Container(
-                alignment: Alignment.center,
-                height: 180.0,
-                child: this._bannerView(),
-                padding: EdgeInsets.only(bottom: 10.0),
+                height: 185.0,
+                child: Padding(padding: EdgeInsets.all(10.0), child: this._bannerView())
               ),
               new Expanded(child: new GridView.count(
-                crossAxisCount: 3,
+                crossAxisCount: 4,
                 padding: EdgeInsets.all(20.0),
                 children: _buildWidgetList(),
               ),
@@ -148,8 +148,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
             ],),
 
           );
-        },
-    );
+
   }
   List<Widget> _buildWidgetList(){
     List<Widget> widgetList = new List();
@@ -161,17 +160,15 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
           new Expanded(
             child:
             new IconButton(
-                icon: new Image.asset(CustomIcons.HISTORY_BILL_IMAGE),
+                icon: new Image.asset(CustomIcons.HISTORY),
                 iconSize: Config.ICON_SIZE,
-                //new Icon(CustomIcons.HISTORY_BILL, size: Config.ICON_SIZE),
                 onPressed: (){
                   NavigatorUtils.goHistoryBill(context);
                 },
                 tooltip: "历史提货单",
-              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("历史提货单"),
+          new Text("历史提货单", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );
@@ -182,18 +179,15 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
           new Expanded(
             child:
             new IconButton(
-              icon: new Image.asset(CustomIcons.FREIGHT_INQUIRY_IMAGE),
+              icon: new Image.asset(CustomIcons.FREIGHT),
               iconSize: Config.ICON_SIZE,
-              //new Icon(CustomIcons.FREIGHT_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 CommonUtils.showShort("敬请期待...");
-                //NavigatorUtils.goFreightInquiry(context);
               },
               tooltip: "运费查询",
-              //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("运费查询"),
+          new Text("运费查询", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );
@@ -203,9 +197,8 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Image.asset(CustomIcons.REFUEL_INQUIRY_IMAGE),
+              icon: new Image.asset(CustomIcons.REFUEL),
               iconSize: Config.ICON_SIZE,
-              //new Icon(CustomIcons.REFUEL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
                 //CommonUtils.showShort("敬请期待...");
                 NavigatorUtils.goRefuelInquiry(context);
@@ -214,7 +207,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("加油查询"),
+          new Text("加油查询", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );
@@ -224,7 +217,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon:new Image.asset(CustomIcons.TOLL_INQUIRY_IMAGE),
+              icon:new Image.asset(CustomIcons.TOLL),
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.TOLL_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
@@ -235,7 +228,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("过路费查询"),
+          new Text("过路费查询", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );
@@ -245,7 +238,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Image.asset(CustomIcons.MAINTENANCE_FEE_INQUIRY_IMAGE),
+              icon: new Image.asset(CustomIcons.MAINTENANCE),
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.MAINTENANCE_FEE_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
@@ -256,7 +249,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("维修费查询"),
+          new Text("维修费查询", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );
@@ -266,7 +259,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Image.asset(CustomIcons.OTHER_COST_INQUIRY_IMAGE),
+              icon: new Image.asset(CustomIcons.COST),
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.OTHER_COST_INQUIRY, size: Config.ICON_SIZE),
               onPressed: (){
@@ -277,7 +270,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("其他费用查询"),
+          new Text("其他费用查询", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );
@@ -287,7 +280,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
         children: <Widget>[
           new Expanded(
             child: new IconButton(
-              icon: new Image.asset(CustomIcons.CURRENT_ASSIGN_CUSTOMER_IMAGE),
+              icon: new Image.asset(CustomIcons.CUSTOMER),
               iconSize: Config.ICON_SIZE,
               //new Icon(CustomIcons.CURRENT_ASSIGN_CUSTOMER, size: Config.ICON_SIZE),
               onPressed: (){
@@ -298,7 +291,7 @@ class _HomeHomePageState extends State<HomeHomePage> with AutomaticKeepAliveClie
               //padding: EdgeInsets.only(right: Config.ICON_RIGHT_PADDING),
             ),
           ),
-          new Text("当前指派客户"),
+          new Text("当前指派客户", style: TextStyle(fontSize: 12.0,), overflow: TextOverflow.fade,),
         ],
       ),
     );

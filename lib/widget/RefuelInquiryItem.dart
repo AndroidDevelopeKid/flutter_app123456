@@ -4,56 +4,89 @@ import 'package:flutter_app123456/common/model/Refuel.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/widget/CustomCardItem.dart';
 
-class RefuelInquiryItem extends StatelessWidget{
+import 'CustomTableRowWidget.dart';
+
+class RefuelInquiryItem extends StatelessWidget {
   final RefuelInquiryItemViewModel refuelInquiryItemViewModel;
   final VoidCallback onPressed;
 
-  RefuelInquiryItem(this.refuelInquiryItemViewModel,{this.onPressed}) : super();
+  RefuelInquiryItem(this.refuelInquiryItemViewModel, {this.onPressed})
+      : super();
 
   @override
   Widget build(BuildContext context) {
-    return new Card(
-      color: Color(CustomColors.displayCardBackground),
-      margin: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 4.0, right: 4.0),
-      elevation: 8.0,
-      child: new Container(
-        child: new Table(
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
-          children: <TableRow>[
-            TableRow(children: <Widget>[
-              Text("加油时间：", style: CustomConstant.normalTextBlue),
-              Text(refuelInquiryItemViewModel.refuelTime == null ? "无" : refuelInquiryItemViewModel.refuelTime, style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("加油车辆编号：", style: CustomConstant.normalTextBlue),
-              Text(refuelInquiryItemViewModel.refuelVehicleCode == null ? "无" : refuelInquiryItemViewModel.refuelVehicleCode, style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("加油升数：", style: CustomConstant.normalTextBlue),
-              Text(refuelInquiryItemViewModel.refuelLitres == null ? "无" : refuelInquiryItemViewModel.refuelLitres.toString(), style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("油品：", style: CustomConstant.normalTextBlue),
-              Text(refuelInquiryItemViewModel.fuelText == null ? "无" : refuelInquiryItemViewModel.fuelText, style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("加油站：", style: CustomConstant.normalTextBlue),
-              Text(refuelInquiryItemViewModel.fillingStationText == null ? "无" : refuelInquiryItemViewModel.fillingStationText, style: CustomConstant.normalTextBlack),
-            ]),
-
-          ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 10.0,
+            top: 15.0,
+          ),
+          child: Table(
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: <TableRow>[
+              TableRow(children: <Widget>[
+                Padding(padding: EdgeInsets.only(bottom: 10.0),child:
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 13.0,
+                      height: 14.0,
+                      child: Image.asset(CustomIcons.FORM),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        refuelInquiryItemViewModel.refuelTime == null ? "加油时间" : refuelInquiryItemViewModel.refuelTime.substring(0,10),
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    )
+                  ],
+                ),)
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                    "加油车辆编号",
+                    refuelInquiryItemViewModel.refuelVehicleCode == null
+                        ? "无"
+                        : refuelInquiryItemViewModel.refuelVehicleCode),
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "加油升数",
+                  refuelInquiryItemViewModel.refuelLitres == null
+                      ? "无"
+                      : refuelInquiryItemViewModel.refuelLitres.toString(),
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "油品",
+                  refuelInquiryItemViewModel.fuelText == null
+                      ? "无"
+                      : refuelInquiryItemViewModel.fuelText,
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "加油站",
+                  refuelInquiryItemViewModel.fillingStationText == null
+                      ? "无"
+                      : refuelInquiryItemViewModel.fillingStationText,
+                ),
+              ]),
+            ],
+          ),
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(2.0),
           border: Border.all(
-            color: CustomColors.listBackground,
-            width: 0.7,
+            color: Color(0xffFefefef),
+            width: 1.0,
             style: BorderStyle.solid,
           ),
         ),
-        padding:
-        EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0, bottom: 12.0),
       ),
     );
   }
@@ -61,14 +94,14 @@ class RefuelInquiryItem extends StatelessWidget{
 
 class RefuelInquiryItemViewModel {
   String id;
-  String refuelTime;//加油时间
-  double refuelLitres;//加油升数
-  int fuel;//油品
-  String fuelText;//油品显示文本
-  String refuelVehicleCode;//加油车辆编号
-  int fillingStation;//加油站
-  String fillingStationText;//加油站显示文本
-  int flag;//加油标识
+  String refuelTime; //加油时间
+  double refuelLitres; //加油升数
+  int fuel; //油品
+  String fuelText; //油品显示文本
+  String refuelVehicleCode; //加油车辆编号
+  int fillingStation; //加油站
+  String fillingStationText; //加油站显示文本
+  int flag; //加油标识
 
   RefuelInquiryItemViewModel.fromMap(Refuel refuel) {
     id = refuel.id;
@@ -81,5 +114,4 @@ class RefuelInquiryItemViewModel {
     fillingStationText = refuel.fillingStationText;
     flag = refuel.flag;
   }
-
 }

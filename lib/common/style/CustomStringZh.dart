@@ -48,7 +48,7 @@ class CustomStringZh extends CustomStringBase{
   String homeMy = "我的";
 
   @override
-  String appEmpty = "什么也没有";
+  String appEmpty = "没有更多了";
 
   @override
   String loadMoreText = "加载更多";

@@ -44,10 +44,10 @@ class CommonUtils{
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Container(child: SpinKitCubeGrid(color: Color(CustomColors.white))),
-                    new Container(height: 10.0),
+                    new Container(child: SpinKitCircle(color: Color(CustomColors.white))),
+                    //new Container(height: 10.0),
                     //new Container(child: new Text('loading...', style: CustomConstant.normalTextWhite)),
-                    new Container(child: new Text(CommonUtils.getLocale(context).loadingText, style: CustomConstant.normalTextWhite)),
+                    //new Container(child: new Text(CommonUtils.getLocale(context).loadingText, style: CustomConstant.normalTextWhite)),
 
                   ],
                 ),

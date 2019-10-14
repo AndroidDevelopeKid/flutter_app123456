@@ -71,14 +71,6 @@ mixin CustomListState<T extends StatefulWidget> on State<T>, AutomaticKeepAliveC
         });
       }
     }
-//    if(res != null && !res.result){
-//      if(isShow){
-//        setState(() {
-//          pullLoadWidgetControl.dataList.add(res.data);
-//        });
-//      }
-//
-//    }
     resolveDataResult(res);
     isLoading = false;
     return null;

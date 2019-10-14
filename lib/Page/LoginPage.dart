@@ -1,21 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter_app123456/common/config/CompanyPicker.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app123456/common/model/Tenant.dart';
-import 'package:flutter_app123456/widget/Background.dart';
-import 'package:flutter_app123456/widget/DropDown.dart';
-import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/UserDao.dart';
 import 'package:flutter_app123456/common/local/LocalStorage.dart';
-import 'package:flutter_app123456/common/redux/CustomState.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
-import 'package:flutter_app123456/widget/CustomFlexButton.dart';
-import 'package:flutter_app123456/widget/CustomInputWidget.dart';
+
+import 'CompanyPage.dart';
 
 class LoginPage extends StatefulWidget {
   static final String sName = "login";
@@ -25,13 +20,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   ///物流公司，用户名和密码
-  String _company;
-  var _userName = "";
-  var _password = "";
-  List<String> tArray = List();
-  List<int> tIdArray = List();
+  Tenant tenant;
+  String _companyText = "选择物流公司";
+  String _userName;
+  String _password;
 
   final TextEditingController userController = new TextEditingController();
   final TextEditingController pwController = new TextEditingController();
@@ -39,33 +32,10 @@ class _LoginPageState extends State<LoginPage> {
   ///构造方法
   _LoginPageState() : super();
 
-  Future<List<Tenant>> tenants;
-
-  Future<List<Tenant>> fetchData(skipCount) async {
-    final List<Tenant> tenantList = new List();
-    var tenants = await UserDao.getTenants(100, skipCount);
-
-    if (tenants.data != null && tenants.result) {
-      var itemList = tenants.data["result"]["items"];
-      print("tenants's itemList: " +
-          itemList.toString() +
-          itemList.length.toString());
-      print("tenants itemList length: " + itemList.length.toString());
-      for (int i = 0; i < itemList.length; i++) {
-        var id = itemList[i]["id"];
-        var tenancyName = itemList[i]["tenancyName"];
-        var name = itemList[i]["name"];
-        var isActive = itemList[i]["isActive"];
-        tenantList.add(new Tenant(isActive, id, name, tenancyName));
-      }
-      return tenantList;
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    tenants = fetchData(0);
     initParams();
   }
 
@@ -84,10 +54,6 @@ class _LoginPageState extends State<LoginPage> {
     pwController.value = new TextEditingValue(text: _password ?? "");
   }
 
-  void _onCompanySelected(String value) {
-    setState(() => _company = value);
-  }
-
   DecorationImage loginBackgroundImage = new DecorationImage(
     image: new ExactAssetImage(CustomIcons.LOGIN_BACKGROUND_IMAGE),
     fit: BoxFit.cover,
@@ -104,102 +70,116 @@ class _LoginPageState extends State<LoginPage> {
         },
         child: Scaffold(
           resizeToAvoidBottomPadding: false, //键盘弹出覆盖，不重新布局
-          body: //new SingleChildScrollView(
-              //child:
-              new Container(
-            decoration: new BoxDecoration(
-                //image: loginBackgroundImage,
-                gradient: new LinearGradient(
-                    colors: [Color(0xffFFFFFF), Color(0xff0872EA)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight)),
-            //color: Theme.of(context).primaryColor,
-            child: new Center(
-              child:
-                  new Card(
-                ///阴影大小，默认2.0
-                elevation: 5.0,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
-
-                ///背景色
-                color: Color(CustomColors.cardWhite),
-                margin: const EdgeInsets.only(left: 50.0, right: 50.0),
-                child: new Padding(
-                  padding: new EdgeInsets.only(
-                      left: 30.0, top: 10.0, right: 30.0, bottom: 0.0),
-                  child: new Column(
-                    ///主轴方向上的对齐方式，默认start，center是将children放置在主轴中心
-                    mainAxisAlignment: MainAxisAlignment.center,
-
-                    ///在主轴方向占有空间的值，默认是max，最大化主轴方向的可用空间，min相反
-                    mainAxisSize: MainAxisSize.min,
+          body: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                      image: AssetImage(CustomIcons.LOGIN_BACKGROUND),
+                      fit: BoxFit.fill),
+                ),
+              ),
+              Positioned(
+                left: 39.0,
+                right: 142.0,
+                top: 112.0,
+                child: Image.asset("assets/images/yixincloud.png"),
+              ),
+              Positioned(
+                  left: 42.0,
+                  top: 242.0,
+                  child: Text(
+                    "Sign Up!",
+                    style: TextStyle(
+                        fontFamily: 'MyFont',
+                        fontSize: 14.0,
+                        color: Color(0xff000000)),
+                  )),
+              Positioned(
+                  left: 39.0,
+                  top: 271.0,
+                  right: 35.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      //new Image.asset(CustomIcons.DEFAULT_USER_ICON, width: 80.0, height: 80.0),
-
-                      new Padding(padding: new EdgeInsets.all(10.0)),
-                      new Row(
-                        children: <Widget>[
-                          Expanded(
-                              child: FutureBuilder<List<Tenant>>(
-                                  future: tenants,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      tArray.clear();
-                                      tIdArray.clear();
-
-                                      for (int i = 0;
-                                          i < snapshot.data.length;
-                                          i++) {
-                                        tArray.insert(i, snapshot.data[i].name);
-                                        tIdArray.insert(i, snapshot.data[i].id);
-                                        print("snapshot:" + snapshot.data[i].name);
-                                      }
-                                      if (_company == null) {
-                                        _company = tArray[0];
-                                      }
-                                      return new Dropdown(
-                                        items: tArray,
-                                        value: _company,
-                                        onChanged: _onCompanySelected,
-                                        isExpanded: true,
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-                                    return CircularProgressIndicator();
-                                  })),
-                        ],
+                      RaisedButton(
+                        onPressed: () {
+                          //跳转页面选择物流公司
+                          Navigator.push<Tenant>(context, new MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return new CompanyPage();
+                          })).then((Tenant t) {
+                            if (t != null) {
+                              _companyText = t.name;
+                              setState(() {
+                                tenant = t;
+                              });
+                            }
+                          });
+                        },
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 18.0),
+                            child: Text(
+                              _companyText,
+                              style: TextStyle(
+                                  fontSize: 17.0, color: Colors.white),
+                            )),
+                        color: Color(0xffB4CDFF),
                       ),
-
-                      new Padding(padding: new EdgeInsets.all(10.0)),
-                      new CustomInputWidget(
-                        hintText: CommonUtils.getLocale(context)
-                            .loginUsernameHintText,
-                        iconData: CustomIcons.LOGIN_USER,
-                        onChanged: (String value) {
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 39.0, right: 35.0, top: 5.0, bottom: 5.0),
+                      ),
+                      TextField(
+                        controller: userController,
+                        onChanged: (String value){
                           _userName = value;
                         },
-                        controller: userController,
+                        decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: 19.0),
+                            fillColor: Color(0xffF0F3FF),
+                            filled: true,
+                            border: InputBorder.none,
+                            hintText: "用户名",
+                            prefixIcon: Icon(
+                              CustomIcons.USER_NAME,
+                              color: Color(0xff4C88FF),
+                            )),
                       ),
-                      new Padding(padding: new EdgeInsets.all(10.0)),
-                      new CustomInputWidget(
-                        hintText: '密码',
-                        iconData: CustomIcons.LOGIN_PW,
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 39.0, right: 35.0, top: 5.0, bottom: 5.0),
+                      ),
+                      TextField(
                         obscureText: true,
-                        onChanged: (String value) {
+                        controller: pwController,
+                        onChanged: (String value){
                           _password = value;
                         },
-                        controller: pwController,
+                        decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: 19.0),
+                            fillColor: Color(0xffF0F3FF),
+                            filled: true,
+                            border: InputBorder.none,
+                            hintText: "密码",
+                            prefixIcon: Icon(
+                              CustomIcons.PASSWORD,
+                              color: Color(0xff4C88FF),
+                            )),
                       ),
-                      new Padding(padding: new EdgeInsets.all(25.0)),
-                      new CustomFlexButton(
-                        text: CommonUtils.getLocale(context).loginText,
-                        color: Theme.of(context).primaryColor,
-                        textColor: Color(CustomColors.textWhite),
-                        onPress: () async {
-                          if (_company == null || _company.length == 0) {
-                            CommonUtils.showShort("物流公司出错！");
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 39.0, right: 35.0, top: 13.5, bottom: 13.5),
+                      ),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0)),
+                        onPressed: () async {
+                          print("bug: " + _userName.toString() + "--" + _password.toString());
+                          if (tenant == null) {
+                            CommonUtils.showShort("请先选择物流公司！");
                             return false;
                           }
                           if (_userName == null || _userName.length == 0) {
@@ -210,41 +190,56 @@ class _LoginPageState extends State<LoginPage> {
                             CommonUtils.showShort("用户名或密码不可为空！");
                             return false;
                           }
-                          int id;
-                          for (int i = 0; i < tArray.length; i++) {
-                            if (_company == tArray[i]) {
-                              id = tIdArray[i];
-                            }
-                          }
 
                           CommonUtils.showLoadingDialog(context);
-                          var res = await UserDao.login(id.toString().trim(), _userName.trim(), _password.trim());
+                          var res = await UserDao.login(tenant.id.toString().trim(),
+                              _userName.trim(), _password.trim());
                           if (res != null && res.result) {
                             new Future.delayed(const Duration(seconds: 1), () {
-                                NavigatorUtils.goHome(context);
-                                return true;
+                              NavigatorUtils.goHome(context);
+                              return true;
                             });
                           }
                           Navigator.pop(context);
-                          
 
                           if (!res.result) {
-                            if(Config.DEBUG){
+                            if (Config.DEBUG) {
                               print("返回结果：" + res.data.toString());
                             }
-                            CommonUtils.showShort(res.data.toString());
+                            CommonUtils.showShort("登录失败 用户名密码错误！");
                           }
                           return true;
                         },
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 18.0),
+                            child: Text(
+                              "登录",
+                              style: TextStyle(
+                                  fontSize: 17.0, color: Colors.white),
+                            )),
+                        color: Color(0xff4C88FF),
                       ),
-
-                      new Padding(padding: new EdgeInsets.all(20.0)),
                     ],
-                  ),
-                ),
+                  )),
+              Positioned(
+                left: 163.0,
+                right: 162.0,
+                bottom: 66.0,
+                child: Image.asset("assets/images/logo.png"),
               ),
-            ),
-            //),
+              Positioned(
+                left: 100.0,
+                right: 96.0,
+                bottom: 47.0,
+                child: Text(
+                  "Transportation service platform",
+                  style: TextStyle(
+                      fontFamily: 'MyFont',
+                      fontSize: 10.0,
+                      color: Color(0xffBCD8FF)),
+                ),
+              )
+            ],
           ),
         ));
   }

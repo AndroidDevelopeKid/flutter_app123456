@@ -8,15 +8,16 @@ part of 'NotificationBody.dart';
 
 NotificationBody _$NotificationBodyFromJson(Map<String, dynamic> json) {
   return NotificationBody(
-      json['tenantId'] as int,
-      json['id'] as String,
-      json['data'],
-      json['creationTime'] as String,
-      json['entityId'],
-      json['entityType'] as String,
-      json['entityTypeName'] as String,
-      json['notificationName'] as String,
-      json['severity'] as int);
+    json['tenantId'] as int,
+    json['id'] as String,
+    json['data'],
+    json['creationTime'] as String,
+    json['entityId'],
+    json['entityType'] as String,
+    json['entityTypeName'] as String,
+    json['notificationName'] as String,
+    json['severity'] as int,
+  );
 }
 
 Map<String, dynamic> _$NotificationBodyToJson(NotificationBody instance) =>
@@ -29,5 +30,5 @@ Map<String, dynamic> _$NotificationBodyToJson(NotificationBody instance) =>
       'entityId': instance.entityId,
       'severity': instance.severity,
       'creationTime': instance.creationTime,
-      'id': instance.id
+      'id': instance.id,
     };

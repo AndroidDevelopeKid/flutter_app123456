@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:common_utils/common_utils.dart';
@@ -11,11 +10,11 @@ import 'package:flutter_app123456/common/model/Driver.dart';
 import 'package:flutter_app123456/common/model/Vehicle.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
+import 'package:flutter_app123456/widget/CustomErrorReturnWidget.dart';
+import 'package:flutter_app123456/widget/CustomTableRowWidget.dart';
 
-class UserInfoPage extends StatefulWidget{
+class UserInfoPage extends StatefulWidget {
   static final String name = "userInfo";
-
-
 
   UserInfoPage({Key key}) : super(key: key);
 
@@ -23,32 +22,29 @@ class UserInfoPage extends StatefulWidget{
   _UserInfoPageState createState() => _UserInfoPageState();
 }
 
-class _UserInfoPageState extends State<UserInfoPage>{
-
-
+class _UserInfoPageState extends State<UserInfoPage> {
   _UserInfoPageState();
 
   ///*********************异步获取数据进行页面显示****************************
   Future<Driver> driver;
 
-
   Future<Driver> fetchData() async {
-      var driverArchives = await LocalStorage.get(Config.DRIVER_ARCHIVES);
-      if(driverArchives == null){
-        var userId = await LocalStorage.get(Config.USER_ID);
-        var resultDataDriver = await UserDao.getUserInfo(Config.TENANT, userId);
-        if(resultDataDriver.data == null){
-          var dataNull = new Driver(null, null, null, null, null, null, null, null, null, null, null, null, null);
-          return dataNull;
-        }else{
-          return resultDataDriver.data;
-        }
-      }else{
-        Driver driverData = Driver.fromJson(json.decode(driverArchives));
-        return driverData;
+    var driverArchives;//await LocalStorage.get(Config.DRIVER_ARCHIVES);
+    if (driverArchives == null) {
+      var resultDataDriver = await UserDao.getUserInfo();
+      if (resultDataDriver.data == null) {
+        var dataNull = new Driver(null, null, null, null, null, null, null,
+            null, null, null, null, null, null);
+        return dataNull;
+      } else {
+        return resultDataDriver.data;
       }
-
+    } else {
+      Driver driverData = Driver.fromJson(json.decode(driverArchives));
+      return driverData;
+    }
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -56,149 +52,163 @@ class _UserInfoPageState extends State<UserInfoPage>{
     driver = fetchData();
   }
 
-//  List<Widget> buildUI() {
-//    // main UI rendering operation is performed here, be careful
-//    List<Widget> tmpUI = [];
-//    <List<dynamic>>[
-//
-//    ].forEach((List<dynamic> elem) {
-//      elem.forEach((dynamic item) {
-//        tmpUI.add(item.getCard());
-//      });
-//    });
-//    return tmpUI;
-//  }
-
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
-    //return new StoreBuilder<CustomState>(
-    //  builder: (context, store) {
-    return new Scaffold(
-      backgroundColor: CustomColors.listBackground,
-      appBar: new AppBar(
-        title: new Text("人员档案"),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            iconSize: 15.0,
+            icon: Icon(CustomIcons.BACK, color: Color(0xff4C88FF)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+        title: Text("人员档案",
+            style: TextStyle(fontSize: 18.0, color: Colors.black)),
       ),
-      body:
-      new Card(
-        color: Color(CustomColors.displayCardBackground),
-        //margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30),
-        margin: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 4.0, right: 4.0),
-        elevation: 8.0,
-        child: new Container(
+      body: Padding(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Container(
           child: FutureBuilder<Driver>(
-          future: driver,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              //return Text(snapshot.data.vehicleCode);
-              return new Table(
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-
-                //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
-                children: <TableRow>[
-                  TableRow(
-                      //decoration: BoxDecoration(color: Colors.red),
-
-                      children: <Widget>[
-                        Text("身份证号：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.driverIDNumber == null ? "无" : snapshot.data.driverIDNumber.toString(), style: CustomConstant.normalTextBlack),
-                      ],
-
+            future: driver,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      top: 15.0, left: 25.0, right: 25.0, bottom: 15.0),
+                  child: Table(
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: <TableRow>[
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                            "身份证号",
+                            snapshot.data.driverIDNumber == null
+                                ? "无"
+                                : snapshot.data.driverIDNumber.toString())
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                            "姓名",
+                            snapshot.data.driverName == null
+                                ? "无"
+                                : snapshot.data.driverName.toString())
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "电话号码",
+                          snapshot.data.driverPhone == null
+                              ? "无"
+                              : snapshot.data.driverPhone.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "所属物流公司",
+                          snapshot.data.ouDisplayName == null
+                              ? "无"
+                              : snapshot.data.ouDisplayName.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "人员类型",
+                          snapshot.data.personTypeText == null
+                              ? "无"
+                              : snapshot.data.personTypeText.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "车辆编号",
+                          snapshot.data.vehicleCode == null
+                              ? "无"
+                              : snapshot.data.vehicleCode.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "身份证到期日期",
+                          snapshot.data.certificateEndDate == null
+                              ? "无"
+                              : snapshot.data.certificateEndDate
+                                  .toString()
+                                  .substring(0, 10),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "人员状态",
+                          snapshot.data.personStateText == null
+                              ? "无"
+                              : snapshot.data.personStateText.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "备用联系人",
+                          snapshot.data.buckupContactPerson == null
+                              ? "无"
+                              : snapshot.data.buckupContactPerson.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "备用联系地址",
+                          snapshot.data.buckupContactPersonAddress == null
+                              ? "无"
+                              : snapshot.data.buckupContactPersonAddress
+                                  .toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "备用联系方式",
+                          snapshot.data.buckupContactPersonPhone == null
+                              ? "无"
+                              : snapshot.data.buckupContactPersonPhone
+                                  .toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "驾驶证号",
+                          snapshot.data.driverLicenseID == null
+                              ? "无"
+                              : snapshot.data.driverLicenseID.toString(),
+                        ),
+                      ]),
+                      TableRow(children: <Widget>[
+                        CustomTableRowWidget(
+                          "驾驶证到期日期",
+                          snapshot.data.dlCertificateEndDate == null
+                              ? "无"
+                              : snapshot.data.dlCertificateEndDate
+                                  .toString()
+                                  .substring(0, 10),
+                        ),
+                      ]),
+                    ],
                   ),
-                  TableRow(
-                    children: <Widget>[
-                      Text("姓名：", style: CustomConstant.normalTextBlue),
-                      Text(snapshot.data.driverName == null ? "无" : snapshot.data.driverName.toString(), style: CustomConstant.normalTextBlack),
-                    ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("电话号码：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.driverPhone == null ? "无" : snapshot.data.driverPhone.toString(), style: CustomConstant.normalTextBlack),
-                      ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("所属物流公司：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.ouDisplayName == null ? "无" : snapshot.data.ouDisplayName.toString(), style: CustomConstant.normalTextBlack),
-                      ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("人员类型：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.personTypeText == null ? "无" : snapshot.data.personTypeText.toString(), style: CustomConstant.normalTextBlack),
-                      ]
-                  ),
-                  TableRow(
-                    children: <Widget>[
-                      Text("车辆编号：", style: CustomConstant.normalTextBlue),
-                      Text(snapshot.data.vehicleCode == null ? "无" : snapshot.data.vehicleCode.toString(), style: CustomConstant.normalTextBlack),
-                    ]
-                  ),
-                  TableRow(
-                    children: <Widget>[
-                      Text("身份证到期日期：", style: CustomConstant.normalTextBlue),
-                      Text(snapshot.data.certificateEndDate == null ? "无" : snapshot.data.certificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack),
-                    ]
-                  ),
-                  TableRow(
-                    children: <Widget>[
-                      Text("人员状态：", style: CustomConstant.normalTextBlue),
-                      Text(snapshot.data.personStateText == null ? "无" : snapshot.data.personStateText.toString(), style: CustomConstant.normalTextBlack),
-                    ]
-                  ),
-                  TableRow(
-                    children: <Widget>[
-                      Text("备用联系人：", style: CustomConstant.normalTextBlue),
-                      Text(snapshot.data.buckupContactPerson == null ? "无" : snapshot.data.buckupContactPerson.toString(), style: CustomConstant.normalTextBlack)
-                    ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("备用联系地址：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.buckupContactPersonAddress == null ? "无" : snapshot.data.buckupContactPersonAddress.toString(), style: CustomConstant.normalTextBlack)
-                      ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("备用联系方式：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.buckupContactPersonPhone == null ? "无" : snapshot.data.buckupContactPersonPhone.toString(), style: CustomConstant.normalTextBlack)
-                      ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("驾驶证号：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.driverLicenseID == null ? "无" : snapshot.data.driverLicenseID.toString(), style: CustomConstant.normalTextBlack)
-                      ]
-                  ),
-                  TableRow(
-                      children: <Widget>[
-                        Text("驾驶证到期日期：", style: CustomConstant.normalTextBlue),
-                        Text(snapshot.data.dlCertificateEndDate == null ? "无" : snapshot.data.dlCertificateEndDate.toString().substring(0,10), style: CustomConstant.normalTextBlack)
-                      ]
-                  ),
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            return CircularProgressIndicator();
-          },
-        ),
+                );
+              } else if (snapshot.hasError) {
+                return CustomErrorReturnWidget();
+              }
+              return SizedBox(height: 2.0, child: LinearProgressIndicator());
+            },
+          ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(2.0),
             border: Border.all(
-              color: CustomColors.listBackground,
-              width: 0.7,
+              color: Color(0xffF9FBFF),
+              width: 1.0,
               style: BorderStyle.solid,
             ),
           ),
-          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0, bottom: 12.0),
         ),
-
       ),
     );
-
   }
+
   ///************************************************************
 }

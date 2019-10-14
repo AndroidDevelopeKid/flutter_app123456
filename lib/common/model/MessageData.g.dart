@@ -8,12 +8,13 @@ part of 'MessageData.dart';
 
 MessageData _$MessageDataFromJson(Map<String, dynamic> json) {
   return MessageData(
-      json['messageFlag'] as String,
-      json['messageSource'] as int,
-      json['messageText'] as String,
-      json['properties'],
-      json['senderUserName'] as String,
-      json['type'] as String);
+    json['messageFlag'] as String,
+    json['messageSource'] as int,
+    json['messageText'] as String,
+    json['properties'],
+    json['senderUserName'] as String,
+    json['type'] as String,
+  );
 }
 
 Map<String, dynamic> _$MessageDataToJson(MessageData instance) =>
@@ -23,5 +24,5 @@ Map<String, dynamic> _$MessageDataToJson(MessageData instance) =>
       'messageText': instance.messageText,
       'senderUserName': instance.senderUserName,
       'type': instance.type,
-      'properties': instance.properties
+      'properties': instance.properties,
     };

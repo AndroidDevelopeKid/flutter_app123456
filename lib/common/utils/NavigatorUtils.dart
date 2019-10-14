@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app123456/Page/BarCodeEnlargePage.dart';
+import 'package:flutter_app123456/Page/CompanyPage.dart';
 import 'package:flutter_app123456/Page/CurrentAssignCustomerPage.dart';
 import 'package:flutter_app123456/Page/FreightInquiryPage.dart';
 import 'package:flutter_app123456/Page/HistoryBillPage.dart';
@@ -65,39 +67,34 @@ class NavigatorUtils{
   static goBarCodeEnlarge(BuildContext context, QrImage image){
     Navigator.push(context, new CupertinoPageRoute(builder: (context) => new BarCodeEnlargePage(image)));
   }
-  ///显示人员档案，车辆档案，人员及证件状态，车辆状态页
-  static goDisplayUserInfo(BuildContext context, String title){
-    switch(title){
-      case "我的二维码名片":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MyBarcodePage()));
-        break;
-      case "人员档案":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new UserInfoPage()));
-        break;
-      case "车辆档案":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new VehicleArchivesPage()));
-        break;
-      case "人员及证件状态":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new StaffAndCertificatesStatePage()));
-        break;
-      case "车辆状态":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new VehicleStatePage()));
-        break;
-    }
+  ///显示车辆状态
+  static goDisplayVehicleState(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new VehicleStatePage()));
   }
-  ///显示排队信息，最新提货单
-  static goDisplayQueueInfo(BuildContext context, String title){
-    switch(title){
-      case "排队信息":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new QueueInfoPage()));
-        break;
-      case "最新提货单":
-        Navigator.push(context, new CupertinoPageRoute(builder: (context) => new LastBillPage()));
-        break;
-
-    }
+  ///显示人员及证件状态
+  static goDisplayUserState(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new StaffAndCertificatesStatePage()));
   }
-
+  ///显示车辆档案
+  static goDisplayVehicleFile(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new VehicleArchivesPage()));
+  }
+  ///显示人员档案
+  static goDisplayUserFile(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new UserInfoPage()));
+  }
+  ///显示我的二维码名片
+  static goDisplayMyBarcode(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new MyBarcodePage()));
+  }
+  ///显示排队信息
+  static goDisplayQueueInfo(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new QueueInfoPage()));
+  }
+  ///显示最新提货单
+  static goDisplayLastedBill(BuildContext context){
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) => new LastBillPage()));
+  }
 
   static bool goDisplayMessageDetail(BuildContext context, MessageItemViewModel model){
     Navigator.push(context, new CupertinoPageRoute(builder: (context){
@@ -109,8 +106,15 @@ class NavigatorUtils{
     }
     );
   }
-  ///通知页
-//  static Future goNotifyPage(BuildContext context){
-//    return Navigator.push(context, new CupertinoPageRoute(builder: (context) => new NotifyPage()));
-//  }
+  ///返回上一页，不带参数
+  static void goBackWithNoParams(BuildContext context){
+     Navigator.pop(context);
+  }
+  ///返回上一页，带参数
+  static T goBackWithParams<T>(BuildContext context, T params){
+    Navigator.pop(context, params);
+    return params;
+
+  }
+
 }

@@ -3,6 +3,7 @@ import 'package:flutter_app123456/common/config/Config.dart';
 
 class Address{
   static const String host = "https://mpi.yixintm.com/api/";
+  //static const String host = "http://host.tms.qas/";
   //static const String host = "http://default.yixintm.com/api/";
   //static const String host = "https://api.yixintm.com/api/";
   static const String hostGit = "https://api.github.com/";

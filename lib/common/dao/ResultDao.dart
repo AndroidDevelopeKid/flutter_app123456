@@ -4,6 +4,7 @@ class DataResult{
   bool result;
   int code;
   Future next;
+  int total;
 
-  DataResult(this.data, this.result, this.code, {this.next});
+  DataResult(this.data, this.result, this.code, {this.next, this.total});
 }

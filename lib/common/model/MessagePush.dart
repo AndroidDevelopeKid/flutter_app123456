@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'MessagePush.g.dart';
 @JsonSerializable()
 class MessagePush{
+  ///
+  int totalCount;
   ///消息id
   String id;
   ///消息状态
@@ -19,7 +21,7 @@ class MessagePush{
   ///创建时间
   String creationTime;
 
-  MessagePush(this.id, this.isRead, this.msg, this.senderUserName, this.messageSource, this.messageFlag, this.creationTime);
+  MessagePush(this.totalCount, this.id, this.isRead, this.msg, this.senderUserName, this.messageSource, this.messageFlag, this.creationTime);
 
   factory MessagePush.fromJson(Map<String, dynamic> json) => _$MessagePushFromJson(json);
 

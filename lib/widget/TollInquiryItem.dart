@@ -5,68 +5,106 @@ import 'package:flutter_app123456/common/model/Toll.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/widget/CustomCardItem.dart';
 
-class TollInquiryItem extends StatelessWidget{
+import 'CustomTableRowWidget.dart';
+
+class TollInquiryItem extends StatelessWidget {
   final TollInquiryItemViewModel tollInquiryItemViewModel;
   final VoidCallback onPressed;
 
-  TollInquiryItem(this.tollInquiryItemViewModel,{this.onPressed}) : super();
+  TollInquiryItem(this.tollInquiryItemViewModel, {this.onPressed}) : super();
 
   @override
   Widget build(BuildContext context) {
-    return new Card(
-      color: Color(CustomColors.displayCardBackground),
-      margin: EdgeInsets.only(top: 6.0, bottom: 6.0, left: 4.0, right: 4.0),
-      elevation: 8.0,
-      child: new Container(
-        child: new Table(
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          //border: TableBorder.all(color: Color(CustomColors.tableBorderColor), width: 2.0, style: BorderStyle.solid),
-          children: <TableRow>[
-            TableRow(children: <Widget>[
-              Text("发生时间：", style: CustomConstant.normalTextBlue),
-              Text(tollInquiryItemViewModel.happenDate == null ? "无" : tollInquiryItemViewModel.happenDate.substring(0, 10), style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("车辆编号：", style: CustomConstant.normalTextBlue),
-              Text(tollInquiryItemViewModel.vehicleCode == null ? "无" : tollInquiryItemViewModel.vehicleCode, style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("司机姓名：", style: CustomConstant.normalTextBlue),
-              Text(tollInquiryItemViewModel.driverName == null ? "无" : tollInquiryItemViewModel.driverName, style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("含税金额：", style: CustomConstant.normalTextBlue),
-              Text(tollInquiryItemViewModel.taxAmount == null ? "无" : tollInquiryItemViewModel.taxAmount.toString(), style: CustomConstant.normalTextBlack),
-            ]),
-            TableRow(children: <Widget>[
-              Text("费用客户：", style: CustomConstant.normalTextBlue),
-              Text(tollInquiryItemViewModel.customerIdName == null ? "无" : tollInquiryItemViewModel.customerIdName, style: CustomConstant.normalTextBlack),
-            ]),
-          ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 10.0,
+            top: 15.0,
+          ),
+          child: Table(
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: <TableRow>[
+              TableRow(children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 13.0,
+                        height: 14.0,
+                        child: Image.asset(CustomIcons.FORM),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          tollInquiryItemViewModel.happenDate == null
+                              ? "发生时间"
+                              : tollInquiryItemViewModel.happenDate
+                                  .substring(0, 10),
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "车辆编号",
+                  tollInquiryItemViewModel.vehicleCode == null
+                      ? "无"
+                      : tollInquiryItemViewModel.vehicleCode,
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "司机姓名",
+                  tollInquiryItemViewModel.driverName == null
+                      ? "无"
+                      : tollInquiryItemViewModel.driverName,
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "含税金额",
+                  tollInquiryItemViewModel.taxAmount == null
+                      ? "无"
+                      : tollInquiryItemViewModel.taxAmount.toString(),
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                CustomTableRowWidget(
+                  "费用客户",
+                  tollInquiryItemViewModel.customerIdName == null
+                      ? "无"
+                      : tollInquiryItemViewModel.customerIdName,
+                ),
+              ]),
+            ],
+          ),
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(2.0),
           border: Border.all(
-            color: CustomColors.listBackground,
-            width: 0.7,
+            color: Color(0xffefefeF),
+            width: 1.0,
             style: BorderStyle.solid,
           ),
         ),
-        padding:
-        EdgeInsets.only(left: 10.0, right: 10.0, top: 12.0, bottom: 12.0),
       ),
     );
   }
 }
 
 class TollInquiryItemViewModel {
-  String happenDate;//发生过路费时间
-  String vehicleCode;//车辆编号
-  String driverName;//司机姓名
-  double taxAmount;//含税金额
-  int customerId;//费用客户
-  String customerIdName;//费用客户名称
-
+  String happenDate; //发生过路费时间
+  String vehicleCode; //车辆编号
+  String driverName; //司机姓名
+  double taxAmount; //含税金额
+  int customerId; //费用客户
+  String customerIdName; //费用客户名称
 
   String id;
 
@@ -79,5 +117,4 @@ class TollInquiryItemViewModel {
     customerId = toll.customerId;
     customerIdName = toll.customerIdName;
   }
-
 }
