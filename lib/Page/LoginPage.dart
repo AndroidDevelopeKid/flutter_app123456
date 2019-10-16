@@ -61,14 +61,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new GestureDetector(
+    return
+    GestureDetector(
         behavior: HitTestBehavior.translucent,
 
         ///点击空白处触发弹出收回键盘事件
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
-        child: Scaffold(
+        child:
+        Scaffold(
           resizeToAvoidBottomPadding: false, //键盘弹出覆盖，不重新布局
           body: Stack(
             children: <Widget>[
@@ -89,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                   left: 42.0,
                   top: 242.0,
                   child: Text(
-                    "Sign Up!",
+                    "Sign In",
                     style: TextStyle(
                         fontFamily: 'MyFont',
                         fontSize: 14.0,
@@ -99,7 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                   left: 39.0,
                   top: 271.0,
                   right: 35.0,
-                  child: Column(
+                  child:
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       RaisedButton(
@@ -220,7 +223,8 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color(0xff4C88FF),
                       ),
                     ],
-                  )),
+                  )
+              ),
               Positioned(
                 left: 163.0,
                 right: 162.0,

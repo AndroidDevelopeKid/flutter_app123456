@@ -56,7 +56,7 @@ class RefuelInquiryItem extends StatelessWidget {
                 CustomTableRowWidget(
                   "加油升数",
                   refuelInquiryItemViewModel.refuelLitres == null
-                      ? "无"
+                      ? "0.0"
                       : refuelInquiryItemViewModel.refuelLitres.toString(),
                 ),
               ]),

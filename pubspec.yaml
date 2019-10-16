@@ -47,6 +47,7 @@ dependencies:
   banner_view: ^1.1.2
   intro_slider: ^2.2.5
   fluro: ^1.5.1
+  flutter_datetime_picker: ^1.2.6
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +99,7 @@ flutter:
   - lib/static/images/banner01.jpeg
   - lib/static/images/banner02.jpeg
   - assets/images/loginbackground.png
+  - assets/images/loginbackgroundfull.jpg
   - assets/images/logo.png
   - assets/images/statelogo.png
   - assets/images/yixincloud.png

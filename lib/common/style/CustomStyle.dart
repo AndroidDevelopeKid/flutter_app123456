@@ -59,6 +59,7 @@ class CustomIcons{
 
   //新界面
   static const String LOGIN_BACKGROUND = "assets/images/loginbackground.png";
+  //static const String LOGIN_BACKGROUND = "assets/images/loginbackgroundfull.jpg";
   static const String BANNER = "assets/images/banner.png";
   static const String LOGO = "assets/images/logo.png";
   static const String STATE_LOGO = "assets/images/statelogo.png";

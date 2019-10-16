@@ -111,7 +111,7 @@ class _HistoryBillDetailPage extends State<HistoryBillDetailPage> {
                   TableRow(children: <Widget>[
                     CustomTableRowWidget(
                       "提货点净重",
-                      model.outStockNetWeigh.toString() ?? "无",
+                      model.outStockNetWeigh == null ? "0.0" : model.outStockNetWeigh.toString(),
                     ),
                   ]),
                   TableRow(children: <Widget>[
@@ -129,13 +129,13 @@ class _HistoryBillDetailPage extends State<HistoryBillDetailPage> {
                   TableRow(children: <Widget>[
                     CustomTableRowWidget(
                       "采购方毛重",
-                      model.inStockGrossWeigh.toString() ?? "无",
+                      model.inStockGrossWeigh == null ? "0.0" : model.inStockGrossWeigh.toString(),
                     ),
                   ]),
                   TableRow(children: <Widget>[
                     CustomTableRowWidget(
                       "采购方净重",
-                      model.inStockNetWeigh.toString() ?? "无",
+                      model.inStockNetWeigh == null ? "0.0" : model.inStockNetWeigh.toString(),
                     ),
                   ]),
                 ],

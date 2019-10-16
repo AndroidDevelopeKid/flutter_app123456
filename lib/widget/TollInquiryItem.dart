@@ -70,7 +70,7 @@ class TollInquiryItem extends StatelessWidget {
                 CustomTableRowWidget(
                   "含税金额",
                   tollInquiryItemViewModel.taxAmount == null
-                      ? "无"
+                      ? "0.0"
                       : tollInquiryItemViewModel.taxAmount.toString(),
                 ),
               ]),

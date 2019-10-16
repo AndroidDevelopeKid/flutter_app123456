@@ -59,18 +59,20 @@ class _MyBarcodePageState extends State<MyBarcodePage> {
         title: Text("我的二维码名片",
             style: TextStyle(fontSize: 18.0, color: Colors.black)),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 10.0, right: 10.0, left: 10.0),
+      body: Center(
+        heightFactor: 1.1,
         child: Container(
           child: FutureBuilder<String>(
             future: barcode,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return QrImage(
-                    data: snapshot.data == null ? "" : snapshot.data,
-                    size: 350.0,
-                    version: 9,
-                    errorCorrectionLevel: QrErrorCorrectLevel.H);
+                return
+                      QrImage(
+                            data: snapshot.data == null ? "" : snapshot.data,
+                            size: 350.0,
+                            version: 9,
+                            errorCorrectionLevel: QrErrorCorrectLevel.H);
+
               } else if (snapshot.hasError) {
                 return CustomErrorReturnWidget();
               }

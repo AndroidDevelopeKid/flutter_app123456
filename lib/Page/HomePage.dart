@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget{
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(icon, size: 13.0,),
+          Icon(icon, size: 15.0,),
           Padding(padding: EdgeInsets.only(top: 1.5, bottom: 1.5),),
           Text(text, style: TextStyle(fontSize: 9.0),)],
       ),

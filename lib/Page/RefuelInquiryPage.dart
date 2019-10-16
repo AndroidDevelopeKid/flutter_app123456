@@ -8,6 +8,7 @@ import 'package:flutter_app123456/widget/BaseRefuelInquiryState.dart';
 import 'package:flutter_app123456/widget/CustomFlexButton.dart';
 import 'package:flutter_app123456/widget/CustomPullLoadWidget.dart';
 import 'package:flutter_app123456/widget/SimpleImageButton.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class RefuelInquiryPage extends StatefulWidget {
   static final String name = "RefuelInquiry";
@@ -310,12 +311,15 @@ class _RefuelInquiryPage extends BaseRefuelInquiryState<RefuelInquiryPage> {
                           padding: EdgeInsets.only(
                               left: 8.0, right: 8.0, top: 10.0, bottom: 10.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(
                                 height: 15.0,
                                 width: 15.0,
                                 child: Image.asset(CustomIcons.DAIRY),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 7.0),
                               ),
                               Text(
                                 _dateBegin == ""
@@ -329,7 +333,19 @@ class _RefuelInquiryPage extends BaseRefuelInquiryState<RefuelInquiryPage> {
                             ],
                           ),
                           borderSide: new BorderSide(color: Color(0xff4C88FF)),
-                          onPressed: () => _showDatePickerBegin(),
+                          //onPressed: () => _showDatePickerBegin(),
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                maxTime: DateTime.now().add(Duration(days: 30)),
+                                minTime: DateTime(1900, 1, 1),
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.zh, onConfirm: (date) {
+                              setState(() {
+                                _dateBegin = date.toString();
+                              });
+                            });
+                          },
                         ),
                       ),
                       Padding(
@@ -340,7 +356,7 @@ class _RefuelInquiryPage extends BaseRefuelInquiryState<RefuelInquiryPage> {
                         padding: EdgeInsets.only(
                             left: 8.0, right: 8.0, top: 10.0, bottom: 10.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
                               height: 15.0,
@@ -358,34 +374,39 @@ class _RefuelInquiryPage extends BaseRefuelInquiryState<RefuelInquiryPage> {
                           ],
                         ),
                         borderSide: new BorderSide(color: Color(0xff4C88FF)),
-                        onPressed: () => _showDatePickerEnd(),
+                        //onPressed: () => _showDatePickerEnd(),
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              maxTime: DateTime.now().add(Duration(days: 30)),
+                              minTime: DateTime(1900, 1, 1),
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.zh, onConfirm: (date) {
+                            setState(() {
+                              _dateEnd = date.toString();
+                            });
+                          });
+                        },
                       )),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 13.0),
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
                       ),
-                      SizedBox(width: 75, height: 30,child: RaisedButton(
-                        padding: EdgeInsets.all(0.0),
-                        child: Image.asset(CustomIcons.QUERY, fit: BoxFit.cover,),
-                        onPressed: () {
-                          handleRefresh();
-                          _dateBeginNext = _dateBegin;
-                          _dateEndNext = _dateEnd;
-                        },
-                      ),),
-
-//                      SimpleImageButton(
-//                        normalwidth: 75.0,
-//                        normalheight: 30.0,
-//                        pressedheight: 30.0,
-//                        pressedwidth: 75.0,
-//                        normalImage: CustomIcons.QUERY,
-//                        pressedImage: CustomIcons.QUERY,
-//                        onPressed: () {
-//                          handleRefresh();
-//                          _dateBeginNext = _dateBegin;
-//                          _dateEndNext = _dateEnd;
-//                        },
-//                      ),
+                      SizedBox(
+                        width: 75,
+                        height: 30,
+                        child: RaisedButton(
+                          padding: EdgeInsets.all(0.0),
+                          child: Image.asset(
+                            CustomIcons.QUERY,
+                            fit: BoxFit.cover,
+                          ),
+                          onPressed: () {
+                            handleRefresh();
+                            _dateBeginNext = _dateBegin;
+                            _dateEndNext = _dateEnd;
+                          },
+                        ),
+                      ),
                     ],
                   )),
               decoration: BoxDecoration(
