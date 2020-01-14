@@ -27,6 +27,8 @@ HistoryBill _$HistoryBillFromJson(Map<String, dynamic> json) {
     json['goodsId'] as int,
     json['loadPlaceId'] as int,
     json['unloadPlaceId'] as int,
+    json['coalCode'] as String,
+    json['coalText'] as String,
   );
 }
 
@@ -45,6 +47,8 @@ Map<String, dynamic> _$HistoryBillToJson(HistoryBill instance) =>
       'unloadPlaceName': instance.unloadPlaceName,
       'goodsId': instance.goodsId,
       'goodsName': instance.goodsName,
+      'coalCode': instance.coalCode,
+      'coalText': instance.coalText,
       'outStockGenerateDate': instance.outStockGenerateDate,
       'outStockNetWeigh': instance.outStockNetWeigh,
       'weighDate': instance.weighDate,

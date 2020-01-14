@@ -101,6 +101,8 @@ class HistoryBillItemViewModel {
   String loadPlaceName; //装地-提货点
   String unloadPlaceName; //卸地-采购方
   String goodsName; //货物名-煤种
+  String coalCode;
+  String coalText;//煤种
   String outStockGenerateDate; //提货点称重时间
   double outStockNetWeigh; //提货点净重
   String weighDate; //采购方称重时间
@@ -118,11 +120,13 @@ class HistoryBillItemViewModel {
     loadPlaceName = historyBill.loadPlaceName;
     unloadPlaceName = historyBill.unloadPlaceName;
     goodsName = historyBill.goodsName;
-    outStockGenerateDate = this.outStockGenerateDate;
-    outStockNetWeigh = this.outStockNetWeigh;
-    weighDate = this.weighDate;
-    skinbackDate = this.skinbackDate;
-    inStockGrossWeigh = this.inStockGrossWeigh;
-    inStockNetWeigh = this.inStockNetWeigh;
+    coalCode = historyBill.coalCode;
+    coalText = historyBill.coalText;
+    outStockGenerateDate = historyBill.outStockGenerateDate;
+    outStockNetWeigh = historyBill.outStockNetWeigh;
+    weighDate = historyBill.weighDate;
+    skinbackDate = historyBill.skinbackDate;
+    inStockGrossWeigh = historyBill.inStockGrossWeigh;
+    inStockNetWeigh = historyBill.inStockNetWeigh;
   }
 }

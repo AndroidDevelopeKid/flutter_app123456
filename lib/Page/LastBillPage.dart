@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app123456/common/dao/DeliveryOrderDao.dart';
 import 'package:flutter_app123456/common/model/DeliveryOrder.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
+import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 import 'package:flutter_app123456/widget/CustomErrorReturnWidget.dart';
 import 'package:flutter_app123456/widget/CustomTableRowWidget.dart';
@@ -44,6 +45,7 @@ class _LastBillPage extends State<LastBillPage> {
             null,
             null,
             null,
+            null,
             "当前无最新提货单");
         return dataNull;
       }
@@ -52,6 +54,7 @@ class _LastBillPage extends State<LastBillPage> {
     if (!lastedDeliveryOrder.result) {
       if (lastedDeliveryOrder.data != null) {
         var dataNull = new DeliveryOrder(
+            null,
             null,
             null,
             null,
@@ -128,7 +131,13 @@ class _LastBillPage extends State<LastBillPage> {
                             )),
                         color: Color(0xff4C88FF),
                         onPressed: () {
-                          NavigatorUtils.goBarCodeEnlarge(context, image);
+                          if(snapshot.data.barcode == null){
+                            CommonUtils.showShort("没有可用的二维码");
+                          }
+                          else{
+                            NavigatorUtils.goBarCodeEnlarge(context, image);
+                          }
+
                         },
                       ),
                       Padding(
@@ -200,9 +209,10 @@ class _LastBillPage extends State<LastBillPage> {
                             TableRow(children: <Widget>[
                               CustomTableRowWidget(
                                 "煤种",
-                                snapshot.data.coalText == null
-                                    ? "无"
-                                    : snapshot.data.coalText,
+
+                                snapshot.data.coalText != null && snapshot.data.coalCode != null
+                                   ? snapshot.data.coalCode.toString() + "-" + snapshot.data.coalText.toString()
+                                    : "无",
                               )
                             ]),
                             TableRow(children: <Widget>[

@@ -15,6 +15,8 @@ class HistoryBill{
   String unloadPlaceName;//卸地-采购方
   int goodsId;
   String goodsName;//货物名-煤种
+  String coalCode;
+  String coalText;
   String outStockGenerateDate;//提货点称重时间
   double outStockNetWeigh;//提货点净重
   String weighDate;//采购方称重时间
@@ -42,7 +44,9 @@ class HistoryBill{
       this.deliveryOrderStateText,
       this.goodsId,
       this.loadPlaceId,
-      this.unloadPlaceId
+      this.unloadPlaceId,
+      this.coalCode,
+      this.coalText
       );
 
   factory HistoryBill.fromJson(Map<String, dynamic> json) => _$HistoryBillFromJson(json);

@@ -99,7 +99,7 @@ class _HistoryBillDetailPage extends State<HistoryBillDetailPage> {
                   TableRow(children: <Widget>[
                     CustomTableRowWidget(
                       "货物名-煤种",
-                      model.goodsName ?? "无",
+                      model.coalCode != null && model.coalText != null ? model.coalCode.toString() + "-" + model.coalText.toString() : "无",
                     ),
                   ]),
                   TableRow(children: <Widget>[

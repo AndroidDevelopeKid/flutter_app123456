@@ -70,6 +70,8 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage> {
         var unloadPlaceName = itemList[i]["unloadPlaceName"];
         var goodsId = itemList[i]["goodsId"];
         var goodsName = itemList[i]["goodsName"];
+        var coalCode = itemList[i]["coalCode"];
+        var coalText = itemList[i]["coalText"];
         var outStockGenerateDate =
             itemList[i]["outStockGenerateDate"].toString();
         var outStockNetWeigh = itemList[i]["outStockNetWeigh"];
@@ -96,7 +98,11 @@ class _HistoryBillPage extends BaseHistoryBillState<HistoryBillPage> {
             deliveryOrderStateText,
             goodsId,
             loadPlaceId,
-            unloadPlaceId));
+            unloadPlaceId,
+            coalCode,
+            coalText
+
+        ));
       }
       return new DataResult(historyBillList, true, historyBills.code);
     }

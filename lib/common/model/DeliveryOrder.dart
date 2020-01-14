@@ -9,6 +9,7 @@ class DeliveryOrder{
       this.mainVehiclePlate,
       this.vehicleCode,
       this.barcode,
+      this.coalCode,
       this.coalText,
       this.deliveryOrderCode,
       this.deliveryOrderStateText,
@@ -43,6 +44,7 @@ class DeliveryOrder{
   String deliveryOrderCode;//提货单编号
   String randomNumber;
   String transSupplierNumber;
+  String coalCode;
   String coalText;
   String generatePerson;
   String barcode;
