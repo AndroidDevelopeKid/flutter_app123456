@@ -85,7 +85,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 15.0, top: 15.0, bottom: 9.0),
-              child: Image.asset("assets/images/statelogo.png"),
+              child: SizedBox(height:20.0, child:Image.asset("assets/images/statelogo.png"),),
             ),
           ],
         ),

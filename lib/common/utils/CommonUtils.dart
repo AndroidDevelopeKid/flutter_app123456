@@ -5,7 +5,7 @@ import 'package:flutter_app123456/common/net/Address.dart';
 import 'package:flutter_app123456/common/style/CustomStringBase.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_statusbar/flutter_statusbar.dart';
+//import 'package:flutter_statusbar/flutter_statusbar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 ///通用工具
@@ -13,9 +13,9 @@ class CommonUtils{
 
   static double sStaticBarHeight = 0.0;
 
-  static void initStatusBarHeight(context) async {
-    sStaticBarHeight = await FlutterStatusbar.height / MediaQuery.of(context).devicePixelRatio;//除数是设备的像素密度
-  }
+//  static void initStatusBarHeight(context) async {
+//    sStaticBarHeight = await FlutterStatusbar.height / MediaQuery.of(context).devicePixelRatio;//除数是设备的像素密度
+//  }
 
   ///本地化
   static CustomStringBase getLocale(BuildContext context){

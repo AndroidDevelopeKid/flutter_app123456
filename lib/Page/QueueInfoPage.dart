@@ -23,8 +23,8 @@ class _QueueInfoPage extends State<QueueInfoPage> {
   Future<Queue> queue;
 
   Future<Queue> fetchData() async {
-    var queueInfo = await LocalStorage.get(Config.QUEUE_INFO);
-    if (queueInfo == null) {
+    //ar queueInfo = await LocalStorage.get(Config.QUEUE_INFO);
+    //if (queueInfo == null) {
       var queueInfoCallInterface = await GrabSheetDao.getCurrentQueueInfo();
       if (queueInfoCallInterface != null && queueInfoCallInterface.result) {
         if (queueInfoCallInterface.data["result"] == null) {
@@ -53,10 +53,10 @@ class _QueueInfoPage extends State<QueueInfoPage> {
           return dataNull;
         }
       }
-    } else {
-      Queue queueData = Queue.fromJson(json.decode(queueInfo));
-      return queueData;
-    }
+//    } else {
+//      Queue queueData = Queue.fromJson(json.decode(queueInfo));
+//      return queueData;
+//    }
   }
 
   @override
