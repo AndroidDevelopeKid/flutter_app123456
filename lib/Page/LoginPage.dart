@@ -11,14 +11,11 @@ import 'package:flutter_app123456/common/utils/CommonUtils.dart';
 import 'package:flutter_app123456/common/utils/NavigatorUtils.dart';
 
 import 'CompanyPage.dart';
-
 class LoginPage extends StatefulWidget {
   static final String sName = "login";
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   ///物流公司，用户名和密码
   Tenant tenant;
@@ -28,11 +25,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController userController = new TextEditingController();
   final TextEditingController pwController = new TextEditingController();
-
   ///构造方法
   _LoginPageState() : super();
-
-
   @override
   void initState() {
     super.initState();
@@ -57,13 +51,9 @@ class _LoginPageState extends State<LoginPage> {
       print("res int:" + res);
       tenant = new Tenant(null, int.parse(res), "", "");
     }
-
-
-
     userController.value = new TextEditingValue(text: _userName ?? "");
     pwController.value = new TextEditingValue(text: _password ?? "");
   }
-
   DecorationImage loginBackgroundImage = new DecorationImage(
     image: new ExactAssetImage(CustomIcons.LOGIN_BACKGROUND_IMAGE),
     fit: BoxFit.cover,
