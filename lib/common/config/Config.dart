@@ -15,6 +15,8 @@ class Config{
   static const IMAGE_ICON_WIDTH = 30.0;
   static const ARROW_ICON_WIDTH = 16.0;
 
+  static const TENANT_KEY = "tenant";
+  static const TENANT_KEY_NAME = "company-text";
   static const TOKEN_KEY = "token";
   static const BEARER_KEY = "bearer";
 

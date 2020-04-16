@@ -22,7 +22,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   ///物流公司，用户名和密码
   Tenant tenant;
-  String _companyText = "选择物流公司";
+  String _companyText;
   String _userName;
   String _password;
 
@@ -47,8 +47,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   initParams() async {
-    _userName = await LocalStorage.get(Config.USER_NAME_KEY);
-    _password = await LocalStorage.get(Config.PW_KEY);
+    _userName = await LocalStorage.get(Config.USER_NAME_KEY)??"";
+    _password = await LocalStorage.get(Config.PW_KEY)??"";
+    _companyText = await LocalStorage.get(Config.TENANT_KEY_NAME)??"选择物流公司";
+    setState(() {});
+    print("company text :" + _companyText);
+    var res = await LocalStorage.get(Config.TENANT_KEY)??"";
+    if(res != ""){
+      print("res int:" + res);
+      tenant = new Tenant(null, int.parse(res), "", "");
+    }
+
+
 
     userController.value = new TextEditingValue(text: _userName ?? "");
     pwController.value = new TextEditingValue(text: _password ?? "");
@@ -113,6 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                             return new CompanyPage();
                           })).then((Tenant t) {
                             if (t != null) {
+                              LocalStorage.save(Config.TENANT_KEY, t.id.toString());
+                              LocalStorage.save(Config.TENANT_KEY_NAME, t.name);
                               _companyText = t.name;
                               setState(() {
                                 tenant = t;
@@ -123,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 18.0),
                             child: Text(
-                              _companyText,
+                              _companyText??"选择物流公司",
                               style: TextStyle(
                                   fontSize: 17.0, color: Colors.white),
                             )),
