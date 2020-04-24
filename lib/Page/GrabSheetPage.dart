@@ -19,6 +19,7 @@ class _GrabSheetPageState extends State<GrabSheetPage>
   Future<int> autoState;
   bool offstage;
   int color = CustomColors.white;
+  String hgText = "手动接单";
   var titles = ["排队信息", "最新提货单"];
 
   ///条目右侧箭头按钮
@@ -224,32 +225,13 @@ class _GrabSheetPageState extends State<GrabSheetPage>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            "手动接单",
+                            hgText,
                             style:
                                 TextStyle(fontSize: 15.0, color: Colors.white),
                           ),
                         ],
                       ),
-                      onPressed: () {
-                        //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
-                        GrabSheetDao.driverGrabSheetQueue().then((res) {
-                          if (res != null && res.result) {
-                            new Future.delayed(
-                                const Duration(milliseconds: 100), () {
-                              CommonUtils.showShort("已排队");
-                            });
-                          }
-                          if (res != null && !res.result) {
-                            print("手动接单 错误提示： " + res.data.toString());
-                            new Future.delayed(
-                                const Duration(milliseconds: 100), () {
-                              CommonUtils.showShort(
-                                  "" + res.data["error"]["message"].toString());
-                              return true;
-                            });
-                          }
-                        });
-                      },
+                      onPressed: hgText == "手动接单" ? vcGet : null,
                     ),
                   ),
                 ],
@@ -350,4 +332,43 @@ class _GrabSheetPageState extends State<GrabSheetPage>
   }
 
 
+
+
+  ///获取验证码
+  Timer countDownTimer;
+
+  vcGet() async {
+    //点击手动接单，调用手动接单接口，调用成功后，然后调用自动接单开关接口，告诉服务器开关状态并返回提示
+    GrabSheetDao.driverGrabSheetQueue().then((res) {
+      if (res != null && res.result) {
+        new Future.delayed(
+            const Duration(milliseconds: 100), () {
+          CommonUtils.showShort("已排队");
+        });
+      }
+      if (res != null && !res.result) {
+        print("手动接单 错误提示： " + res.data.toString());
+        Future.delayed(
+            const Duration(milliseconds: 100), () {
+          CommonUtils.showShort(
+              "" + res.data["error"]["message"].toString());
+          return true;
+        });
+      }
+    });
+    countDownTimer?.cancel(); //如果已存在先取消置空
+    countDownTimer = null;
+    countDownTimer = new Timer.periodic(new Duration(seconds: 1), (t) {
+      setState(() {
+        if (3 - t.tick > 0) {
+          //60-t.tick代表剩余秒数，如果大于0，设置vcText为剩余秒数，否则重置vcText，关闭countTimer
+          hgText = "请勿频繁操作(${3 - t.tick})";
+        } else {
+          hgText = '手动接单';
+          countDownTimer.cancel();
+          countDownTimer = null;
+        }
+      });
+    });
+  }
 }
