@@ -26,6 +26,11 @@ void main(){
   PaintingBinding.instance.imageCache.maximumSize = 100;
   SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  // 强制竖屏
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
 }
 
 class FlutterReduxApp extends StatelessWidget {
