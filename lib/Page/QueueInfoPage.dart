@@ -1,10 +1,8 @@
-import 'dart:convert';
+
 
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app123456/common/config/Config.dart';
 import 'package:flutter_app123456/common/dao/GrabSheetDao.dart';
-import 'package:flutter_app123456/common/local/LocalStorage.dart';
 import 'package:flutter_app123456/common/model/Queue.dart';
 import 'package:flutter_app123456/common/style/CustomStyle.dart';
 import 'package:flutter_app123456/common/utils/CommonUtils.dart';
@@ -248,31 +246,58 @@ class _QueueInfoPage extends State<QueueInfoPage> {
                                   )),
                               color: Color(0xffFF4C4C),
                               onPressed: () {
-                                GrabSheetDao.cancelQueue().then((res) {
-                                  if (res != null && res.result) {
-                                    setState(() {
-                                      queue = fetchData();
-                                    });
-                                    new Future.delayed(
-                                        const Duration(milliseconds: 100), () {
-                                      CommonUtils.showShort("取消排队成功");
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text('提示'),
+                                      content: Text('是否取消?'),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text('否'),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        FlatButton(
+                                          child: Text('是'),
+                                          onPressed: () {
+                                            GrabSheetDao.cancelQueue().then((res) {
+                                              if (res != null && res.result) {
+                                                setState(() {
+                                                  queue = fetchData();
+                                                });
+                                                new Future.delayed(
+                                                    const Duration(milliseconds: 100), () {
+                                                  CommonUtils.showShort("取消排队成功");
 
-                                      return true;
-                                    });
+                                                  return true;
+                                                });
+                                              }
+                                              if (res != null && !res.result) {
+                                                setState(() {
+                                                  queue = fetchData();
+                                                });
+                                                new Future.delayed(
+                                                    const Duration(milliseconds: 100), () {
+                                                  CommonUtils.showShort("" +
+                                                      res.data["error"]["message"]
+                                                          .toString());
+                                                  return true;
+                                                });
+                                              }
+
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    );
                                   }
-                                  if (res != null && !res.result) {
-                                    setState(() {
-                                      queue = fetchData();
-                                    });
-                                    new Future.delayed(
-                                        const Duration(milliseconds: 100), () {
-                                      CommonUtils.showShort("" +
-                                          res.data["error"]["message"]
-                                              .toString());
-                                      return true;
-                                    });
-                                  }
-                                });
+                                );
+
+
+
                               },
                             ),
                           )
